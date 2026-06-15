@@ -13,3 +13,7 @@ npm-debug.log*
 # מערכת
 .DS_Store
 Thumbs.db
+
+# Obsidian — מצב חלונות מקומי (רעש; משתנה בכל תזוזה ב-Obsidian)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
