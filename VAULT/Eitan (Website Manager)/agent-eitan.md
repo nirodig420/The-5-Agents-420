@@ -23,7 +23,7 @@
 6. אחרי אישור — ביצוע (דרך [[skill-wp-rest]] / קוד מוכן-להדבקה ל-theme), עדכון זיכרון, מדידה.
 
 ## ניהול האתר החי
-האתר כתוב ידנית (theme PHP — ראה `eitan- seo/reference/README.md`); קבצי theme נערכים דרך
+האתר כתוב ידנית (theme PHP — ראה `eitan-seo/reference/README.md`); קבצי theme נערכים דרך
 עורך הקבצים בוורדפרס, דפים/פוסטים דרך [[skill-wp-rest]]. חיבור דרך `www` + WARP/VPN,
 סנאפשוט לפני כל עריכה, דפי Elementor = שאריות ישנות (לא נוגעים).
 

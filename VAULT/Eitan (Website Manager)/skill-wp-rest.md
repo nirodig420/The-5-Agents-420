@@ -20,7 +20,7 @@
 
 - `test-auth` — `GET /users/me` (בדיקת חיבור, תמיד ראשון).
 - `list-pages` / `list-posts` — מיפוי כל הדפים.
-- `get-page <id>` — קריאת `content.raw` + **שמירת סנאפשוט** ל-`eitan- seo/snapshots/`.
+- `get-page <id>` — קריאת `content.raw` + **שמירת סנאפשוט** ל-`eitan-seo/snapshots/`.
 - `update-page <id>` — `POST` עם `{content}` (עדכון; דורש סנאפשוט קודם).
 - `audit-elementor` — זיהוי דפים שבנויים ב-Elementor (`_elementor_edit_mode`/`_elementor_data`).
 

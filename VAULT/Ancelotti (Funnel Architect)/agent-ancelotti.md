@@ -34,7 +34,7 @@ DNA של כל משפך: (1) הפנייה נכנסת → (2) מקום אחד בר
 RTL תמיד · אנושי גוף-ראשון · בלי מקפים גדולים (—) · משפטים קצרים נושמים · CTA אחד ברור.
 
 ## זיכרון
-לפני סבב: קריאת [[ancelotti-reference]] + `ancelotti- funnels/Memory/changelog.md`.
+לפני סבב: קריאת [[ancelotti-reference]] + `ancelotti-funnels/Memory/changelog.md`.
 אחרי משפך מאושר: עדכון `changelog.md` (פעולה / נקודת דליפה שטופלה / זרועות ששולבו / נכס).
 תוצרים → [[output-folder]]; הצעות → `Proposals/`.
 

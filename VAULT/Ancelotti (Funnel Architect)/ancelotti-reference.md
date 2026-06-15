@@ -1,6 +1,6 @@
 # ancelotti-reference — נכסי הזהב של אנצ'לוטי
 
-**תיקייה:** `ancelotti- funnels/reference/`
+**תיקייה:** `ancelotti-funnels/reference/`
 **משויך ל:** אנצ'לוטי
 **סוג:** swipe file — נכסי מופת לחיקוי (reference, לא לעריכה במקום)
 
@@ -22,7 +22,7 @@
   Assistant + Secular One, פלטה `#081255` / `#E54242` / `#FF5A1F` / `#00C2A8`, רקע
   `#faf9f5`. ~1.4MB, נפתח בכל דפדפן גם בלי אינטרנט.
 
-ראה `ancelotti- funnels/reference/README.md` להסבר מלא על המבנה ועל איך להתעסק עם הקובץ.
+ראה `ancelotti-funnels/reference/README.md` להסבר מלא על המבנה ועל איך להתעסק עם הקובץ.
 
 ## קשור
 - [[agent-ancelotti]] — אנצ'לוטי קורא את הרפרנס לפני בניית מגנט לידים / דף נחיתה חדש.

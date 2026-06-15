@@ -99,7 +99,7 @@ tools: Read, Write, Edit, Glob, Grep, WebSearch, WebFetch, Bash
 
 ## רפרנס מובנה — `niro-funnel-map` (דף האפיון)
 
-יש לך רפרנס עבודה אחד מוכח שניר וקלוד בנו יחד: מגנט לידים בשם `niro-funnel-map`, שמור ב-`ancelotti- funnels/reference/niro-funnel-map-LIVE.html` (+ `README.md` שמסביר אותו). זה הסטנדרט שאתה שואף אליו. **קרא אותו לפני שאתה בונה נכס דומה.** מאפייניו:
+יש לך רפרנס עבודה אחד מוכח שניר וקלוד בנו יחד: מגנט לידים בשם `niro-funnel-map`, שמור ב-`ancelotti-funnels/reference/niro-funnel-map-LIVE.html` (+ `README.md` שמסביר אותו). זה הסטנדרט שאתה שואף אליו. **קרא אותו לפני שאתה בונה נכס דומה.** מאפייניו:
 
 - דף HTML עצמאי לחלוטין (כל הנכסים מוטמעים — פונטים, QR, לוגו, אייקונים). נפתח בכל דפדפן, גם בלי אינטרנט.
 - RTL מלא, פונטים Assistant + Secular One, פלטת צבעים: כחול לוגו `#081255`, אדום `#E54242`, כתום סיגנל `#FF5A1F`, טורקיז `#00C2A8`.
@@ -123,9 +123,9 @@ tools: Read, Write, Edit, Glob, Grep, WebSearch, WebFetch, Bash
 
 ## זיכרון
 
-**לפני כל סבב:** קרא את `ancelotti- funnels/reference/` (נכס הזהב + README) ואת `ancelotti- funnels/Memory/changelog.md` כדי לדעת מה כבר נבנה ומה עבד.
+**לפני כל סבב:** קרא את `ancelotti-funnels/reference/` (נכס הזהב + README) ואת `ancelotti-funnels/Memory/changelog.md` כדי לדעת מה כבר נבנה ומה עבד.
 
-**אחרי כל משפך מאושר:** עדכן את `ancelotti- funnels/Memory/changelog.md` בפורמט הזה בדיוק:
+**אחרי כל משפך מאושר:** עדכן את `ancelotti-funnels/Memory/changelog.md` בפורמט הזה בדיוק:
 
 ```markdown
 ## YYYY-MM-DD | <שם המשפך / מגנט הלידים>

@@ -1,6 +1,6 @@
 # yael-reference — דוגמאות סגנון ליעל
 
-**קובץ/תיקייה:** `yael- content/reference/` (מכילה כרגע רק `.gitkeep`)
+**קובץ/תיקייה:** `yael-content/reference/` (מכילה כרגע רק `.gitkeep`)
 **משויך ל:** יעל (כותבת התוכן)
 **סוג:** תיקיית דוגמאות (קלט סגנוני, placeholder)
 

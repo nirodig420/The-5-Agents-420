@@ -3,18 +3,18 @@ name: meta-publish
 description: >-
   מעטפת ל-Meta Graph API + Marketing API לפרסום פוסטים ולמשיכת נתוני קמפיינים
   ב-Facebook/Instagram של NIRO Digital. קורא טוקני META_* מ-.env. ⚠️ Phase 2 /
-  אופציונלי — ברירת המחדל היא לעבוד דרך Make (ראה mario- meta/SETUP.md). השתמש בסקיל הזה
+  אופציונלי — ברירת המחדל היא לעבוד דרך Make (ראה mario-meta/SETUP.md). השתמש בסקיל הזה
   רק אם ניר בחר במסלול ה-API הגולמי וכבר מילא את META_* ב-.env.
 ---
 
 # meta-publish — מעטפת Meta Graph + Marketing API
 
 > ⚠️ **Phase 2 / אופציונלי.** שכבת הביצוע המומלצת של מריו היא **Make.com** (החיבור כבר
-> קיים — ראה `mario- meta/SETUP.md`). הסקיל הזה נחוץ רק אם ניר בחר במסלול ה-API הגולמי.
+> קיים — ראה `mario-meta/SETUP.md`). הסקיל הזה נחוץ רק אם ניר בחר במסלול ה-API הגולמי.
 > **חוק הברזל נשאר:** פרסום רק אחרי "אשר"; כל פעולה שכרוכה בכסף = אישור ידני נפרד.
 
 ## דרישות מקדימות
-`.env` מלא לפי מסלול B ב-`mario- meta/SETUP.md`:
+`.env` מלא לפי מסלול B ב-`mario-meta/SETUP.md`:
 `META_ACCESS_TOKEN`, `META_PAGE_ID`, `INSTAGRAM_BUSINESS_ACCOUNT_ID`, `META_AD_ACCOUNT_ID`.
 
 ## אתחול (PowerShell — Windows)
@@ -67,5 +67,5 @@ Invoke-RestMethod -Uri "$GRAPH/$ACT/insights?fields=$fields&date_preset=last_7d&
 
 ## הערות
 - גרסת Graph API: עדכן את `v21.0` אם מטא משחררת גרסה חדשה.
-- טוקנים פגים — אם `test-auth` נכשל ב-190/OAuth, צריך לרענן את הטוקן (ראה `mario- meta/SETUP.md`).
+- טוקנים פגים — אם `test-auth` נכשל ב-190/OAuth, צריך לרענן את הטוקן (ראה `mario-meta/SETUP.md`).
 - ברירת המחדל לפרסום היא Make; השתמש בסקיל הזה רק במסלול B.

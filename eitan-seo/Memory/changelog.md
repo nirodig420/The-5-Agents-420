@@ -65,7 +65,7 @@
 **ממתין:** בדיקה אמיתית אחת מקצה-לקצה (טופס אמיתי באתר, **לא** קונסול) שתאשר ליד יחיד עם
 `מקור = "אתר - דף הבית"`. ה-`/en/` (`template-en.php`) טרם תוקן באותו אופן.
 **לקח לעתיד:** לעולם לא לבדוק טפסים עם `setInterval` בקונסול — רק שליחה ידנית בודדת.
-**נכס:** `hello-elementor/front-page.php`, Make scenario `6142278`, `eitan- seo/reference/form-patch.md`
+**נכס:** `hello-elementor/front-page.php`, Make scenario `6142278`, `eitan-seo/reference/form-patch.md`
 **סטטוס:** 🟡 מוכן לבדיקה חיה סופית.
 ---
 
@@ -73,9 +73,9 @@
 **פעולה:** test-auth + מיפוי דפים + קריאת קוד המקור. לא בוצע שום שינוי חי.
 **ממצאים:**
 - ✅ חיבור עובד: מחובר כ-NIRO (id=1, administrator) דרך `https://www.nirodigital.co.il` (חובה `www`; non-www עושה 308 ומפיל את ה-Authorization). דורש WARP/VPN — אבטחת בזק (SAM) מיירטת TLS אחרת.
-- האתר **כתוב ידנית** (theme `front-page.php` + `template-en.php` + shortcode `[niro_thank_you]`), לא Elementor. דפי האלמנטור הכפולים = שאריות ישנות. ראה `eitan- seo/reference/README.md`.
+- האתר **כתוב ידנית** (theme `front-page.php` + `template-en.php` + shortcode `[niro_thank_you]`), לא Elementor. דפי האלמנטור הכפולים = שאריות ישנות. ראה `eitan-seo/reference/README.md`.
 - 🚨 **טופס הלידים לא מחובר לכלום** — `handleFormSubmit()` מזייף "נשלח בהצלחה" ועושה reset, בלי לשלוח לשום מקום. אין Airtable/Make/מייל. ניר אישר: לידים לא מגיעים. **דליפת לידים פעילה.**
 **השפעה צפויה:** תיקון הטופס = עצירת אובדן לידים (המרה ישירה).
-**נכס:** eitan- seo/reference/README.md
+**נכס:** eitan-seo/reference/README.md
 **סטטוס:** ⏸️ תיקון הטופס (חיבור Make→Airtable) הוקפא לבקשת ניר; ימשך בהמשך.
 ---
