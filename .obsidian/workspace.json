@@ -1,0 +1,227 @@
+{
+  "main": {
+    "id": "5bace2af0e04cd59",
+    "type": "split",
+    "children": [
+      {
+        "id": "f25571d8d7fe1d32",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cb96fb96d306ea4f",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "תצוגת גרף"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "613fe60a8d1a7704",
+    "type": "split",
+    "children": [
+      {
+        "id": "830e23ef351d998e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0bd5ab228c797d96",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "סייר קבצים"
+            }
+          },
+          {
+            "id": "f0753b2bd63317aa",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "לחפש"
+            }
+          },
+          {
+            "id": "acdfa328c09e3bc7",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "סימניות"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "ffcd26d84494a787",
+    "type": "split",
+    "children": [
+      {
+        "id": "f3d4cf9c0f91b55e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2a541ba0660f4ecd",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "קישורים נכנסים"
+            }
+          },
+          {
+            "id": "1ffe81feabf077ae",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "קישורים יוצאים"
+            }
+          },
+          {
+            "id": "d633f2fcf84c27fc",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "תגים"
+            }
+          },
+          {
+            "id": "afe3a1e7dec6f4d4",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "כל המאפיינים"
+            }
+          },
+          {
+            "id": "8195ac4db17cb4d6",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "מתווה"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:פתח את המחליף המהיר": false,
+      "graph:פתח תצוגת גרף": false,
+      "canvas:צור קנבס חדש": false,
+      "daily-notes:פתח את ההערה של היום": false,
+      "templates:הכנס תבנית": false,
+      "command-palette:פתח את לוח הפקודות": false,
+      "bases:צור בסיס חדש": false
+    }
+  },
+  "active": "cb96fb96d306ea4f",
+  "lastOpenFiles": [
+    "VAULT/Home.md.tmp.46392.670e6ef3166e",
+    "VAULT/Eitan (Website Manager)/skill-wp-rest.md",
+    "VAULT/Eitan (Website Manager)/agent-eitan.md",
+    "VAULT/Eitan (Website Manager)/_index.md",
+    "VAULT/Eitan (Website Manager)",
+    "eitan/SETUP.md",
+    "eitan/SETUP.md.tmp.46392.b2d4e9c21335",
+    "eitan/snapshots",
+    "eitan/Memory/changes.md",
+    "eitan/Memory",
+    "eitan",
+    "Content/~WRL0001.tmp",
+    "Content/~$כן AI +צאטבוט.docx",
+    "Content/סוכן AI +צאטבוט.docx",
+    "Content/~WRD0000.tmp",
+    "Content/~$גמה לכתיבה.docx",
+    "Output/פוסטים של יוני/~$26-06-07-post1-hook-emotional.md",
+    "Output/פוסטים של יוני/2026-06-07-post1-hook-emotional.md",
+    "Output/פוסטים של יוני/2026-06-07-post3-hook-contrast.md",
+    "Output/פוסטים של יוני/2026-06-07-post2-hook-authority.md",
+    "yuval/outputs/2026-06-07-post3-hook-contrast.png",
+    "yuval/outputs/2026-06-07-post2-hook-authority.png",
+    "yuval/outputs/2026-06-07-post1-hook-emotional.png",
+    "Output/2026-06-07-post3-hook-contrast.md",
+    "Output/2026-06-07-post2-hook-authority.md",
+    "Output/2026-06-07-post1-hook-emotional.md",
+    "yuval/outputs/2026-06-07-asi-automation-meta.png",
+    "Output/2026-06-07-asi-automation-meta.md",
+    "yuval/outputs/2026-06-02-cannabis-israel-vs-world-v2.png",
+    "yuval/outputs/2026-06-02-cannabis-pendulum-hero-v2.png",
+    "VAULT/Pipeline (Content & Output)/content-cannabis-israel-vs-world.md",
+    "yuval/outputs/2026-06-02-cannabis-israel-vs-world.png",
+    "yuval/outputs/2026-06-02-cannabis-pendulum-hero.png",
+    "Output/cannabis-israel-vs-world-2026-06.md",
+    "yuval/outputs/2026-06-02-lunapark-ferriswheel-1024x1792.png",
+    "Content/cannabis-trends-week-2026-06.md",
+    "VAULT/Meeting Notes/vault-documentation.md",
+    "VAULT/Meeting Notes/_index.md",
+    "VAULT/Infra (Shared)/superpowers-skills.md",
+    "VAULT/Infra (Shared)/obsidian-config.md",
+    "VAULT/Infra (Shared)/env-config.md",
+    "VAULT/Infra (Shared)/_index.md",
+    "VAULT/Pipeline (Content & Output)/output-folder.md",
+    "VAULT/Pipeline (Content & Output)/content-crm-article.md",
+    "VAULT/Pipeline (Content & Output)/content-productivity-morning.md"
+  ]
+}
