@@ -1,6 +1,6 @@
 # mario-setup — מדריך חיבור מריו ל-Meta
 
-**קובץ:** `mario/SETUP.md`
+**קובץ:** `mario- meta/SETUP.md`
 **משויך ל:** [[agent-mario]] (מריו)
 **סוג:** מדריך חיבור חד-פעמי (לניר)
 

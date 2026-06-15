@@ -9,7 +9,7 @@
 
 - [[agent-mario]] — `.claude/agents/mario.md`: הגדרת הסוכן, חוות דעת מקצועית, flow ופרוטוקול האישור.
 - [[skill-meta-publish]] — `.claude/skills/meta-publish/`: מעטפת Graph/Marketing API (Phase 2, אופציונלי).
-- [[mario-setup]] — `mario/SETUP.md`: חיבור ל-Meta (מסלול Make מומלץ / API גולמי אופציונלי).
+- [[mario-setup]] — `mario- meta/SETUP.md`: חיבור ל-Meta (מסלול Make מומלץ / API גולמי אופציונלי).
 
 ## קשור
 - [[env-config]] — מאחסן `META_*` (מסלול B) ו-`MAKE_*`.

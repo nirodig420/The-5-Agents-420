@@ -12,7 +12,7 @@
 - `OPENAI_API_KEY` — יצירת תמונות (`gpt-image-2`) — משמש את [[skill-gpt-image-gen]].
 - `META_*` / `INSTAGRAM_*` — פייסבוק/אינסטגרם של NIRO Digital.
 - `MAKE_*` — אוטומציות Make.com.
-- `WP_SITE_URL` / `WP_USERNAME` / `WP_APP_PASSWORD` — חיבור [[skill-wp-rest]] לאתר WordPress (Application Password). ראה `eitan/SETUP.md`.
+- `WP_SITE_URL` / `WP_USERNAME` / `WP_APP_PASSWORD` — חיבור [[skill-wp-rest]] לאתר WordPress (Application Password). ראה `eitan- seo/SETUP.md`.
 - `NODE_ENV` — כללי.
 
 ## קבצים קשורים

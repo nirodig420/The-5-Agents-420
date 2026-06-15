@@ -110,7 +110,7 @@ print(f"נשמר: {output_path}")
 הרצה:
 
 ```bash
-python skill_image.py "<the prompt>" "yuval/outputs/2026-06-02-example.png"
+python skill_image.py "<the prompt>" "yuval-viz/outputs/2026-06-02-example.png"
 ```
 
 ## אימות

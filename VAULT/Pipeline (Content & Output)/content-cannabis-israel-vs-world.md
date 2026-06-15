@@ -2,7 +2,7 @@
 
 **קובץ מקור:** `Content/cannabis-trends-week-2026-06.md` (פלט של [[agent-chen|חן]])
 **תוצר סופי:** `Output/cannabis-israel-vs-world-2026-06.md` + `.html`
-**תמונות (v2, ללא אלמנט קאנביס):** `yuval/outputs/2026-06-02-cannabis-pendulum-hero-v2.png`, `yuval/outputs/2026-06-02-cannabis-israel-vs-world-v2.png` (גרסת v1 עם עלי קאנביס נותרה בתיקייה אך הוחלפה במאמר לבקשת המשתמש)
+**תמונות (v2, ללא אלמנט קאנביס):** `yuval-viz/outputs/2026-06-02-cannabis-pendulum-hero-v2.png`, `yuval-viz/outputs/2026-06-02-cannabis-israel-vs-world-v2.png` (גרסת v1 עם עלי קאנביס נותרה בתיקייה אך הוחלפה במאמר לבקשת המשתמש)
 **סוג:** מאמר ניתוח (עברית) — טרנדים עכשוויים בעולם הקאנביס, השוואה ישראל מול העולם
 
 ## מה הקובץ עושה

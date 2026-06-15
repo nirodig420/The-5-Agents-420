@@ -15,6 +15,32 @@
 
 ---
 
+## 2026-06-15 | משפך `/en/` — תיקון טופס אנגלי + דף תודה אנגלי (מגנט PDF + וואטסאפ)
+**פעולה:** הוכנה חבילת הדבקה מלאה (מוכן-להדבקה, **ממתין לביצוע ידני של ניר** דרך WP File Manager).
+ניר אישר: מגנט PDF "5 Automations Every Business Needs" + כפתור וואטסאפ + עמוד תודה ב-`/en/thank-you/`.
+
+**מה הוכן (לא בוצע חי — ניר מדביק ידנית):**
+- **תיקון הטופס** ב-`template-en.php`: החלפת `handleFormSubmit` המזויף (setTimeout) בגרסה
+  ששולחת POST **`application/x-www-form-urlencoded`** (עוקף CORS preflight, כמו שעבד בעברית)
+  ל-webhook `frzwgajh6u8nxhw3ba7dljfewnjg16qt`, עם 4 שדות + `source: "אתר - דף אנגלית"`,
+  ומפנה ל-`/en/thank-you/`. טקסטים באנגלית ("Sending..." / "Oops, please try again").
+- **עמוד תודה אנגלי**: shortcode `niro_thank_you_en` ל-functions.php — תודה + כפתור הורדת PDF
+  (placeholder לקישור עד שיובל מסיים עיצוב) + כפתור וואטסאפ `972537142298` + FB/IG.
+  עמוד WP עם slug `/en/thank-you/` שמכיל את ה-shortcode בלבד.
+
+**שינויים מהצעת אנצ'לוטי (יישור לפרטים המאושרים + לקחים):**
+- וואטסאפ עודכן ל-`972537142298` (אנצ'לוטי השתמש ב-`972559322991`).
+- ה-fetch הוסב מ-JSON ל-urlencoded (לקח מ-06-14 — JSON זרק CORS preflight בעברית).
+- שורת `fbq('track','Lead')` **הושמטה** — הדף האנגלי טוען GTM בלבד, אין `fbq` ב-head;
+  קריאה אליו תזרוק ReferenceError. אם ניר ירצה Lead event — דרך GTM dataLayer.push.
+
+**דגל אזהרה לניר:** דף הוא theme PHP ידני (לא Elementor) → נגיעה בטוחה, Elementor לא דורס.
+**השפעה צפויה:** אטימת דליפת לידים ב-`/en/` (כל ליד אנגלי כיום נעלם) + מגנט ערך = הדדיות מיידית
++ פילוח מקור (`אתר - דף אנגלית`) מול העברית ב-Airtable.
+**נכס:** `template-en.php`, functions.php (shortcode `niro_thank_you_en`), `Proposals/2026-06-15-english-thankyou-funnel.md`
+**סטטוס:** 🟡 מוכן-להדבקה, ממתין לביצוע ידני של ניר.
+---
+
 ## 2026-06-14 | סאגת חיבור טופס הלידים → Make → Airtable (כולל תקרית "לולאת הקונסול")
 **פעולה:** תיקון דליפת הלידים מקצה-לקצה + בניית צינור Make→Airtable + ניקוי תקרית.
 
@@ -47,9 +73,9 @@
 **פעולה:** test-auth + מיפוי דפים + קריאת קוד המקור. לא בוצע שום שינוי חי.
 **ממצאים:**
 - ✅ חיבור עובד: מחובר כ-NIRO (id=1, administrator) דרך `https://www.nirodigital.co.il` (חובה `www`; non-www עושה 308 ומפיל את ה-Authorization). דורש WARP/VPN — אבטחת בזק (SAM) מיירטת TLS אחרת.
-- האתר **כתוב ידנית** (theme `front-page.php` + `template-en.php` + shortcode `[niro_thank_you]`), לא Elementor. דפי האלמנטור הכפולים = שאריות ישנות. ראה `eitan/reference/README.md`.
+- האתר **כתוב ידנית** (theme `front-page.php` + `template-en.php` + shortcode `[niro_thank_you]`), לא Elementor. דפי האלמנטור הכפולים = שאריות ישנות. ראה `eitan- seo/reference/README.md`.
 - 🚨 **טופס הלידים לא מחובר לכלום** — `handleFormSubmit()` מזייף "נשלח בהצלחה" ועושה reset, בלי לשלוח לשום מקום. אין Airtable/Make/מייל. ניר אישר: לידים לא מגיעים. **דליפת לידים פעילה.**
 **השפעה צפויה:** תיקון הטופס = עצירת אובדן לידים (המרה ישירה).
-**נכס:** eitan/reference/README.md
+**נכס:** eitan- seo/reference/README.md
 **סטטוס:** ⏸️ תיקון הטופס (חיבור Make→Airtable) הוקפא לבקשת ניר; ימשך בהמשך.
 ---

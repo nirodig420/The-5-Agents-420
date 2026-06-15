@@ -1,6 +1,6 @@
 # yael-style-guide — מדריך הסגנון של יעל
 
-**קובץ:** `yael/style-guide.md`
+**קובץ:** `yael- content/style-guide.md`
 **משויך ל:** יעל (כותבת התוכן)
 **סוג:** מדריך סגנון — **הבריף המלא של NIRO Digital** (מאוכלס)
 
@@ -20,10 +20,10 @@
 ## Session Log
 
 ### 2026-06-07 — הטמעת הבריף של NIRO בסוכן יעל [done]
-ניר סיפק את הבריף המלא של NIRO Digital וביקש להטמיעו "בסוכן הנכון". ראובן ניתב ליעל (כותבת התוכן). הוטמע ב-`yael/style-guide.md` (הוחלף השלד הריק בבריף המלא) ועודכנה הגדרת הסוכן `.claude/agents/yael.md`. Related: [[agent-yael]] · [[niro-meta-content-creator]] · [[claude-md]]
+ניר סיפק את הבריף המלא של NIRO Digital וביקש להטמיעו "בסוכן הנכון". ראובן ניתב ליעל (כותבת התוכן). הוטמע ב-`yael- content/style-guide.md` (הוחלף השלד הריק בבריף המלא) ועודכנה הגדרת הסוכן `.claude/agents/yael.md`. Related: [[agent-yael]] · [[niro-meta-content-creator]] · [[claude-md]]
 
 ### 2026-06-07 — אסטרטגיית נושאים: 85/15 + Give Value First [done]
-ניר הגדיר את מיקס הנושאים: **85% אוטומציות** (סוגי אוטומציות, סוכני AI, ערך לעסק, איך מחברים, איך לחבר אוטומציה פשוטה לבד) / **15% שיווק** (בדגש ממומן: דפי נחיתה, לידים, פתרון בעיות בקמפיינים). עיקרון מנחה: **Give Value First + מיצוב סמכות** — ערך חינמי שגורם לבעל העסק להבין שהוא צריך איש מקצוע (NIRO), לא לעשות לבד. נוצר `yael/content-plan.md` (מקור הנושאים המלא), תקציר הוטמע ב-`yael/style-guide.md`, ועודכן ה-routine `niro-sunday-3-posts`. גם ברירת המחדל לויזואל שונתה ל**וידאו**. Related: [[niro-content-topic-mix]] · [[mario-give-value-content]] · [[niro-content-standing-rules]]
+ניר הגדיר את מיקס הנושאים: **85% אוטומציות** (סוגי אוטומציות, סוכני AI, ערך לעסק, איך מחברים, איך לחבר אוטומציה פשוטה לבד) / **15% שיווק** (בדגש ממומן: דפי נחיתה, לידים, פתרון בעיות בקמפיינים). עיקרון מנחה: **Give Value First + מיצוב סמכות** — ערך חינמי שגורם לבעל העסק להבין שהוא צריך איש מקצוע (NIRO), לא לעשות לבד. נוצר `yael- content/content-plan.md` (מקור הנושאים המלא), תקציר הוטמע ב-`yael- content/style-guide.md`, ועודכן ה-routine `niro-sunday-3-posts`. גם ברירת המחדל לויזואל שונתה ל**וידאו**. Related: [[niro-content-topic-mix]] · [[mario-give-value-content]] · [[niro-content-standing-rules]]
 
 ### 2026-06-07 — מקור אמת יחיד + הסרת מסלול מאמר/HTML [done]
-לבקשת ניר: (1) הסקיל [[niro-meta-content-creator]] הפך ל**מצביע** בלבד על `yael/style-guide.md` (אין יותר עותק כפול של החוקים — מונע פער). (2) **מסלול המאמר הארוך + HTML מעוצב (`#f87171`) הוסר לחלוטין** מ-`yael/style-guide.md` ומ-`.claude/agents/yael.md`. יעל מייצרת מעתה פוסטי META בלבד (קאפשן + תיאור ויזואל). Related: [[agent-yael]] · [[niro-meta-content-creator]]
+לבקשת ניר: (1) הסקיל [[niro-meta-content-creator]] הפך ל**מצביע** בלבד על `yael- content/style-guide.md` (אין יותר עותק כפול של החוקים — מונע פער). (2) **מסלול המאמר הארוך + HTML מעוצב (`#f87171`) הוסר לחלוטין** מ-`yael- content/style-guide.md` ומ-`.claude/agents/yael.md`. יעל מייצרת מעתה פוסטי META בלבד (קאפשן + תיאור ויזואל). Related: [[agent-yael]] · [[niro-meta-content-creator]]

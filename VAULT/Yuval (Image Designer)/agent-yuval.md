@@ -8,11 +8,11 @@
 
 מגדיר את הסוכן **יובל** ואת זרימת העבודה שלו לכל בקשת תמונה:
 
-1. סורק את [[yuval-reference|yuval/reference/]] ומחלץ מאפייני סגנון (פלטה, קומפוזיציה, אווירה, סוג רינדור).
+1. סורק את [[yuval-reference|yuval-viz/reference/]] ומחלץ מאפייני סגנון (פלטה, קומפוזיציה, אווירה, סוג רינדור).
 2. בוחר את הרכיבים הרלוונטיים לבקשה.
 3. מנסח prompt שמשלב בקשה קונקרטית + סגנון מה-reference.
 4. קורא לסקיל [[skill-gpt-image-gen|gpt-image-gen]] (מודל `gpt-image-2` בלבד).
-5. שומר ב-[[yuval-outputs|yuval/outputs/]]: `<תאריך>-<slug>.png` + sibling `.txt` עם ה-prompt.
+5. שומר ב-[[yuval-outputs|yuval-viz/outputs/]]: `<תאריך>-<slug>.png` + sibling `.txt` עם ה-prompt.
 6. מאמת שהקובץ נוצר וגודלו > 0.
 7. מדווח לראובן.
 

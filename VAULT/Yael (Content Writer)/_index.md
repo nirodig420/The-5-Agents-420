@@ -5,8 +5,8 @@
 ## Topics
 
 - [[agent-yael]] — `.claude/agents/yael.md`: הגדרת הסוכנת, flow העבודה והכללים.
-- [[yael-style-guide]] — `yael/style-guide.md`: מדריך סגנון הבית (שלד למילוי).
-- [[yael-reference]] — `yael/reference/`: דוגמאות סגנון שיעל קוראת אוטומטית.
+- [[yael-style-guide]] — `yael- content/style-guide.md`: מדריך סגנון הבית (שלד למילוי).
+- [[yael-reference]] — `yael- content/reference/`: דוגמאות סגנון שיעל קוראת אוטומטית.
 
 ## קשור
 - [[content-folder]] — הקלט של יעל (מאמרי גלם).

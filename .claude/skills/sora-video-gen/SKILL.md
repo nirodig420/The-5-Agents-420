@@ -59,7 +59,7 @@ done
 
 # 3) הורדת ה-MP4
 curl -L "https://api.openai.com/v1/videos/$VIDEO_ID/content" \
-  -H "Authorization: Bearer $OPENAI_API_KEY" --output "yuval/outputs/<slug>.mp4"
+  -H "Authorization: Bearer $OPENAI_API_KEY" --output "yuval-viz/outputs/<slug>.mp4"
 ```
 
 ### דרך B — PowerShell (מאומת שעובד ב-Windows הזה)
@@ -82,5 +82,5 @@ $apiKey = ((Get-Content .env | Where-Object { $_ -match '^OPENAI_API_KEY=' }) -r
 
 ## שמירה ואימות
 
-- שמור ב-`yuval/outputs/<YYYY-MM-DD>-<slug>.mp4` + sibling `.txt` עם ה-prompt.
+- שמור ב-`yuval-viz/outputs/<YYYY-MM-DD>-<slug>.mp4` + sibling `.txt` עם ה-prompt.
 - ודא שהקובץ קיים ו-size > 0. קובץ ריק = הורדה/קריאה נכשלה (בדוק key / size / seconds).

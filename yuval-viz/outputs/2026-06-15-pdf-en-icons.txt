@@ -1,0 +1,10 @@
+A horizontal strip of 5 clean premium line-icons, evenly spaced on a bright clean off-white background, designed as a section divider for a B2B PDF. Consistent thin stroke weight across all five, deep navy (#0b1f5b) line color with a single warm red/amber accent (#e6463a) detail in each icon. Minimal, lots of whitespace between icons, no text, no labels.
+
+The five icons, left to right:
+1. A lightning bolt inside a rounded notification/chat bubble — instant lead response.
+2. Connected nodes linked by lines with small sync arrows — form-to-system / CRM sync.
+3. An envelope with a flowing curved line emerging from it — automated email sequence.
+4. A speech/chat bubble with a small four-point spark or sparkle — AI chatbot.
+5. A simple bar chart with an upward trend and a small circular refresh arrow — auto-updating reports dashboard.
+
+Style: minimal modern flat line-icon set, uniform geometry and corner radius, premium B2B tech brand, crisp vector look, perfectly aligned baseline, high resolution. No background patterns, no shadows clutter, clean and consistent.

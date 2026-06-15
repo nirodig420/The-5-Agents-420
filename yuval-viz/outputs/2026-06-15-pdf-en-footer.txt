@@ -1,0 +1,7 @@
+An elegant horizontal closing banner for a B2B PDF footer, wide landscape orientation. Deep navy background (#0b1f5b) with a single warm red/amber accent (#e6463a). Clean, minimal, premium, lots of breathing space.
+
+Centered content: a minimal white "NIRO Digital" wordmark logo, a small clean WhatsApp icon rendered in the amber/red accent color, and the website text "nirodigital.co.il" in clean light type. Elements arranged in one tidy horizontal row or stacked compactly in the center.
+
+Subtle background motif: a faint network of connected nodes and thin glowing lines echoing the PDF cover, kept very light and unobtrusive, with a couple of accent-colored nodes.
+
+Style: minimal, premium, modern B2B tech brand, flat clean vector aesthetic, crisp typography, no people, no clutter, no long paragraphs of text. High resolution.
