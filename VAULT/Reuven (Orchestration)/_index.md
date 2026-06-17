@@ -9,4 +9,4 @@
 
 ## קשור
 - [[Home]] — מפת ה-Vault.
-- כל הסוכנים שראובן מתזמר: [[agent-yael]], [[agent-yuval]], [[agent-chen]].
+- כל הסוכנים שראובן מתזמר: [[agent-yael]], [[agent-yuval]], [[agent-chen]], [[agent-eitan]], [[agent-mario]], [[agent-ancelotti]], [[agent-amatzia]].
