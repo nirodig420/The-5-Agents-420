@@ -1,0 +1,18 @@
+Wide landscape tech banner (Facebook cover style, 1640x856 aspect), premium dark technical aesthetic.
+
+BACKGROUND: very dark navy / near-black background with a subtle deep red radial glow emanating from the left-center. Faint vignette toward the edges.
+
+LEFT SIDE (focal point): a cluster of 3-4 interlocking 3D PUZZLE PIECES floating, colored in deep crimson red, warm gold, and dark navy, with soft glossy reflections and subtle drop shadows — symbolizing parts that connect together. One small puzzle piece detached and floating nearby.
+
+NETWORK GRAPHICS: across the right two-thirds, a glowing network of connected NODES and thin lines (constellation / circuit style), thin gold and red glowing dots connected by faint lines, suggesting smart pipelines and data flow.
+
+HUD ELEMENTS: subtle futuristic HUD details — thin corner brackets/frames, small tick marks, faint dotted grid, tiny crosshair dots — in muted gold and white, very understated, technical and premium, not cluttered.
+
+TEXT (English, crisp and perfectly legible, modern clean sans-serif):
+- Top-right: "NIRO.DIGITAL" — "NIRO." in white, "DIGITAL" in gold, bold, with a small HUD frame around it.
+- Small label near top-center-right: "SYS.FLOW / 01" in tiny monospace gold uppercase.
+- Large main headline (right-center, dominant): "Automation Solutions" in clean bold white sans-serif.
+- Tagline below headline, smaller, light gray: "Smart pipelines. Parts that connect. A business that runs itself."
+- Bottom strip: "INTEGRATE · AUTOMATE · SCALE" in small spaced uppercase gold lettering.
+
+STYLE: high-tech, premium, corporate-futuristic, cinematic lighting, sharp focus, dark mode dashboard vibe. Color palette: near-black navy, crimson red, warm gold, white. Left-to-right reading layout (English/LTR). All text sharp and readable.

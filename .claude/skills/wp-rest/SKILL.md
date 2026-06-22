@@ -26,10 +26,22 @@ description: "מעטפת ל-WordPress REST API לניהול דפים ופוסט�
 # Windows PowerShell 5.1 ברירת-מחדל מנסה TLS ישן — מכריחים TLS 1.2 אחרת נכשל handshake.
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-# טעינת ערכים מ-.env
-$WP_USER = ((Get-Content .env | Where-Object { $_ -match '^WP_USERNAME=' })     -replace '^WP_USERNAME=','').Trim()
-$WP_PASS = ((Get-Content .env | Where-Object { $_ -match '^WP_APP_PASSWORD=' }) -replace '^WP_APP_PASSWORD=','').Trim()
-$WP_SITE = ((Get-Content .env | Where-Object { $_ -match '^WP_SITE_URL=' })     -replace '^WP_SITE_URL=','').Trim().TrimEnd('/')
+# טעינת ערכים מ-.env — פרסור עמיד: מסיר מרכאות עוטפות אופציונליות (' או ")
+# ואז Trim. עובד גם אם הערך מצוטט וגם אם לא, וגם עם רווחים בתוך הערך
+# (כמו Application Password של WordPress שמכיל רווחים).
+function Get-EnvValue([string]$key) {
+  $line = Get-Content .env | Where-Object { $_ -match "^$key=" } | Select-Object -First 1
+  if ($null -eq $line) { return $null }
+  $val = $line -replace "^$key=", ''
+  $val = $val.Trim()                               # רווחים מסביב לכל הערך
+  $val = $val -replace '^"(.*)"$', '$1'            # הסרת מרכאות כפולות עוטפות
+  $val = $val -replace "^'(.*)'$", '$1'            # הסרת מרכאות בודדות עוטפות
+  return $val.Trim()                               # Trim פנימי אחרי הסרת המרכאות
+}
+
+$WP_USER = Get-EnvValue 'WP_USERNAME'
+$WP_PASS = Get-EnvValue 'WP_APP_PASSWORD'
+$WP_SITE = (Get-EnvValue 'WP_SITE_URL').TrimEnd('/')
 
 # בניית header אימות
 $pair = "$WP_USER`:$WP_PASS"

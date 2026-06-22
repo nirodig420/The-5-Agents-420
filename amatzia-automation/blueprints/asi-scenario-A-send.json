@@ -1,0 +1,181 @@
+{
+  "name": "אסי שולח לאישור (A) — MVP מסלול C",
+  "flow": [
+    {
+      "id": 1,
+      "module": "airtable:TriggerWatchRecords",
+      "version": 3,
+      "parameters": {
+        "base": "appKMXCuAfdJCIery",
+        "table": "tbly7JDCmOnY36GoJ",
+        "config": "trigger",
+        "triggerField": "fldRHCXAS6G9EDZ81",
+        "label": "fldbcHE1lcZxbsf7c",
+        "formula": "{fldRHCXAS6G9EDZ81}=\"נשלח לאישור\"",
+        "useColumnId": true,
+        "maxRecords": 10
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0,
+          "name": "Airtable Watch: סטטוס = נשלח לאישור"
+        },
+        "restore": {
+          "parameters": {
+            "base": { "label": "טבלת סוכן AI -תוכן אורגני (appKMXCuAfdJCIery)" },
+            "table": { "label": "לידים (tbly7JDCmOnY36GoJ)" },
+            "triggerField": { "label": "סטטוס" }
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "util:SetVariables",
+      "version": 1,
+      "parameters": {},
+      "mapper": {
+        "scope": "roundtrip",
+        "variables": [
+          {
+            "name": "token",
+            "value": "{{uuid}}"
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0,
+          "name": "Set token = uuid"
+        },
+        "expect": [
+          {
+            "name": "variables",
+            "type": "array",
+            "label": "Variables",
+            "spec": [
+              { "name": "name", "type": "text", "label": "Name" },
+              { "name": "value", "type": "any", "label": "Value" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "module": "airtable:ActionUpdateRecords",
+      "version": 3,
+      "parameters": {},
+      "mapper": {
+        "base": "appKMXCuAfdJCIery",
+        "table": "tbly7JDCmOnY36GoJ",
+        "id": "{{1.id}}",
+        "useColumnId": true,
+        "record": {
+          "flddMWdAUU4Oc1SS0": "{{2.token}}"
+        }
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0,
+          "name": "Airtable: שמירת approval_token לרשומה"
+        },
+        "restore": {
+          "parameters": {
+            "base": { "label": "טבלת סוכן AI -תוכן אורגני (appKMXCuAfdJCIery)" },
+            "table": { "label": "לידים (tbly7JDCmOnY36GoJ)" }
+          }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "module": "util:SetVariables",
+      "version": 1,
+      "parameters": {},
+      "mapper": {
+        "scope": "roundtrip",
+        "variables": [
+          {
+            "name": "approve_link",
+            "value": "https://hook.eu1.make.com/__WEBHOOK_B_ID__?token={{2.token}}&decision=approve"
+          },
+          {
+            "name": "reject_link",
+            "value": "https://hook.eu1.make.com/__WEBHOOK_B_ID__?token={{2.token}}&decision=reject"
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": 0,
+          "name": "Set approve_link / reject_link (החלף __WEBHOOK_B_ID__)"
+        },
+        "expect": [
+          {
+            "name": "variables",
+            "type": "array",
+            "label": "Variables",
+            "spec": [
+              { "name": "name", "type": "text", "label": "Name" },
+              { "name": "value", "type": "any", "label": "Value" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "module": "google-email:ActionSendEmail",
+      "version": 1,
+      "parameters": {
+        "account": null
+      },
+      "mapper": {
+        "to": ["nirodig@gmail.com"],
+        "subject": "אישור תוכן: {{1.נושא}}",
+        "html": "<div dir=\"rtl\" style=\"font-family:Arial,sans-serif;max-width:600px\"><h2>נכס מחכה לאישורך</h2><p><b>נושא:</b> {{1.נושא}}</p><div style=\"background:#f5f5f5;padding:12px;border-radius:8px;white-space:pre-wrap\">{{1.`תוכן קופי - לאישור`}}</div><p><b>ויזואל:</b><br><img src=\"{{1.`ויזואל (קובץ)`[].url}}\" style=\"max-width:100%;border-radius:8px\"></p><p style=\"margin-top:24px\"><a href=\"{{4.approve_link}}\" style=\"background:#22a06b;color:#fff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:bold\">✅ אשר</a>&nbsp;&nbsp;&nbsp;<a href=\"{{4.reject_link}}\" style=\"background:#d64545;color:#fff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:bold\">❌ דחה</a></p></div>",
+        "contentType": "html",
+        "attachments": []
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 0,
+          "name": "Gmail: מייל אישור עם 2 לינקים"
+        },
+        "restore": {
+          "parameters": {
+            "account": { "label": "nirodig@gmail.com (connection 7155536)" }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "eu1.make.com",
+    "notes": []
+  }
+}

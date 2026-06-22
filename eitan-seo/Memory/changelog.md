@@ -15,6 +15,76 @@
 
 ---
 
+## 2026-06-19 | חיזוק עמיד לפרסור `.env` בסקיל `wp-rest` (ערך עם רווחים)
+**פעולה:** ניר ביקש לסדר לתמיד. שני תיקונים:
+1. **`.env`** — ערך `WP_APP_PASSWORD` (Application Password של WP, מכיל רווחים) נעטף ב**מרכאות כפולות** דרך regex replace ב-PowerShell שלא מדפיס את הערך. אומת QUOTED בלי לחשוף את הסוד.
+2. **`.claude/skills/wp-rest/SKILL.md`** — בלוק האתחול עודכן ל-helper `Get-EnvValue` עמיד: חילוץ הערך → Trim → **הסרת מרכאות עוטפות אופציונליות** (`"` או `'`) → Trim נוסף. חל על שלושת הערכים (`WP_USERNAME`, `WP_APP_PASSWORD`, `WP_SITE_URL`). הפרסור עובד עכשיו גם מצוטט, גם לא, וגם עם רווחים בתוך הערך.
+**אימות:** `test-auth` דרך הלוגיקה החדשה החזיר **OK — NIRO (id=1, administrator)**. הסיסמה פורסרה ל-29 תווים (31 כולל 2 המרכאות → strip תקין). הסוד לא נחשף בשום פלט.
+**השפעה צפויה:** עמידות תפעולית — אין יותר שגיאת shell בטעינת `.env`; כל סשן עבודה חי באתר נטען חלק.
+**נכס:** `.env`, `.claude/skills/wp-rest/SKILL.md`
+---
+
+## 2026-06-19 | שדרוג עמוד התודה האנגלי `/en/thank-you/` — קרוסלת 5 האוטומציות
+**פעולה:** ניר אישר. שתי פעולות חיות על Page id=519 דרך `wp-rest`:
+1. **העלאת 6 סליידים ל-Media** (`POST wp/v2/media`) → `/wp-content/uploads/2026/06/`, שמות מדויקים **בלי re-name `-1`** (אומת ב-`media_details.file` ו-slug): `2026-06-11-5-automations-slide-1..6.png` = media id 521–526. כל ה-full PNGs מחזירים **200 image/png**.
+2. **PATCH ל-Page 519** (`content` חדש, status=publish): כרטיס התודה הקיים + **קרוסלת 5 האוטומציות** (6 סליידים: שער + 5 ממוספרים, חיצים/נקודות/swipe/keyboard) + כפתור PDF + WhatsApp + FB/IG. עטוף ב-**Gutenberg `wp:html` block** (השיטה שעוברת סניטציה). PATCH=200.
+- **אומת חי (GET 200, 86,665B):** 6 הפניות לסליידים ✅, `#niro5c` + JS init + חיצים + נקודות ✅, כפתור PDF (`NIRO-5-Automations-EN.pdf` → 200 application/pdf) ✅, WhatsApp (`wa.me/972537142298`) ✅, FB ✅, IG ✅, **fbq=False** ✅. הסניטציה לא הסירה `<script>`/`<style>` (rendered 12,388B).
+- **Elementor:** אומת ש-`_elementor_edit_mode=""` — הדף **לא** בנוי ב-Elementor, בטוח לעריכת REST.
+- **גיבוי:** סנאפשוט טרי של ה-content הקודם → `eitan-seo/snapshots/page-519-en-thankyou-2026-06-19-000437.json` (בנוסף ל-`thank-you-en-content.html` הקיים).
+
+**מילות מפתח:** (עמוד טכני — noindex רצוי; thank-you, en funnel, 5 automations)
+**השפעה צפויה:** המרה — הליד האנגלי מקבל "וואו" ויזואלי מיד אחרי הטופס: קרוסלה שמראה בדיוק מה הוא מקבל + מגנט PDF + ערוץ WhatsApp ישיר + מעקב סושיאל. מחזק אמון ומגדיל הורדות מגנט/פניות.
+**נכס:** Page id=519 — https://www.nirodigital.co.il/en/thank-you/ | מקור תוכן: `C:\markting\אתר הבית\לוגו לאתר\תמונות לאתר באנגלית\thank-you-en-UPGRADED.html` | Media id 521–526
+---
+
+## 2026-06-18 | יצירת עמוד התודה האנגלי `/en/thank-you/` דרך REST (אוטומטי)
+**פעולה:** ניר אישר פריסה. נוצר עמוד WordPress חדש דרך `wp-rest` (REST `wp/v2/pages`), חי ופורסם:
+- **Page id=519**, slug=`thank-you`, **parent=462** (העמוד `/en/`) → URL `https://www.nirodigital.co.il/en/thank-you/`. status=publish. כותרת "Thank You".
+- תוכן = ה-HTML+CSS המלא מתוך `NIRO-English-ThankYou-Package.md` (בלי עטיפת PHP/shortcode). PDF link הוחלף ל-`/wp-content/uploads/2026/06/NIRO-5-Automations-EN.pdf`. WhatsApp/FB/IG אומתו. **בלי fbq.**
+- **אומת חי (GET 200):** ty-en-card ✅, `<style>` נטען ✅, WhatsApp/FB/IG/PDF ✅, fbq=False ✅.
+
+**הערה טכנית חשובה (לפעמים הבאות):** יצירה ראשונית עם HTML גולמי נכשלה — REST core מפעיל `wp_kses` על תוכן גם כש-`unfiltered_html=True` (היכולת לא חלה על Application Password ב-REST), וכל ה-`<div>`/`<style>` נמחקו ל-content ריק. **הפתרון שעבד:** עטיפת התוכן ב-Gutenberg Custom HTML block — `<!-- wp:html --> ... <!-- /wp:html -->`. כך ה-`<style>` וה-HTML הגולמי נשמרים במלואם (raw=4077B). **כלל לעתיד:** כל תוכן עם `<style>`/HTML גולמי דרך REST → לעטוף ב-`wp:html`.
+
+**template:** נוצר בלי שדה `template` ייעודי — ה-CSS של הדף הוא `position:fixed; width:100vw; height:100vh; z-index:999999` שמכסה כל header/footer של ה-theme, כך שהדף נקי בלי קשר לתבנית. אין צורך בתיקון ידני.
+
+**מילות מפתח:** (עמוד טכני — noindex רצוי; thank-you, en funnel)
+**השפעה צפויה:** המרה — סגירת לולאת המשפך האנגלי. ליד אנגלי שממלא טופס ב-`/en/` כבר לא נופל ל-404; מגיע לדף תודה עם מגנט PDF + WhatsApp + סושיאל.
+**נכס:** Page id=519 — https://www.nirodigital.co.il/en/thank-you/ | תוכן: `eitan-seo/snapshots/thank-you-en-content.html`
+---
+
+## 2026-06-18 | פריסת דף הבית האנגלי החדש (REDESIGN) — העלאת נכסים + חבילת הדבקה
+**פעולה:** ניר אישר פריסה. בוצע אוטומטית דרך `wp-rest` (REST API, WARP פעיל):
+
+**מה בוצע אוטומטית (חי):**
+- `test-auth` ✅ — מחובר כ-NIRO (id=1, administrator). SAM/בזק לא חסם (WARP פעיל).
+- **8 נכסים הועלו ל-Media** ב-`/wp-content/uploads/2026/06/` בשמות מדויקים שהדף מצפה להם:
+  - `niro-hero-banner-en.png` (id=511), 5 פילרים (id=512–516: ai-agents/make/manychat/crm/ai-chatbots),
+    `nir-portrait.jpg` (id=517), `NIRO-5-Automations-EN.pdf` (id=518).
+  - אומת מראש שאף אחד לא קיים → אין re-name עם סיומת `-1`; השמות נקיים.
+- **סנאפשוט** של דף `/en/` (id=462) נשמר ב-`eitan-seo/snapshots/page-462-en-2026-06-18-135011.json`
+  (contentLen=0 — דף מונע-תבנית, התוכן יושב בקובץ ה-theme `template-en.php`).
+
+**מה נותר לניר ידנית (REST לא דוחף קבצי theme):**
+1. **סנאפשוט theme** — להוריד עותק של `template-en.php` הקיים מ-WP File Manager לפני הדבקה.
+2. **הדבקת הקוד** — להחליף את תוכן `template-en.php` בתוכן `template-en-REDESIGN.php`.
+3. **ליצור עמוד `/en/thank-you/`** — לא קיים כיום (יש `/thank-you/` Elementor + `/niro_thank-you/` עברית).
+   הטופס בדף החדש מפנה ל-`/en/thank-you/` → בלעדיו ליד אנגלי נופל ל-404.
+4. **Make `6142278` → ON** — דרך ראובן (Make MCP). לא ניתן לבדוק/להפעיל מצד איתן.
+
+**דגלי אי-התאמה לבריף (סומנו לניר):**
+- הדף `/en/` משתמש בתבנית `template-en.php` — לא בתבנית בשם "English Homepage". ההדבקה
+  צריכה להיכנס לתוך `template-en.php` (אליו הדף כבר מקושר), לא ליצור קובץ חדש.
+- ה-QR: הבריף ביקש `zite-qr-code.png` כתמונה, אך הקובץ מפנה ל-QR כ**קישור טקסט** ל-`rquam9hney.zite.so`
+  בלבד (אין `<img>` של QR). לכן `zite-qr-code.png` **לא הועלה** (לא נדרש ע"י הדף). אם רוצים QR
+  כתמונה — צריך עדכון בקוד הדף + העלאה. ממתין להחלטת ניר.
+- ה-PDF נמצא ב-`...\תמונות לאתר באנגלית\NIRO-5-Automations-EN.pdf` (לא ב-`C:\markting\` כמצוין בבריף).
+
+**השפעה צפויה:** עליית דף הבית האנגלי המעוצב מחדש → חוויית מותג עקבית ב-`/en/`, hreflang תקין,
+משפך לידים אנגלי אטום (טופס → Make → Airtable → דף תודה + מגנט PDF).
+**נכס:** `template-en-REDESIGN.php`, Media id=511–518, snapshot page-462-en-2026-06-18-135011.json
+**סטטוס:** 🟡 נכסים עלו חי; הדבקת theme + עמוד תודה + Make ON — ידני ע"י ניר.
+---
+
 ## 2026-06-15 | משפך `/en/` — תיקון טופס אנגלי + דף תודה אנגלי (מגנט PDF + וואטסאפ)
 **פעולה:** הוכנה חבילת הדבקה מלאה (מוכן-להדבקה, **ממתין לביצוע ידני של ניר** דרך WP File Manager).
 ניר אישר: מגנט PDF "5 Automations Every Business Needs" + כפתור וואטסאפ + עמוד תודה ב-`/en/thank-you/`.
