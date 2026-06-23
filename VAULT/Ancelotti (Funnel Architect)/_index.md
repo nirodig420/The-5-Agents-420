@@ -10,7 +10,7 @@
 ## Topics
 
 - [[agent-ancelotti]] — `.claude/agents/ancelotti.md`: הגדרת הסוכן, פילוסופיית השכנוע, שש התחנות, פרוטוקול שיתוף הפעולה, צ'קליסט בקרת איכות.
-- [[ancelotti-reference]] — `ancelotti-funnels/reference/`: נכס הזהב `niro-funnel-map` (מגנט הלידים "מפת המכונה") + README.
+- [[ancelotti-reference]] — `ancelotti-funnels/reference/`: נכס הזהב `niro-funnel-map` (מגנט הלידים "מפת המכונה") + Playbook רצף חימום ללידים (`warming-sequence-playbook.md`) + README.
 
 ## קשור
 - [[claude-md]] — ראובן מנתב אל אנצ'לוטי לפי trigger keywords + workflow "משפך שיווקי / מגנט לידים".

@@ -11,6 +11,12 @@
 
 ## Session Log
 
+### 2026-06-23 — Playbook רצף חימום לאנצ'לוטי + נרמול שמות תיקיות + גיבוי לענן [shipped]
+- **What was done:** (1) נוסף Playbook אופציונלי לאנצ'לוטי — `ancelotti-funnels/reference/warming-sequence-playbook.md` (רצף חימום ללידים: בעיה לפני פתרון, רצף שבועי יום 0/1/3/5/6, אנטומיית הודעת חימום, ליד קר מול חם, ותבנית פרומפט ל-Make AI Toolkit להודעת וואטסאפ אישית). עודכנו [[ancelotti-reference]], README של הרפרנס, ו-`_index`. (2) נורמלו שמות תיקיות הסוכנים (הסרת רווח): `eitan- seo`→`eitan-seo`, `mario- meta`→`mario-meta`, `yael- content`→`yael-content`, `ancelotti- funnels`→`ancelotti-funnels`, וסונכרנו כל ההפניות (CLAUDE.md, agents, skills, VAULT). (3) כל העבודה (אנצ'לוטי, מריו, אמציה, ה-Vault, .obsidian) גובתה והועלתה ל-GitHub `main`+`feat`; `.env` מוגן ב-.gitignore; `.obsidian/workspace.json` הוצא ממעקב.
+- **Decisions:** רצף החימום = **כלי אופציונלי** (לא כל משפך). תוכן/ניסוח הפרומפט אצל אנצ'לוטי; הביצוע (Make AI Toolkit + וואטסאפ) אצל [[agent-amatzia]]. שמות תיקיות בלי רווח = נתיבים נקיים ובטוחים לפקודות.
+- **Notes / Caveats:** היעד של הרצף = פגישת אפיון בזום; CTA רך בלבד, בלי דחיפות מזויפת. נשמר זיכרון מתמשך (`ancelotti-warming-sequence-playbook`). מומלץ להתקין Obsidian Git לסנכרון אוטומטי לענן.
+- **Related:** [[agent-ancelotti]], [[ancelotti-reference]], [[agent-amatzia]], [[claude-md]]
+
 ### 2026-06-18 — מריו כמנהל סושיאל + חבילת "5 אוטומציות" (קרוסלה+PDF) [shipped / blocked-on-reauth]
 - **What was done:** (1) הופקה חבילת Give-Value מלאה "5 אוטומציות שכל בעל עסק חייב" — קופי קרוסלה ([[agent-yael]], `Output/2026-06-11-5-automations-every-business.md`), 6 שקופיות מעוצבות ([[agent-yuval]], `yuval-viz/outputs/2026-06-11-5-automations-slide-1..6.png`, דרך `gpt-image-gen`), ו-Lead Magnet PDF בן 7 עמ' (`Output/2026-06-11-5-automations-guide.pdf`, רונדר מ-HTML דרך Chrome headless עם תמונות base64). (2) מריו הועלה ל**מנהל סושיאל** עם מנדט **3 פוסטים אורגניים/שבוע** (מודל באצ' שבועי, אישור אחד) — עודכנו [[agent-mario]], CLAUDE.md Standing Rule #4, [[mario-setup]]. (3) נבדקו דרך Make MCP הרשאות חיבור ה-Facebook.
 - **Decisions:** מודל פרסום = **באצ' שבועי, אישור אחד** (לא אוטונומי מלא, לא אישור-לכל-פוסט) — בחירת ניר. ויזואל לקרוסלה = תמונות ללא טקסט (חוק הבית "ללא טקסט בתמונה") + טקסט עברי מתווסף ב-Canva, גם כי gpt-image-2 לא אמין בעברית. PDF נבנה דרך Chrome headless (אין reportlab/python עובד בסביבה).
