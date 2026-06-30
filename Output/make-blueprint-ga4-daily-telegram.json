@@ -1,0 +1,118 @@
+{
+  "name": "NIRO — בריף יומי GA4 → Telegram (20:00)",
+  "flow": [
+    {
+      "id": 1,
+      "module": "google-analytics-4:generateReport",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": null
+      },
+      "mapper": {
+        "property": "380754270",
+        "dateRanges": [
+          {
+            "startDate": "yesterday",
+            "endDate": "yesterday"
+          }
+        ],
+        "metrics": [
+          { "name": "totalUsers" },
+          { "name": "sessions" },
+          { "name": "screenPageViews" }
+        ],
+        "dimensions": [
+          { "name": "sessionSourceMedium" },
+          { "name": "sessionCampaignName" }
+        ],
+        "orderBys": [
+          {
+            "metric": { "metricName": "sessions" },
+            "desc": true
+          }
+        ],
+        "limit": "10"
+      },
+      "metadata": {
+        "designer": { "x": 0, "y": 0 },
+        "restore": {
+          "parameters": { "__IMTCONN__": { "label": "NIRO GA4 (Google)", "data": {} } }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google",
+            "label": "Connection",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "module": "builtin:BasicAggregator",
+      "version": 1,
+      "parameters": {
+        "feeder": 1
+      },
+      "mapper": {
+        "value": "{{1.dimensionValues[].value}} — {{1.metricValues[].value}}"
+      },
+      "metadata": {
+        "designer": { "x": 300, "y": 0 },
+        "restore": { "extra": { "feeder": { "label": "GA4 → Generate a Report" } } }
+      }
+    },
+    {
+      "id": 3,
+      "module": "telegram:SendReplyMessage",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": null
+      },
+      "mapper": {
+        "chatId": "352155152",
+        "text": "📊 בריף יומי NIRO — אתמול\n\nמקורות תנועה (Source/Medium · Campaign):\n{{join(2.array; \"\n\")}}\n\n(מטריקות: משתמשים · סשנים · צפיות עמוד)",
+        "parseMode": "",
+        "disableWebPagePreview": true
+      },
+      "metadata": {
+        "designer": { "x": 600, "y": 0 },
+        "restore": {
+          "parameters": { "__IMTCONN__": { "label": "niroGA4_daily_brief_bot", "data": {} } }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:telegram",
+            "label": "Connection",
+            "required": true
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": { "orphans": [] },
+    "zone": "eu1.make.com",
+    "scheduling": {
+      "type": "indefinitely",
+      "interval": 86400,
+      "time": "20:00",
+      "timezone": "Asia/Jerusalem"
+    }
+  }
+}

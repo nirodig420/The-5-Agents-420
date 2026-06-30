@@ -37,3 +37,20 @@
 **הצעה:** Proposals/2026-06-30-ga4-daily-whatsapp-brief.md
 **החלטה פתוחה:** ערוץ שליחה — Telegram (מומלץ) / Email / WhatsApp (הקמה ארוכה)
 ---
+
+## בריף יומי GA4 → Telegram — בלופרינט v1 | 2026-06-30
+**כלי:** Make (GA4 Data API → Telegram Bot)
+**Trigger:** Scheduled — כל יום 20:00 Asia/Jerusalem (`interval: 86400`)
+**שרשרת מודולים:** Schedule(built-in) → `google-analytics-4:generateReport` → `builtin:BasicAggregator` → `telegram:SendReplyMessage`
+**שדות/מיפוי עיקריים (מאומת מול apps.make.com):**
+- GA4 property `380754270`; dateRange `yesterday`→`yesterday`
+- metrics: `totalUsers,sessions,screenPageViews` · dimensions: `sessionSourceMedium,sessionCampaignName` (⚠️ session-prefix חובה ל-UTM)
+- orderBy: sessions desc · limit 10
+- Aggregator מרכז שורות מקור→מטריקה · Telegram chatId `352155152`, bot `niroGA4_daily_brief_bot`
+**⚠️ שמות מודולים מאומתים:** GA4 = "Generate a Report" (לא "Run a Report"); Telegram = "Send a Text Message or Reply". module-id המדויקים בבלופרינט = best-effort; אם הייבוא נכשל → fallback בנייה ידנית מודרכת (3 מודולים).
+**scroll:** הושאר לשלב 2 (eventCount+eventName מסבך את הקריאה היחידה).
+**Data Store / Error Handler:** אין ב-v1 (אפשר Retry על GA4 בשלב 2)
+**עלות משוערת:** 3 Operations/הרצה → ~90/חודש (זניח)
+**סטטוס:** מאושר ("אשר" מניר) — בלופרינט מוכן לייבוא, ממתין ל-2 חיבורים (Google OAuth + Telegram token)
+**נכס:** Output/make-blueprint-ga4-daily-telegram.json
+---
