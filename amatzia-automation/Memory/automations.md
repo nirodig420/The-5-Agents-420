@@ -19,3 +19,21 @@
 ```
 
 <!-- רשומות ייכתבו כאן ע"י אמציה אחרי כל סבב מאושר. -->
+
+## בריף יומי GA4 → WhatsApp/Telegram/Email | 2026-06-30
+**כלי:** Make (GA4 Data API + ערוץ שליחה)
+**Trigger:** Scheduled — כל יום 20:00 Asia/Jerusalem
+**שרשרת מודולים:** Schedule → GA4 Run a Report ×3 (סיכום / מקורות / דפים) [+scroll] → Tools (Compose בעברית) → ערוץ שליחה
+**שדות/מיפוי עיקריים:**
+- קריאה 1 (סקופ session/user): metrics `totalUsers,newUsers,sessions,screenPageViews,engagementRate,averageSessionDuration` · dim `newVsReturning`
+- קריאה 2 (מקורות): metrics `sessions,totalUsers` · dim `sessionSourceMedium,sessionCampaignName` (⚠️ session-prefix חובה, לא source/medium גולמי)
+- קריאה 3 (דפים): metric `screenPageViews` · dim `pageTitle` (אופ' `pagePath`)
+- scroll: metric `eventCount` · dim `eventName` filter=scroll
+- Date Range: `yesterday`→`yesterday`
+**Data Store / Error Handler:** Retry על מודולי GA4 (429/timeout); ברירת מחדל "0" לימים ריקים
+**עלות משוערת:** ~4–6 Operations/הרצה → ~120–180/חודש (זניח)
+**סטטוס:** טיוטה — ממתין לבחירת ערוץ + Property ID מספרי + OAuth Google
+**לקוח:** NIRO (פנימי)
+**הצעה:** Proposals/2026-06-30-ga4-daily-whatsapp-brief.md
+**החלטה פתוחה:** ערוץ שליחה — Telegram (מומלץ) / Email / WhatsApp (הקמה ארוכה)
+---

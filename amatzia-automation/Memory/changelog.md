@@ -35,3 +35,16 @@
 **סיכון/עלות:** —
 **נכס:** `amatzia-automation/blueprints/asi-scenario-A-send.json`, `asi-scenario-B-receive.json`, `asi-build-guide.md`.
 ---
+
+## 2026-06-23 | אסי-לידים שלב 1 — הוספת שדות CRM (פעולה חיה)
+**פעולה:** הוספת 3 שדות לטבלת הלידים (הוספה בלבד, לא שונו/נמחקו שדות קיימים, לא נגעו 428 הלידים):
+- `תחום העסק` (singleLineText) — id `fldosVoJVycs0fMwA`.
+- `אינטראקציות` (multilineText) — id `fldKeeYirCQVu8T6L` (שלב 1 = טקסט append; שלב 2 = Linked Record).
+- `גוף הודעה שנשלח` (multilineText) — id `fldwUaUO3qTgStfop` (audit להודעה שיצאה).
+**כלי:** Airtable (MCP — ראובן הריץ).
+**אישור:** אחרי "אשר" מניר (2026-06-23) — תהליך A (בנייה ביחד בעורך).
+**סיכון/עלות:** אפס — הכל הוספתי והפיך.
+**נכס:** Base `appIokNx1jGPhws7W` › Table `tblcgQYQ8wIDUVOi9` (טבלת לידים אמיתית).
+**קופי המייל:** `Output/2026-06-23-warming-email-fillout-lead.md` (יעל). link הפגישה = משתנה `booking_link` (Data Store `niro-config`, ממתין ל-Calendly).
+**הבא:** בניית התרחיש בעורך Make (Fillout→חיפוש→Router→Create/Update→Gmail→תיעוד). טרם נבנה.
+---
