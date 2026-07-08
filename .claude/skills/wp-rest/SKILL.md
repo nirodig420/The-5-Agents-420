@@ -103,6 +103,40 @@ foreach ($p in $pages) {
 > או בדיקה ידנית של הדף. דף Elementor → **לא לערוך content ישירות**; להמליץ לניר על
 > העברה ל-Custom HTML (ראה פרוטוקול הבטיחות ב-`.claude/agents/eitan.md`).
 
+### 6) verify-page — אימות חוסם אחרי עדכון (Definition of Done ⛔)
+**עדכון לא נחשב "הצליח" עד שהאימות הזה עובר.** זו לולאת האימות שמונעת "הצלחה מזויפת"
+(ה-API מחזיר 200 אבל השינוי לא חי בפועל — למשל Elementor/קאש דרסו אותו). מריצים **מיד
+אחרי כל `update`**, עם `$marker` = מחרוזת ייחודית שהכנסת בעריכה (משפט/מזהה שלא קיים בגרסה הישנה).
+
+```powershell
+$id = 123
+$marker = 'ONE-UNIQUE-STRING-FROM-YOUR-EDIT'   # מחרוזת ייחודית מהשינוי
+$ok = $true
+
+# בדיקה 1 — API: התוכן הגולמי באמת מכיל את השינוי
+$after = Invoke-RestMethod -Uri "$WP_API/pages/$id`?context=edit" -Headers $WP_HEAD
+if ($after.content.raw -notmatch [regex]::Escape($marker)) {
+  $ok = $false; "❌ API: המרקר לא נמצא ב-content.raw — העדכון לא נשמר (Elementor?)"
+} else { "✅ API: המרקר נמצא בתוכן הגולמי" }
+
+# בדיקה 2 — Rendered: הדף החי בפועל (front-end) מכיל את השינוי + מחזיר 200
+try {
+  $live = Invoke-WebRequest -Uri $after.link -UseBasicParsing -TimeoutSec 30
+  if ($live.StatusCode -ne 200) { $ok = $false; "❌ Rendered: סטטוס $($live.StatusCode)" }
+  elseif ($live.Content -notmatch [regex]::Escape($marker)) {
+    $ok = $false; "❌ Rendered: 200 אבל המרקר לא מופיע בדף החי (קאש/Elementor דורס)"
+  } else { "✅ Rendered: הדף החי מכיל את השינוי (200)" }
+} catch { $ok = $false; "❌ Rendered: הדף לא נטען — $($_.Exception.Message)" }
+
+if ($ok) { "✅✅ DONE — השינוי חי ומאומת. אפשר לדווח לניר." }
+else { "⛔ NOT DONE — אל תדווח 'הצליח'. שחזר מהסנאפשוט (פעולה 5) ובדוק Elementor/קאש." }
+```
+
+> **⚠️ נוכחות ב-HTML ≠ תקינות פונקציונלית.** לאלמנט אינטראקטיבי (טופס לידים, כפתור, טרקינג)
+> HTML נכון לא מספיק — צריך **בדיקת קצה-לקצה אמיתית**: שליחת ליד-בדיקה ווידוא שהוא **הגיע
+> ליעד** (Airtable/Make/מייל). זה בדיוק הכשל של הטופס ש"זייף הצלחה". טופס לא "עובד" עד
+> שליד-בדיקה נחת בצד השני.
+
 ## פרוטוקול בטיחות (חובה)
 
 1. **תמיד `test-auth` לפני הכל.** בלי 200 — לא ממשיכים.
@@ -111,6 +145,11 @@ foreach ($p in $pages) {
 4. **דף Elementor → לעצור ולשאול את ניר**, לא לדרוס `content`.
 5. **שחזור:** אם משהו נשבר — `update-page` עם קובץ הסנאפשוט המקורי מ-`eitan-seo/snapshots/`.
 
-## אימות הסקיל
+## אימות הסקיל (Definition of Done — לולאה חוסמת)
+עקרון: **קודד "איך נראה טוב" כבדיקה דטרמיניסטית, אל תסמוך על עין.** עבודה = לולאה:
+עורך → מריץ `verify-page` (פעולה 6) → אם נכשל, מתקן/משחזר וחוזר → רק כשעובר, מדווח לניר.
+
 - `test-auth` מחזיר `name`/`id` ⇒ החיבור עובד.
-- אחרי `update` — לבדוק ש-`modified` התעדכן ולפתוח את ה-`link` בדפדפן.
+- אחרי כל `update` — **חובה** להריץ `verify-page` (פעולה 6). בלי ✅✅ DONE, **אסור לומר
+  "הצליח"** — מדווחים "לא אומת" + הסיבה, ומשחזרים מסנאפשוט אם צריך.
+- אלמנט פונקציונלי (טופס/כפתור) — לא "עובד" עד **בדיקת קצה-לקצה** שהתוצאה נחתה ביעד.

@@ -113,10 +113,24 @@ print(f"נשמר: {output_path}")
 python skill_image.py "<the prompt>" "yuval-viz/outputs/2026-06-02-example.png"
 ```
 
-## אימות
+## אימות (Definition of Done — לולאה חוסמת ⛔)
 
-לאחר היצירה, ודא שהקובץ קיים ושגודלו גדול מ-0 (תמונה ריקה/שגיאה תיתן קובץ ריק):
+עקרון: **קודד "איך נראה טוב" כבדיקה דטרמיניסטית.** תמונה לא "מוכנה" עד ששני התנאים עוברים.
 
+**בדיקה 1 — הקובץ תקין** (תמונה ריקה/שגיאה = קובץ ריק):
 ```bash
-test -s <output-path>.png && echo OK || echo "נכשל — בדוק API key / parameters"
+test -s <output-path>.png && echo OK || echo "❌ נכשל — בדוק API key / parameters"
 ```
+
+**בדיקה 2 — מימדים feed-safe** (חוק הבית: ריבוע או יחס 4:5 עד 1.91:1; באנר רחב חייב letterbox קודם):
+```powershell
+Add-Type -AssemblyName System.Drawing
+$img = [System.Drawing.Image]::FromFile((Resolve-Path "<output-path>.png"))
+$w = $img.Width; $h = $img.Height; $img.Dispose()
+$ratio = [math]::Round($w / $h, 3)
+if ($ratio -ge 0.8 -and $ratio -le 1.91) { "✅ DONE — $w×$h (יחס $ratio) feed-safe" }
+else { "⛔ NOT DONE — $w×$h (יחס $ratio) לא בטוח לפיד. חתוך/letterbox ל-1080×1080 או 4:5 לפני שמציגים לניר" }
+```
+
+> ⚠️ **אימות טכני ≠ אישור.** גם כשהמימדים תקינים — ניר חייב לראות את **התמונה הסופית
+> המדויקת** לפני פרסום (חוק ברזל של אישור ויזואלי). הבדיקה כאן מונעת רק כשל טכני.
