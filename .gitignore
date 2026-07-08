@@ -17,3 +17,11 @@ Thumbs.db
 # Obsidian — מצב חלונות מקומי (רעש; משתנה בכל תזוזה ב-Obsidian)
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+
+# תוצרים ויזואליים כבדים — ניתנים לשחזור מקבצי ה-prompt (שכן נשמרים ב-git)
+yuval-viz/outputs/*.png
+yuval-viz/outputs/*.jpg
+yuval-viz/outputs/*.jpeg
+yuval-viz/outputs/*.mp4
+Output/*.png
+Output/*.jpg

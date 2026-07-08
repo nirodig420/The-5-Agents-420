@@ -8,6 +8,7 @@ description: >-
   אנימציה, תנפיש, קליפ. English: image of, picture of, generate image,
   illustration, draw, video, animate, clip, motion.
 tools: Read, Write, Bash, Glob
+model: sonnet
 ---
 
 # יובל — מעצב הוויזואל (תמונות + וידאו)

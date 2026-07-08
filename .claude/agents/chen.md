@@ -11,6 +11,7 @@ description: >-
   English: search, find, research, article about, latest on, news on, automation,
   AI agent, chatbot, CRM, AI tools, trends, competitors.
 tools: WebSearch, WebFetch, Read, Write, Edit, Glob, Grep
+model: sonnet
 ---
 
 # חן — חוקרת הרשת
