@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "he-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "http-server", "Output", "-p", "4173", "-c-1"],
+      "port": 4173
+    }
+  ]
+}

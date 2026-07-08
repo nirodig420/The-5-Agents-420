@@ -48,3 +48,27 @@
 **קופי המייל:** `Output/2026-06-23-warming-email-fillout-lead.md` (יעל). link הפגישה = משתנה `booking_link` (Data Store `niro-config`, ממתין ל-Calendly).
 **הבא:** בניית התרחיש בעורך Make (Fillout→חיפוש→Router→Create/Update→Gmail→תיעוד). טרם נבנה.
 ---
+
+## 2026-07-05 | בריף יומי GA4→Telegram — דיבוג ותיקון (תרחיש 6384652)
+**פעולה:** אובחנו ותוקנו 2 באגים בתרחיש הקיים (ניר תיקן בעורך לפי הנחיה):
+1. **`{{join(2.array; )}}` בהודעת Telegram → הדפיס `{object}`.** תוקן ל-`{{<aggregator>.text}}` (בדיוק הטעות המתועדת ב-api-reference — Text aggregator מוציא `text`, לא join על array).
+2. **מיפוי `{{7.medium}}`/`{{7.campaignName}}` באגרגטור → ריקים**, כי ה-dimensions בדוח הם `sessionSourceMedium`/`sessionCampaignName`. תוקן למיפוי session*.
+3. תקלת משנה בדרך: מחיקת האגרגטור יצרה ID חדש → Telegram הפנה ל"מודול 2 שלא קיים". לקח: **לערוך מודול, לא למחוק-ולבנות** (ההפניות נשברות).
+**אימות:** Run once ב-11:43 — SUCCESS (3 ops), ההודעה הגיעה לטלגרם תקינה עם נתונים אמיתיים.
+**סטטוס:** עובד; ממתין שניר ידליק ON (scheduling: יומי 20:00, interval 900 + restrict).
+**כלי:** Make (MCP — קריאת blueprint/executions בלבד; התיקון ידני ע"י ניר).
+**נכס:** Scenario `6384652` "🤖NIRO — בריף יומי GA4 → Telegram (20:00)".
+---
+
+## 2026-07-05 | Apify — הצעת חיבור למעקב מתחרים (הצעה בלבד, טרם אושר)
+**פעולה:** מחקר מאומת + תוכנית חיבור Apify (MCP + מודול Make) ו-MVP: מעקב דירוגים שבועי
+ב-Google Search Scraper על 10–15 מילות מפתח מגוגל ישראל (`countryCode: il`, `languageCode: he`),
+הזנה ל-`eitan-seo/Memory/keywords.md`+`competitors.md` ולדיי'גסט של חן. **שום חיבור/ריצה לא בוצעו.**
+**כלי:** Apify (MCP `https://mcp.apify.com` — מומלץ; חלופה: מודול Apify רשמי ב-Make לתזמון)
+**אישור:** ממתין ל"אשר" מניר — כולל 2 צעדים ידניים שלו (פתיחת חשבון חינמי + `claude mcp add`)
+**סיכון/עלות:** ~65 דפי SERP בחודש ≈ 0.12$ — בתוך 5$ הקרדיט החינמי החודשי → 0 ש"ח בפועל.
+סקרייפינג ציבורי בלבד; Meta scrapers נדחו לשלב 2 (אזור אפור בתנאי השימוש).
+**אימותים עיקריים:** google-search-scraper = 1.80$/1,000 דפי SERP, תומך גוגל ישראל+עברית;
+Website Content Crawler = 0.2–5$/1,000 עמודים; Free plan = 5$/חודש בלי כרטיס אשראי, נחסם כשנגמר (לא מחייב).
+**נכס:** `Proposals/2026-07-05-apify-integration-plan.md`
+---

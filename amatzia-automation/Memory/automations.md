@@ -54,3 +54,16 @@
 **סטטוס:** מאושר ("אשר" מניר) — בלופרינט מוכן לייבוא, ממתין ל-2 חיבורים (Google OAuth + Telegram token)
 **נכס:** Output/make-blueprint-ga4-daily-telegram.json
 ---
+
+## אסי 2.0 — בוט אישורי תוכן בטלגרם (כפתורים) | 2026-07-05
+**כלי:** Make (Airtable + Telegram Bot) · Airtable base `appKMXCuAfdJCIery` › טבלה B "יומן פרסום" `tbloxDWRcAxlyi805`
+**Trigger:** C (שולח) = Airtable Watch Records, trigger field "עודכן לאחרונה", formula `AND({סטטוס}="נשלח לאישור", {telegram_message_id}="")`, כל 15 דק' 08:00–22:00 · D (קולט) = Custom Webhook + `setWebhook` חד-פעמי של טלגרם (push מיידי, 0 ops בהמתנה)
+**שרשרת מודולים:** C: Watch Records → Router (יש/אין ויזואל) → Send a Photo (URL מיידי — attachment פג ~2ש) → Send Message + inline keyboard (`callback_data`=`approve|recID` / `reject|recID`) → Update `telegram_message_id` · D: Webhook → Filter (callback_query + from.id=352155152) → split → Get Record → Filter (סטטוס עדיין "נשלח לאישור" = אנטי-לחיצה-כפולה) → Router → Update (approve: סטטוס="מאושר" + checkbox "✅ אושר על ידי ניר" + "אושר בתאריך"={{now}} / reject: "נדחה") → Edit Message (מסיר כפתורים, מציג תוצאה)
+**שדות/מיפוי עיקריים:** 3 שדות חדשים בטבלה B: `telegram_message_id` (דגל אנטי-כפילות-שליחה), checkbox `✅ אושר על ידי ניר`, dateTime `אושר בתאריך` (מזינים View "✅ מאושרים"). 3 Views ידניים: מאושרים/ממתינים/נדחו (ה-API לא יוצר Views). בוט: ממחזרים `niroGA4_daily_brief_bot`, chat `352155152`.
+**החלטות מפתח:** Telegram ולא Green API (כפתורי Green API לא יציבים לפי התיעוד שלהם + מיפוי טקסט חופשי עמום); פרסום דרך התזמון הקיים של 6237903 (א'/ג'/ה' 08:45) — אפס נגיעה בצינור שהוכח 5.7; "Watch Updates" נפסל (polling יקר, ~8,600 ops/חודש ב-5 דק').
+**Data Store / Error Handler:** אין Data Store; הגנות = formula-flag בשליחה + status-guard בקליטה + Router לויזואל חסר (התראה במקום כשל שקט).
+**עלות משוערת:** C ≈ 1,700 ops/חודש polling (חלופה 30 דק' ≈ 850) + ~4–5/פוסט · D ≈ 5–6/החלטה, 0 בהמתנה.
+**סטטוס:** טיוטה מוכנה-לאישור — שום דבר חי לא נבנה. בנייה: ניר בעורך (MCP לא יוצר תרחישים), מודרך.
+**לקוח:** NIRO (פנימי)
+**הצעה:** Proposals/2026-07-05-approval-bot-telegram-whatsapp.md
+---

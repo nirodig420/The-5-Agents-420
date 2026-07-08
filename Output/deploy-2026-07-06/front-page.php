@@ -9,8 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="NIRO Digital בונה אוטומציות וסוכני AI שמנהלים לך את העסק - תופסים כל פנייה, עונים מסביב לשעון, ולוקחים ממך את העבודה החוזרת. קבלו אבחון אוטומציה חינם.">
-    <meta property="og:title" content="NIRO Digital | אוטומציות וסוכני AI לעסקים שצומחים">
+    <meta name="description" content="בונים לעסק שלכם מכונת אוטומציה: סוכני AI, מערכות CRM ואוטומציות לידים, לצד שיווק דיגיטלי. פחות עבודה ידנית, יותר מכירות. דברו איתנו.">
+    <meta property="og:title" content="אוטומציה עסקית וסוכני AI לעסקים | Nirodigital">
     <meta property="og:description" content="העסק שלכם יכול לעבוד בשבילכם - גם כשאתם לא שם. אני בונה לכם צוות דיגיטלי של אוטומציות וסוכני AI שעובד מסביב לשעון, כדי שתספיקו כמו עסק גדול בלי להכפיל את ההוצאות.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://www.nirodigital.co.il/wp-content/uploads/2025/09/cropped-לוגו-סמיילי-חדש-1.png">
@@ -39,7 +39,7 @@
     }
     </script>
 
-    <title>NIRO Digital | אוטומציות וסוכני AI לעסקים שצומחים</title>
+    <title>אוטומציה עסקית וסוכני AI לעסקים | Nirodigital</title>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -728,7 +728,7 @@
             from { transform: translateX(0); }
             to   { transform: translateX(-50%); }
         }
-        .tech-marquee { direction: ltr; } /* בדף RTL המסלול נצמד לימין ורואים את סוף הרשימה - מיישרים לשמאל כדי שהריצה תתחיל מההתחלה */
+        .tech-marquee { direction: ltr; }
         @media (prefers-reduced-motion: reduce) {
             .marquee-track { animation: none; }
         }
@@ -1027,7 +1027,7 @@
     <section class="hero reveal" id="home">
         <div class="hero-inner">
             <!-- Hebrew brand banner first, shown whole (contain) so nothing gets cropped. -->
-            <img class="hero-banner" src="niro-hero-banner-HE.png" alt="NIRO.DIGITAL - פתרונות אוטומציה"><!-- LIVE DEPLOY NOTE (Eitan): upload niro-hero-banner-HE.png (הבאנר העברי, מקור: C:\markting\אתר הבית\לוגו לאתר\תמונות לאתר באנגלית\niro-hero-banner.png) to WP Media and replace this src with the WP URL. The old WP URL niro-hero-banner.png returns 404. -->
+            <img class="hero-banner" src="https://www.nirodigital.co.il/wp-content/uploads/2026/07/niro-hero-banner-HE.png" alt="NIRO.DIGITAL - פתרונות אוטומציה">
             <!-- Hebrew hero copy, beneath the banner. -->
             <div class="hero-copy">
                 <span class="eyebrow">אוטומציות וסוכני AI שמריצים לכם את העסק</span>

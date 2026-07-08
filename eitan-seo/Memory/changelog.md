@@ -15,6 +15,59 @@
 
 ---
 
+## 2026-07-06 | דפי הבית החדשים עלו חי ואומתו — HE + EN 🟢
+**פעולה:** ניר הדביק ידנית את שני קבצי ה-theme מ-`Output/deploy-2026-07-06/` דרך WP File Manager (`front-page.php` + `template-en.php` → `hello-elementor/`). הרצתי **אימות חי מלא, קריאה בלבד (GET)**, בתאריך 2026-07-07:
+1. **סטטוס:** `/` = 200 (150,452B) ✅ · `/en/` = 200 (120,199B) ✅ (עם `?nocache=1` — לא נדרש Purge קאש).
+2. **זהות לקבצי הפריסה:** diff מול `deploy-2026-07-06` — ההבדלים היחידים צפויים ותקינים: `data-rsssl=1` על `<body>` (תוסף Really Simple SSL) + שורת `Template Name` שה-PHP עיבד ב-EN. **אפס דליפות PHP** (`<?php` = 0 בשני הדפים).
+3. **תוכן HE:** hero "העסק שלכם יכול לעבוד בשבילכם" ✅ · סקשן "אני עובד עם Claude" (H2 עם span) ✅ · כרטיסים חיים tech-chip ×18 / live-dot ×11 ✅ · "גלו איפה הדליפה הכי גדולה שלכם" + leak-visual ✅ · modal-access ✅.
+4. **תוכן EN:** "Build a Business That Outworks Its Size" ✅ · מרקיזה בלי Zapier/n8n (zapier=0, n8n=0) ✅.
+5. **מטא חי:** HE Title `אוטומציה עסקית וסוכני AI לעסקים | Nirodigital` + Description המאושר ✅ · EN Title `Business Automation, AI Agents & CRM | Nirodigital` + Description עם Make בלי Zapier ✅.
+6. **באנר:** src = `https://www.nirodigital.co.il/wp-content/uploads/2026/07/niro-hero-banner-HE.png`, HEAD 200 image/png (1,000,799B) ✅.
+7. **נעולים:** GTM-NXRL4W23 ×2 בכל דף ✅ · Make hook frzwgajh ✅ · source `אתר - דף הבית` / `אתר - דף אנגלית` ✅ · redirect `/niro_thank-you/` / `/en/thank-you/` ✅ · וואטסאפ 972537142298 ✅ · `id="contact"` ×1 ✅ · fbq=0 ✅.
+8. **עמודי תודה:** `/niro_thank-you/` = 200 ✅ · `/en/thank-you/` = 200 ✅.
+**מילות מפתח:** אוטומציה עסקית, סוכני AI, מערכות CRM, business automation, AI agents, CRM
+**מתחרה יעד:** — (אימות פריסה)
+**השפעה צפויה:** הריפוזישן אוטומציה-קודם חי בשתי השפות; מהיום מודדים CTR/דירוג על המטא החדש ו-GA4 על משפך הדף החדש.
+**נכס:** האתר החי `/` + `/en/` · סנאפשוטים לפני: `eitan-seo/snapshots/live-*-2026-07-06-191355.html` + `theme-*-CURRENT-2026-07-06.php`
+**סטטוס:** 🟢 חי ומאומת.
+---
+
+## 2026-07-06 | פריסת דפי הבית החדשים (HE REDESIGN + EN REDESIGN) — חבילת הדבקה מוכנה
+**פעולה:** ניר אישר ("אשר") העלאה חיה. בוצע לפי הנוהל המלא:
+1. **WARP** היה כבוי (test-auth נכשל ב-SSL/TLS מול SAM) — חיברתי אותו דרך `warp-cli connect` ואז **test-auth ✅** (NIRO, id=1, administrator). שים לב: WARP נשאר דלוק.
+2. **סנאפשוטים לפני:** HTML חי של `/` (44.6KB) ושל `/en/` (46.9KB) → `eitan-seo/snapshots/live-front-page-HE-2026-07-06-191355.html` + `live-en-page-2026-07-06-191355.html`. בנוסף גובו עותקי המקור של קבצי ה-theme הנוכחיים → `theme-front-page-CURRENT-2026-07-06.php` + `theme-template-en-CURRENT-2026-07-06.php` (REST לא קורא קבצי theme — הגיבוי מעותקי המקור של ניר).
+3. **הבאנר העברי הועלה למדיה** דרך REST: `niro-hero-banner-HE.png` → **media id 529**, `https://www.nirodigital.co.il/wp-content/uploads/2026/07/niro-hero-banner-HE.png`, אומת HEAD 200 image/png.
+4. **עמודי התודה אומתו:** `/niro_thank-you/` = 200 ✅, `/en/thank-you/` = 200 ✅.
+5. **הוכנו קבצי פריסה** ב-`Output/deploy-2026-07-06/`:
+   - `front-page.php` (150,440B) — מ-`Output/preview-front-page-HE.html` המאושר: src הבאנר הוחלף ל-URL המדיה, הערת LIVE DEPLOY NOTE הוסרה, מבנה זהה ל-front-page.php החי (מתחיל ב-DOCTYPE, בלי PHP header), והמטא המאושר הוטמע: Title `אוטומציה עסקית וסוכני AI לעסקים | Nirodigital` + Description המאושר (גם og:title יושר).
+   - `template-en.php` (120,234B) — מ-`template-en-REDESIGN.php`: header `Template Name: English Homepage` נשמר 1:1 (דף 462 כבר משויך אליו — אומת ב-REST), המטא המאושר הוטמע: Title `Business Automation, AI Agents & CRM | Nirodigital` + Description **בלי Zapier** ("...lead automation with Make — plus digital marketing..."), ו-**Zapier+n8n הוסרו** מה-trust strip ומשני טראקי המרקיזה (סימטריה אומתה: 2 סטים זהים של 6 פריטים).
+6. **אימות נעול בשני הקבצים:** GTM-NXRL4W23 ×2 ✅ · Make hook frzwgajh ×1 ✅ · urlencoded ×1 ✅ · source "אתר - דף הבית"/"אתר - דף אנגלית" ✅ · redirect `/niro_thank-you/`/`/en/thank-you/` ✅ · וואטסאפ 972537142298 ✅ · `id="contact"` ×1 ✅ · fbq=0 ✅ · zapier/n8n=0 ✅. כל 13 תמונות ה-WP שהדפים מפנים אליהן אומתו 200 (כולל שמות בעברית, בקידוד אחוזים).
+7. **הוראות הדבקה לניר:** `Output/deploy-2026-07-06/INSTRUCTIONS.md` — WP File Manager → `wp-content/themes/hello-elementor/` (ה-theme הפעיל, אומת ב-REST) → שכפול-גיבוי → העלאת הקובץ החדש → צ'קליסט בדיקה לכל שפה.
+**מילות מפתח:** אוטומציה עסקית, סוכני AI, מערכות CRM, business automation, AI agents, CRM
+**מתחרה יעד:** — (פריסת ריפוזישן אוטומציה-קודם של שני דפי הבית)
+**השפעה צפויה:** המטא המאושר עולה סוף-סוף חי (סוגר את הפער מ-2026-07-05) → ↑ רלוונטיות לביטויי האוטומציה + ↑ CTR; דף בית ממוקד המרה עם באנר חדש; הסרת Zapier/n8n מיישרת את ההצעה עם מה שניר באמת עובד איתו.
+**נכס:** `Output/deploy-2026-07-06/` (front-page.php, template-en.php, INSTRUCTIONS.md) · media id 529 · סנאפשוטים 2026-07-06
+**סטטוס:** 🟢 הודבק ע"י ניר ואומת חי (ראה רשומת האימות מעל, 2026-07-07).
+---
+
+## 2026-07-05 | מטא מותאם לעמודי הבית (417 HE + 462 EN) — אוטומציה-קודם
+**פעולה:** ניר אישר את הניסוח הסופי המתוקן ("אשר"). בוצע חי דרך `wp-rest`, WARP פעיל:
+1. **test-auth** ✅ — מחובר כ-NIRO (id=1, administrator). SAM/בזק לא חסם.
+2. **סנאפשוט לפני** של המטא החי לשני העמודים → `eitan-seo/snapshots/meta-417-462-BEFORE-2026-07-05-140652.json` (כולל המטא האנגלי שהיה חסר: `Niro Digital Marketing | Performance Marketing`).
+3. **עדכון Rank Math** דרך `POST /wp-json/rankmath/v1/updateMeta` (`objectType=post`, `objectID=417/462`, `meta.rank_math_title` + `meta.rank_math_description`). שתי הקריאות החזירו `{"slug":true,"schemas":[]}` (הצלחה). **לא נגעתי ב-content, לא ב-Elementor** (שני הדפים מסומנים `_elementor_edit_mode` — נמנעתי מדריסה).
+
+**הניסוח הסופי שהוזן ל-DB:**
+- HE (417): Title `אוטומציה עסקית וסוכני AI לעסקים | Nirodigital` · Desc `בונים לעסק שלכם מכונת אוטומציה: סוכני AI, מערכות CRM ואוטומציות לידים, לצד שיווק דיגיטלי. פחות עבודה ידנית, יותר מכירות. דברו איתנו.`
+- EN (462): Title `Business Automation, AI Agents & CRM | Nirodigital` · Desc `We build your automation engine: AI agents, CRM & lead automation with Make & Zapier — plus digital marketing. Less manual work, more sales. Let's talk.`
+
+**🚨 ממצא קריטי (אימות חי):** ה-`<head>` של שני העמודים **עדיין מציג את המטא הישן** אחרי העדכון. בדיקה חשפה **אין חתימת Rank Math ב-head כלל** — ה-`<title>`, `<meta description>`, `og:*` ו-JSON-LD **מודפסים ליטרלית בקבצי ה-theme** (`front-page.php` / `template-en.php`), וגוברים על Rank Math. כלומר: עדכון ה-DB **שמור ותקף**, אבל **לא משפיע חי** עד שנחליף את התגיות בקבצי ה-theme. קבצי theme = עריכה ידנית בלבד (WP File Manager, REST לא דוחף PHP). **עצרתי ביושר** ולא דיווחתי הצלחה כוזבת.
+**נותר לניר:** מסלול A (מומלץ) — החלפת ה-`<title>`+`<meta description>` הליטרליים ב-`front-page.php` ו-`template-en.php` (קוד מוכן-להדבקה בהצעה); או מסלול B — מחיקת התגיות מה-theme והשארת `wp_head()` שולט (הצעה נפרדת).
+**מילות מפתח:** אוטומציה עסקית, סוכני AI, מערכות CRM, business automation, AI agents, CRM
+**השפעה צפויה:** אחרי השלמת מסלול A — מיקוד ה-`<title>` בביטויי האוטומציה (הבידול האמיתי) + הבטחת-תועלת ו-CTA בתיאור → ↑ רלוונטיות לביטויי הליבה + ↑ CTR בגוגל. שם המותג `Nirodigital` נשמר (הגנה על Entity מדורג).
+**נכס:** Page 417 (`/`) + 462 (`/en/`) · snapshots BEFORE/AFTER 2026-07-05 · `Proposals/2026-07-05-core-pages-meta-titles-descriptions.md`
+**סטטוס:** 🟡 meta ב-DB עודכן חי; המטא החי ב-head ממתין להחלפת theme ידנית (מסלול A/B) — REST לא יכול לגעת ב-PHP.
+---
+
 ## 2026-06-19 | חיזוק עמיד לפרסור `.env` בסקיל `wp-rest` (ערך עם רווחים)
 **פעולה:** ניר ביקש לסדר לתמיד. שני תיקונים:
 1. **`.env`** — ערך `WP_APP_PASSWORD` (Application Password של WP, מכיל רווחים) נעטף ב**מרכאות כפולות** דרך regex replace ב-PowerShell שלא מדפיס את הערך. אומת QUOTED בלי לחשוף את הסוד.
