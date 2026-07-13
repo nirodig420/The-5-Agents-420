@@ -18,6 +18,10 @@ Thumbs.db
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 
+# גיבויים מקומיים לפני שינויים (ניקיון 2026-07-12/13) — לא לריפו
+_backup/
+.claude/*.bak-*
+
 # תוצרים ויזואליים כבדים — ניתנים לשחזור מקבצי ה-prompt (שכן נשמרים ב-git)
 yuval-viz/outputs/*.png
 yuval-viz/outputs/*.jpg
