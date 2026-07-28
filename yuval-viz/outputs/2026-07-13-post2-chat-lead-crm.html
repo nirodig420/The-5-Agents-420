@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI','Segoe UI Emoji',sans-serif; }
+  body { width:1080px; height:1080px; overflow:hidden; background:linear-gradient(160deg,#0b141a 0%,#111b21 60%,#0e1a20 100%); display:flex; flex-direction:column; }
+  .header { display:flex; align-items:center; gap:20px; padding:18px 40px; background:#1f2c34; }
+  .avatar { width:66px; height:66px; border-radius:50%; background:linear-gradient(135deg,#00c2ff,#0077ff); display:flex; align-items:center; justify-content:center; font-size:33px; font-weight:700; color:#fff; }
+  .hname { font-size:30px; font-weight:700; color:#e9edef; }
+  .hsub { font-size:21px; color:#25d366; display:flex; align-items:center; gap:8px; margin-top:2px; }
+  .dot { width:12px; height:12px; border-radius:50%; background:#25d366; display:inline-block; }
+  .chat { padding:22px 44px 4px; display:flex; flex-direction:column; gap:14px; }
+  .row { display:flex; }
+  .row.customer { justify-content:flex-start; }
+  .row.agent { justify-content:flex-end; }
+  .bubble { max-width:82%; padding:15px 24px; border-radius:19px; font-size:26px; line-height:1.36; color:#e9edef; }
+  .customer .bubble { background:#202c33; border-radius:19px 6px 19px 19px; }
+  .agent .bubble { background:#005c4b; border-radius:6px 19px 19px 19px; }
+  .botchip { display:inline-flex; align-items:center; gap:6px; background:rgba(37,211,102,.16); color:#25d366; font-size:18px; font-weight:600; padding:2px 10px; border-radius:8px; margin-bottom:6px; }
+  .ts { font-size:17px; margin-top:5px; text-align:left; }
+  .agent .ts { color:#9fd4c6; } .customer .ts { color:#8696a0; }
+  .arrow { text-align:center; font-size:30px; padding:2px 0 8px; }
+  /* --- Airtable window --- */
+  .win { margin:0 44px; background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 18px 55px rgba(0,0,0,.55); }
+  .chrome { display:flex; align-items:center; gap:14px; background:#f7f7f7; border-bottom:1px solid #e4e4e4; padding:13px 22px; }
+  .dots { display:flex; gap:8px; }
+  .cdot { width:14px; height:14px; border-radius:50%; }
+  .at-logo { display:flex; align-items:center; gap:9px; margin-right:auto; }
+  .sq { width:15px; height:15px; border-radius:4px; }
+  .at-name { font-size:22px; font-weight:700; color:#333; }
+  .at-base { font-size:19px; color:#888; }
+  table { width:100%; border-collapse:collapse; direction:rtl; }
+  th { background:#fafafa; color:#666; font-size:19px; font-weight:600; text-align:right; padding:12px 18px; border-bottom:2px solid #ececec; border-left:1px solid #f0f0f0; }
+  td { font-size:21px; color:#222; padding:13px 18px; border-bottom:1px solid #f0f0f0; border-left:1px solid #f5f5f5; text-align:right; }
+  .blurred { filter:blur(6px); user-select:none; color:#555; }
+  tr.newrow { background:#e8f9f0; }
+  tr.newrow td { font-weight:700; border-bottom:2px solid #25d366; }
+  .pill { display:inline-block; background:#fff3e3; color:#c46a00; font-size:18px; font-weight:700; padding:3px 13px; border-radius:10px; }
+  .pill.new { background:#d8f7e6; color:#0f7b5f; }
+  .flash { display:inline-flex; align-items:center; gap:7px; color:#0f7b5f; font-size:18px; font-weight:700; }
+  .banner { margin-top:auto; text-align:center; padding:16px 30px 26px; color:#8696a0; font-size:24px; }
+  .banner b { color:#25d366; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="avatar">N</div>
+    <div>
+      <div class="hname">NIRO Digital</div>
+      <div class="hsub"><span class="dot"></span> סוכן AI · זמין תמיד</div>
+    </div>
+  </div>
+  <div class="chat">
+    <div class="row agent">
+      <div class="bubble"><span class="botchip">🤖 מענה אוטומטי</span><br>כדי שניר יגיע מוכן, מה הכי חשוב לך לפתור עכשיו?<div class="ts">21:03 ✓✓</div></div>
+    </div>
+    <div class="row customer">
+      <div class="bubble">לידים נופלים לי בין ההודעות, אין לי סדר<div class="ts">21:04</div></div>
+    </div>
+    <div class="row agent">
+      <div class="bubble">רשמתי הכל 👌 הפרטים כבר במערכת<div class="ts">21:04 ✓✓</div></div>
+    </div>
+  </div>
+  <div class="arrow">⬇️</div>
+  <div class="win">
+    <div class="chrome">
+      <div class="dots">
+        <div class="cdot" style="background:#ff5f57"></div>
+        <div class="cdot" style="background:#febc2e"></div>
+        <div class="cdot" style="background:#28c840"></div>
+      </div>
+      <div class="at-logo">
+        <div class="sq" style="background:#FCB400"></div>
+        <div class="sq" style="background:#18BFFF"></div>
+        <div class="sq" style="background:#F82B60"></div>
+        <span class="at-name">Airtable</span>
+        <span class="at-base">· לידים – NIRO</span>
+      </div>
+    </div>
+    <table>
+      <tr><th>שם</th><th>עסק</th><th>צורך</th><th>דחיפות</th><th>סטטוס</th></tr>
+      <tr><td><span class="blurred">יוסי כהן</span></td><td><span class="blurred">מוסך בצפון</span></td><td><span class="blurred">מענה ללקוחות</span></td><td><span class="pill blurred">בינונית</span></td><td><span class="blurred">בטיפול</span></td></tr>
+      <tr><td><span class="blurred">מיכל לוי</span></td><td><span class="blurred">קליניקת שיניים</span></td><td><span class="blurred">תיאום תורים</span></td><td><span class="pill blurred">גבוהה</span></td><td><span class="blurred">נסגר</span></td></tr>
+      <tr class="newrow"><td>דנה ל.</td><td>סטודיו לעיצוב פנים</td><td>מענה ללידים + סדר</td><td><span class="pill">גבוהה 🔥</span></td><td><span class="flash">✨ ליד חדש · עכשיו</span></td></tr>
+    </table>
+  </div>
+  <div class="banner">הליד נכנס ל-Airtable לבד, מסודר ומוכן לשיחה · <b>בלי לגעת במקלדת</b></div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI','Segoe UI Emoji',sans-serif; }
+  body { width:1080px; height:1080px; overflow:hidden; background:linear-gradient(160deg,#0b141a 0%,#111b21 60%,#0e1a20 100%); display:flex; flex-direction:column; }
+  .header { display:flex; align-items:center; gap:20px; padding:22px 40px; background:#1f2c34; }
+  .avatar { width:76px; height:76px; border-radius:50%; background:linear-gradient(135deg,#00c2ff,#0077ff); display:flex; align-items:center; justify-content:center; font-size:38px; font-weight:700; color:#fff; }
+  .hname { font-size:33px; font-weight:700; color:#e9edef; }
+  .hsub { font-size:24px; color:#25d366; display:flex; align-items:center; gap:9px; margin-top:3px; }
+  .dot { width:14px; height:14px; border-radius:50%; background:#25d366; display:inline-block; }
+  .chat { flex:1; padding:28px 44px 0; display:flex; flex-direction:column; gap:20px; }
+  .row { display:flex; }
+  .row.customer { justify-content:flex-start; }
+  .row.agent { justify-content:flex-end; }
+  .bubble { max-width:80%; padding:20px 27px; border-radius:22px; font-size:30px; line-height:1.4; color:#e9edef; }
+  .customer .bubble { background:#202c33; border-radius:22px 6px 22px 22px; }
+  .agent .bubble { background:#005c4b; border-radius:6px 22px 22px 22px; }
+  .ts { font-size:20px; margin-top:7px; text-align:left; }
+  .agent .ts { color:#9fd4c6; } .customer .ts { color:#8696a0; }
+  .daychip { align-self:center; background:#1c272e; color:#aebac1; font-size:23px; padding:8px 24px; border-radius:13px; }
+  .botchip { display:inline-flex; align-items:center; gap:8px; background:rgba(37,211,102,.16); color:#25d366; font-size:21px; font-weight:600; padding:3px 13px; border-radius:9px; margin-bottom:8px; }
+  .banner { text-align:center; padding:20px 30px 30px; color:#8696a0; font-size:26px; }
+  .banner b { color:#25d366; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="avatar">N</div>
+    <div>
+      <div class="hname">NIRO Digital</div>
+      <div class="hsub"><span class="dot"></span> סוכן AI · זמין תמיד</div>
+    </div>
+  </div>
+  <div class="chat">
+    <div class="daychip">יום שלישי · 22:47</div>
+    <div class="row customer">
+      <div class="bubble">היי, כמה עולה אצלכם ואיך מתחילים?<div class="ts">22:47</div></div>
+    </div>
+    <div class="row agent">
+      <div class="bubble"><span class="botchip">🤖 מענה אוטומטי</span><br>היי! שמח ששאלת 🙂<br>כדי לדייק לך תשובה, מה סוג העסק שלך?<div class="ts">22:47 ✓✓</div></div>
+    </div>
+    <div class="row customer">
+      <div class="bubble">קליניקה לפיזיותרפיה, מתקשה לעמוד בקצב הפניות<div class="ts">22:48</div></div>
+    </div>
+    <div class="row agent">
+      <div class="bubble">מכיר את זה מצוין 💪 שמרתי את הפרטים,<br>ניר יחזור אליך מחר עם פתרון מדויק<div class="ts">22:48 ✓✓</div></div>
+    </div>
+  </div>
+  <div class="banner">הלקוח קיבל מענה <b>תוך שניות</b> · בעל העסק בכלל לא ליד הטלפון</div>
+</body>
+</html>
