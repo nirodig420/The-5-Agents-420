@@ -1,0 +1,208 @@
+{
+  "name": "💚NIRO — חימום יום 0 (תרחיש-בן, נקרא מתרחישי כניסת ליד)",
+  "flow": [
+    {
+      "id": 1,
+      "module": "scenario-service:StartSubscenario",
+      "version": 2,
+      "parameters": {},
+      "mapper": {},
+      "metadata": {
+        "designer": { "x": 0, "y": 0, "name": "התחלה — מקבל rec_id מהאב" }
+      }
+    },
+    {
+      "id": 2,
+      "module": "airtable:ActionGetRecord",
+      "version": 3,
+      "parameters": { "__IMTCONN__": 7155373 },
+      "mapper": {
+        "base": "appIokNx1jGPhws7W",
+        "table": "tblcgQYQ8wIDUVOi9",
+        "id": "{{1.rec_id}}",
+        "useColumnId": false
+      },
+      "metadata": {
+        "designer": { "x": 300, "y": 0, "name": "שליפת הליד הטרי מה-CRM" }
+      }
+    },
+    {
+      "id": 3,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "mapper": null,
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 4,
+              "module": "green-api:SendMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8529905 },
+              "filter": {
+                "name": "יש טלפון, יום 0 טרם נשלח, לא שבת",
+                "conditions": [
+                  [
+                    { "a": "{{2.`חימום - שלב`}}", "o": "notexist" },
+                    { "a": "{{length(2.`טלפון `)}}", "o": "number:greater", "b": "5" },
+                    { "a": "{{formatDate(now; \"E\")}}", "o": "text:notequal", "b": "6" },
+                    { "a": "{{if(formatDate(now; \"E\") = \"5\"; formatDate(now; \"H\"); \"0\")}}", "o": "number:less", "b": "16" }
+                  ]
+                ]
+              },
+              "mapper": {
+                "chatId": "{{replace(replace(2.`טלפון `; \"/[^0-9]/g\"; emptystring); \"/^0/\"; \"972\")}}@c.us",
+                "message": "היי {{first(split(2.`שם מלא`; \" \"))}}, כאן ניר מ-NIRO Digital 🙂 קיבלתי את הפנייה שלך, תודה שכתבת. אני עובר על מה ששלחת ואחזור אליך עם כיוון ראשוני. אם נוח לך לזרז, אפשר פשוט להשיב לי כאן ונתאם שיחת אבחון קצרה בחינם."
+              },
+              "metadata": {
+                "designer": { "x": 600, "y": -150, "name": "הודעת יום 0 בוואטסאפ" },
+                "notes": "אותו טקסט יום 0 כמו בתרחיש האב 6754504. לפני ON: קופי סופי של יעל + copy-check בשני המקומות."
+              }
+            },
+            {
+              "id": 5,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblcgQYQ8wIDUVOi9",
+                "id": "{{2.id}}",
+                "useColumnId": false,
+                "record": {
+                  "חימום - שלב": "1",
+                  "חימום - שליחה אחרונה": "{{now}}",
+                  "גוף הודעה שנשלח": "{{4.message}}",
+                  "אינטראקציות": "{{2.`אינטראקציות`}}\n[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] חימום יום 0 נשלח בוואטסאפ (דחיפה מיידית מתרחיש הכניסה)"
+                }
+              },
+              "metadata": { "designer": { "x": 900, "y": -150, "name": "עדכון שלב=1 ב-CRM" } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 8,
+              "module": "green-api:SendMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8529905 },
+              "filter": {
+                "name": "שבת — הודעת נוכחות בלבד",
+                "conditions": [
+                  [
+                    { "a": "{{2.`חימום - שלב`}}", "o": "notexist" },
+                    { "a": "{{length(2.`טלפון `)}}", "o": "number:greater", "b": "5" },
+                    { "a": "{{formatDate(now; \"E\")}}", "o": "text:equal", "b": "6" }
+                  ],
+                  [
+                    { "a": "{{2.`חימום - שלב`}}", "o": "notexist" },
+                    { "a": "{{length(2.`טלפון `)}}", "o": "number:greater", "b": "5" },
+                    { "a": "{{formatDate(now; \"E\")}}", "o": "text:equal", "b": "5" },
+                    { "a": "{{formatDate(now; \"H\")}}", "o": "number:greaterorequal", "b": "16" }
+                  ]
+                ]
+              },
+              "mapper": {
+                "chatId": "{{replace(replace(2.`טלפון `; \"/[^0-9]/g\"; emptystring); \"/^0/\"; \"972\")}}@c.us",
+                "message": "היי {{first(split(2.`שם מלא`; \" \"))}}, כאן ניר מ-NIRO Digital 🙂 קיבלתי את הפנייה שלך, תודה שכתבת. שבת אצלי ואני לא עובד היום, אז נדבר ביום ראשון בבוקר. שבת שלום!"
+              },
+              "metadata": {
+                "designer": { "x": 600, "y": 0, "name": "שבת — הודעת נוכחות" },
+                "notes": "חריג מאושר של ניר (30.7): בשבת נשלחת הודעת נוכחות אחת בלבד, בלי שיווק. השלב נשאר ריק בכוונה, והפולר של יום ראשון שולח את יום 0 המלא."
+              }
+            },
+            {
+              "id": 9,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblcgQYQ8wIDUVOi9",
+                "id": "{{2.id}}",
+                "useColumnId": false,
+                "record": {
+                  "אינטראקציות": "{{2.`אינטראקציות`}}\n[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] שבת: נשלחה הודעת נוכחות (נדבר ביום ראשון), יום 0 יישלח בפולר של יום ראשון"
+                }
+              },
+              "metadata": { "designer": { "x": 900, "y": 0, "name": "תיעוד בלי שינוי שלב" } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 6,
+              "module": "telegram:SendReplyMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8658039 },
+              "filter": {
+                "name": "אין טלפון תקין ויום 0 טרם נשלח",
+                "conditions": [
+                  [
+                    { "a": "{{2.`חימום - שלב`}}", "o": "notexist" },
+                    { "a": "{{2.`טלפון `}}", "o": "notexist" }
+                  ],
+                  [
+                    { "a": "{{2.`חימום - שלב`}}", "o": "notexist" },
+                    { "a": "{{length(2.`טלפון `)}}", "o": "number:lessorequal", "b": "5" }
+                  ]
+                ]
+              },
+              "mapper": {
+                "chatId": "352155152",
+                "text": "⚠️ ליד חדש בלי מספר טלפון תקין — חימום יום 0 לא נשלח. טפל ידנית:\nשם: {{2.`שם מלא`}}\nמה ביקש: {{2.`איך אפשר לעזור`}}\nמקור: {{2.`מקור`}}"
+              },
+              "metadata": { "designer": { "x": 600, "y": 150, "name": "התראה לניר — אין טלפון" } }
+            },
+            {
+              "id": 7,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblcgQYQ8wIDUVOi9",
+                "id": "{{2.id}}",
+                "useColumnId": false,
+                "record": {
+                  "חימום - שלב": "4",
+                  "אינטראקציות": "{{2.`אינטראקציות`}}\n[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] אין טלפון תקין — הרצף לא הופעל, נשלחה התראה לניר בטלגרם"
+                }
+              },
+              "metadata": { "designer": { "x": 900, "y": 150, "name": "עדכון שלב=4 (מחוץ לרצף)" } }
+            }
+          ]
+        }
+      ],
+      "metadata": { "designer": { "x": 450, "y": 0 } }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "sequential": false,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false
+    }
+  },
+  "interface": {
+    "input": [
+      { "name": "rec_id", "type": "text", "multiline": false, "required": true, "help": "Airtable record id של הליד בטבלת הלידים" }
+    ],
+    "output": []
+  },
+  "_notes": [
+    "נוצר 2026-07-30 במסגרת תוכנית הנסטינג (הצעה 1 חלק א'). מודולים אומתו מול app-modules_list: scenario-service:StartSubscenario v2, airtable:ActionGetRecord v3. נדחף לענן כתרחיש 6763729 (כבוי).",
+    "שער שבת (כלל ברזל של ניר, 30.7): אין שליחת וואטסאפ ללקוח בשבת (E=6) ולא בשישי מ-16:00 (E=5 ושעה>=16), שעון ישראל (אזור הזמן של הארגון ב-Make). ליד שנחסם נשאר בשלב ריק, והפולר של האב (שרץ רק ראשון-שישי ב-10:00) שולח לו את יום 0 ביום ראשון. לאמת את התנהגות formatDate ב-Run once של יום ההדלקה.",
+    "נקרא מ-CallSubscenario במצב אסינכרוני (shouldWaitForExecutionEnd=false) משלושת תרחישי כניסת הלידים: 6142278 (טופס), 6760281 (בוט האתר), 5618188 (לידים ממומנים) — החיבור אליהם ממתין לאישור נפרד של ניר.",
+    "מגן כפילות: הפילטרים דורשים 'חימום - שלב' notexist, כך שהפולר היומי של האב 6754504 (ענף יום 0 שנשאר כרשת ביטחון) לא ישלח פעמיים.",
+    "התרחיש נוצר כבוי ונשאר כבוי עד אישור ההדלקה הכולל של רצף החימום (חסום גם על שדרוג Green API עסקי)."
+  ]
+}

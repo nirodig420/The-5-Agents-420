@@ -17,6 +17,7 @@
 | **מריו** | מנהל ה-Meta (סושיאל + Paid) | [[Mario (Meta Manager)/_index\|מריו]] |
 | **אנצ'לוטי** | ארכיטקט המשפכים (Funnel Architect) | [[Ancelotti (Funnel Architect)/_index\|אנצ'לוטי]] |
 | **אמציה** | מומחה אוטומציות / API | [[Amatzia (Automation Expert)/_index\|אמציה]] |
+| **איתי** | מאסטר מערכות CRM (Airtable/שיטס) | [[Itai (CRM Architect)/_index\|איתי]] |
 
 ## אזורי תיעוד
 
@@ -27,7 +28,8 @@
 - [[Eitan (Website Manager)/_index|איתן — ניהול האתר]] — עריכת דפי WordPress דרך REST API.
 - [[Mario (Meta Manager)/_index|מריו — ניהול Meta]] — סושיאל אורגני, ניתוח קמפיינים ממומנים, ביצוע דרך Make.
 - [[Ancelotti (Funnel Architect)/_index|אנצ'לוטי — ארכיטקט המשפכים]] — תכנון משפכים מקצה-לקצה, מגנטי לידים ודפי נחיתה, שילוב כל הזרועות.
-- [[Amatzia (Automation Expert)/_index|אמציה — מומחה אוטומציות]] — Make/ManyChat/Airtable וחיבורי API, מתרחיש למוצר מוגמר.
+- [[Amatzia (Automation Expert)/_index|אמציה — מומחה אוטומציות]] — Make/ManyChat וחיבורי API, מתרחיש למוצר מוגמר.
+- [[Itai (CRM Architect)/_index|איתי — מאסטר מערכות CRM]] — אפיון ובניית מערכות CRM ב-Airtable, שיטס ואקסל, בלופרינטים ומדריכי הדרכה.
 - [[Pipeline (Content & Output)/_index|Pipeline — תוכן ופלט]] — מאמרי גלם ותוצרים סופיים.
 - [[Infra (Shared)/_index|תשתית משותפת]] — קונפיג, סביבה, סקילים כלליים.
 
@@ -39,7 +41,10 @@
 4. **משפך שיווקי / מגנט לידים:** [[agent-ancelotti|אנצ'לוטי]] מתכנן אסטרטגיה (שש התחנות + נקודות דליפה) ובריף לכל זרוע → ראובן מתזמר את [[agent-chen|חן]]/[[agent-yael|יעל]]/[[agent-mario|מריו]]/[[agent-yuval|יובל]]/[[agent-eitan|איתן]] → אנצ'לוטי מרכיב + בקרת איכות → אחרי "אשר" שמירה ב-[[output-folder|Output]].
 5. **אוטומציה / בוט / חיבור מערכות:** [[agent-amatzia|אמציה]] מאבחן תרחיש ומתכנן (5 שלבים: הבנה → ארכיטקטורה → בנייה → בעיות+פתרון → בדיקה) → אם נדרש קופי/משפך → [[agent-yael|יעל]]/[[agent-ancelotti|אנצ'לוטי]] דרך ראובן → אחרי "אשר" בנייה/הפעלה דרך Make/Airtable MCP. שום שינוי חי בלי אישור.
 
+6. **מערכת CRM ללקוח:** [[agent-itai|איתי]] מאפיין (שאלון אפיון → מודל נתונים → מפרט מלא) → מפרט ב-Proposals + סקיל `crm-build-check` → אחרי "אשר" בנייה דרך Airtable MCP (סנדבוקס קודם) → מדריך הדרכה ללקוח → אם צריך צנרת, [[agent-amatzia|אמציה]] דרך ראובן. **המבנה של איתי, הצנרת של אמציה, איתי קודם.**
+
 ## יומן עבודה (session log)
 
 - [[vault-documentation]] — לוג הקמת ה-Vault והתחזוקה שלו.
 - [[amatzia-onboarding]] — הקמת אמציה (מומחה האוטומציות) והוספתו לצוות.
+- [[2026-08-04-itai-onboarding]] — הקמת איתי (מאסטר מערכות ה-CRM) והוספתו לצוות.

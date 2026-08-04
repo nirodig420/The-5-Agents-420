@@ -51,3 +51,16 @@
 `sum(map(7.Rows[]; "Metric values.1.Value"))` (פונקציית map+sum על המערך הגולמי).
 **מקור:** https://developers.google.com/analytics/devguides/reporting/data/v1/rest/v1beta/Row · https://www.make.com/en/help/tools/tools (Text aggregator)
 ---
+
+## Airtable Web API | Update Field (שינוי סוג שדה) | אומת 2026-07-29
+**Base URL / גרסה:** `PATCH /v0/meta/bases/{baseId}/tables/{tableId}/fields/{fieldId}`
+**אימות:** Personal Access Token / OAuth, scope `schema.bases:write`, תפקיד Base creator.
+**מגבלה קריטית:** ה-endpoint מעדכן **רק** `name`, `description` ו-`options`. **אין** פרמטר
+`type` בבקשה, כלומר **אי אפשר להמיר סוג שדה דרך ה-API בכלל** (וכתוצאה גם לא דרך שום MCP
+של Airtable). המרת סוג (למשל phoneNumber → email) נתמכת **רק בממשק של Airtable** (Edit
+field → שינוי הסוג), והיא ממירה במקום: **אותו fieldId, אותם נתונים** (שני הסוגים מאחסנים
+טקסט), ולכן מיפויי Make שמצביעים על השדה ממשיכים לעבוד בלי שינוי.
+**מסקנה מעשית:** שדה עם סוג שגוי, עדיף תיקון ידני בממשק (30 שניות, בלי מיגרציה) על פני
+יצירת שדה חדש + העתקת נתונים + עדכון מיפוי בתרחיש (שגם מכבה את התרחיש בעריכה).
+**מקור:** https://airtable.com/developers/web/api/update-field
+---

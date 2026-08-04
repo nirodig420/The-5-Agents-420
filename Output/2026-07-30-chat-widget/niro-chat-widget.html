@@ -1,0 +1,541 @@
+﻿<!-- ================================================================
+  NIRO Digital, ווידג'ט צ'אט AI + פלואו כפתורים (גרסה 12, 2026-08-04, הדמות: קרן, אווטאר מאויר)
+  הדבקה: GTM (GTM-NXRL4W23) > Tags > NIRO Chat Widget > Custom HTML
+  הפלואו רץ בצד הלקוח: כפתורים, סרגל תקציב, ואימות שדות, בלי לשרוף פעולות ב-Make.
+  Make נקרא רק פעמיים: יצירת הליד אחרי הפרטים, והעשרה בסוף. AI רק במסלול "יש לי שאלה".
+  כיבוי חירום: השהיית התג ב-GTM ופרסום. שום קובץ באתר לא משתנה.
+================================================================= -->
+<script>
+(function () {
+  'use strict';
+  if (window.__niroChatLoaded) return;
+  window.__niroChatLoaded = true;
+
+  /* ===== הגדרות ===== */
+  var HOOK = 'https://hook.eu1.make.com/txhxkw5ko7grzepboy3cufluott7qlge';
+  var GUIDE = 'https://www.nirodigital.co.il/wp-content/uploads/2026/07/NIRO-5-Automations-HE.pdf';
+  var WA = 'https://wa.me/972537142298';
+  /* התמונה של קרן. כשהשדה ריק מוצגת הדמות המצוירת כגיבוי,
+     כך שהתג לעולם לא נשבר גם אם התמונה עדיין לא הועלתה. */
+  var AVATAR = 'https://www.nirodigital.co.il/wp-content/uploads/2026/08/keren-avatar.png';
+  var TIMEOUT_MS = 35000;
+  var FALLBACK = 'סליחה, משהו השתבש אצלי הרגע. אפשר לנסות שוב, או לכתוב לניר ישירות בוואטסאפ: 053-7142298';
+
+  /* ===== זהות ומצב ===== */
+  function uuid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'x-' + Math.floor(Math.random() * 1e12).toString(16) + '-' + Date.now();
+  }
+  var S = { convId: '', data: {}, history: [], sent: false };
+  try {
+    S.convId = localStorage.getItem('niroChatId') || '';
+    if (!S.convId) { S.convId = 'site:' + uuid(); localStorage.setItem('niroChatId', S.convId); }
+    S.data = JSON.parse(localStorage.getItem('niroChatData') || '{}');
+    S.history = JSON.parse(localStorage.getItem('niroChatHistory') || '[]');
+  } catch (e) { S.convId = 'site:' + uuid(); }
+  function save() {
+    try {
+      localStorage.setItem('niroChatData', JSON.stringify(S.data));
+      localStorage.setItem('niroChatHistory', JSON.stringify(S.history.slice(-40)));
+    } catch (e) {}
+  }
+  function firstName() { return (S.data.name || '').trim().split(' ')[0]; }
+  function known() { return !!(S.data.name && S.data.phone); }
+
+  /* ===== עיצוב ===== */
+  var css = ''
+    + '.btn-wa{display:none !important}'
+    + '#niro-b{position:fixed;bottom:30px;left:30px;width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#0b1f5b,#26449e);color:#fff;border:none;cursor:pointer;z-index:99990;box-shadow:0 8px 25px rgba(11,31,91,.35);display:flex;align-items:center;justify-content:center;transition:transform .2s}'
+    + '#niro-b:hover{transform:scale(1.08)}#niro-b svg{width:68%;height:68%;overflow:visible}'
+    + '#niro-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#26449e,#0b1f5b);display:flex;align-items:center;justify-content:center;flex:0 0 38px}'
+    + '#niro-av svg{width:72%;height:72%;overflow:visible}'
+    + '@keyframes krfl{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.2px)}}'
+    + '.kr-f{animation:krfl 3.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}'
+    + '@keyframes krbl{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}'
+    + '.kr-e{animation:krbl 5.4s infinite;transform-box:fill-box;transform-origin:center}'
+    + '@keyframes krbp{0%,100%{opacity:.35}50%{opacity:1}}'
+    + '.kr-b{animation:krbp 2s ease-in-out infinite}'
+    /* הרטט: שבע שניות של שקט ואז נדנוד קצר. זה מה שתופס את העין בפריפריה. */
+    + '@keyframes krwig{0%,84%,100%{transform:rotate(0)}86%{transform:rotate(-7deg)}89%{transform:rotate(6deg)}92%{transform:rotate(-4.5deg)}95%{transform:rotate(3deg)}98%{transform:rotate(-1.5deg)}}'
+    + '.kr-w{animation:krwig 7s ease-in-out infinite;transform-box:view-box;transform-origin:32px 52px}'
+    /* המשושים מתנדנדים תמיד, כל אחד בקצב שלו, סביב הבסיס שלו */
+    + '@keyframes krant1{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}'
+    + '@keyframes krant2{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-4deg)}}'
+    + '.kr-a{transform-box:view-box}'
+    + '.kr-a1{transform-origin:24.5px 21px;animation:krant1 2.8s ease-in-out infinite}'
+    + '.kr-a2{transform-origin:39.5px 21px;animation:krant2 3.2s ease-in-out infinite}'
+    /* בתוך חלון הצ'אט הפתוח היא רגועה, בלי רטט. הרטט נועד למשוך מבחוץ. */
+    + '#niro-av .kr-w{animation:none}'
+    /* מצב תמונה: פנים אמיתיות במקום הדמות המצוירת. */
+    + '#niro-b .ava{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;box-sizing:border-box;border:3px solid #0b1f5b;animation:krwig2 7s ease-in-out infinite;transform-origin:center bottom}'
+    + '@keyframes krwig2{0%,84%,100%{transform:rotate(0)}86%{transform:rotate(-6deg)}89%{transform:rotate(5deg)}92%{transform:rotate(-3.5deg)}95%{transform:rotate(2deg)}98%{transform:rotate(-1deg)}}'
+    /* נקודת "מחוברת עכשיו" עם הילה פועמת. זה מה שמחליף את העיניים שממצמצות. */
+    + '#niro-dot{position:absolute;left:3px;bottom:4px;width:15px;height:15px;border-radius:50%;background:#22c55e;border:2.5px solid #fff;box-sizing:border-box;animation:krdot 2.6s ease-out infinite}'
+    + '@keyframes krdot{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}'
+    + '#niro-av .ava{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 28%;display:block}'
+    /* בועת ההזמנה שליד הכפתור. יושבת מימין לו, עם זנב שמצביע אליו. */
+    + '#niro-tip{position:fixed;bottom:38px;left:107px;width:222px;max-width:calc(100vw - 130px);background:#fff;color:#0a1020;border:1px solid #dfe6f1;border-radius:15px;border-bottom-left-radius:5px;padding:12px 14px 13px;box-shadow:0 12px 34px rgba(10,16,32,.2);z-index:99989;font-family:Heebo,Arial,sans-serif;direction:rtl;text-align:right;font-size:13px;line-height:1.5;cursor:pointer;opacity:0;visibility:hidden;transform:translateX(-10px) scale(.94);transform-origin:left bottom;transition:opacity .32s ease,transform .32s ease,visibility .32s}'
+    + '#niro-tip.on{opacity:1;visibility:visible;transform:none}'
+    + '#niro-tip:hover{border-color:#26449e}'
+    + '#niro-tip b{display:block;font-size:14.5px;font-weight:800;color:#0b1f5b;margin-bottom:3px}'
+    + '#niro-tip span{color:#56607a}'
+    + '#niro-tip::after{content:"";position:absolute;left:-7px;bottom:13px;width:12px;height:12px;background:#fff;border-left:1px solid #dfe6f1;border-bottom:1px solid #dfe6f1;transform:rotate(45deg)}'
+    + '#niro-tip .x{position:absolute;top:3px;left:5px;width:22px;height:22px;border:none;background:none;color:#9aa5bb;font-size:17px;line-height:1;cursor:pointer;border-radius:50%;padding:0}'
+    + '#niro-tip .x:hover{color:#0b1f5b;background:#f0f3f9}'
+    + '#niro-tip:focus-visible{outline:3px solid #e6463a;outline-offset:2px}'
+    + '@media(max-width:480px){#niro-tip{left:84px;bottom:30px;width:200px;max-width:calc(100vw - 100px);font-size:12.5px}}'
+    + '@media(prefers-reduced-motion:reduce){.kr-f,.kr-e,.kr-b,.kr-w,.kr-a,#niro-b .ava,#niro-dot{animation:none}#niro-b:hover{transform:none}#niro-tip{transition:opacity .2s ease,visibility .2s;transform:none}}'
+    + '#niro-p{position:fixed;bottom:110px;left:30px;width:370px;max-width:calc(100vw - 24px);height:540px;max-height:calc(100vh - 150px);background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(10,16,32,.35);z-index:99991;display:none;flex-direction:column;overflow:hidden;direction:rtl;font-family:Heebo,Arial,sans-serif}'
+    + '#niro-p.open{display:flex}'
+    + '#niro-h{background:linear-gradient(135deg,#0b1f5b,#0a1020);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px;flex:0 0 auto}'
+    + '#niro-h .t{font-weight:800;font-size:16px}#niro-h .s{font-size:12px;opacity:.85}'
+    + '#niro-x{margin-right:auto;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1}'
+    + '#niro-body{flex:1 1 auto;overflow-y:auto;padding:14px;background:#f4f7fa;display:flex;flex-direction:column;gap:10px}'
+    + '.nm{max-width:85%;padding:10px 14px;border-radius:14px;font-size:14.5px;line-height:1.55;white-space:pre-wrap;word-wrap:break-word}'
+    + '.nm.bot{background:#fff;color:#0a1020;border:1px solid #e3e9f2;border-bottom-right-radius:4px;align-self:flex-start}'
+    + '.nm.user{background:#0b1f5b;color:#fff;border-bottom-left-radius:4px;align-self:flex-end}'
+    + '.nm a{color:#e6463a;font-weight:700}'
+    + '#niro-t{display:none;align-self:flex-start;background:#fff;border:1px solid #e3e9f2;border-radius:14px;padding:10px 16px}'
+    + '#niro-t span{display:inline-block;width:7px;height:7px;margin:0 2px;background:#0b1f5b;border-radius:50%;animation:nbl 1.2s infinite}'
+    + '#niro-t span:nth-child(2){animation-delay:.2s}#niro-t span:nth-child(3){animation-delay:.4s}'
+    + '@keyframes nbl{0%,80%,100%{opacity:.25}40%{opacity:1}}'
+    + '#niro-t .ncap{margin-top:6px;font-size:12.5px;color:#56607a;font-weight:600;white-space:nowrap}'
+    + '#niro-in{flex:0 0 auto;padding:12px;background:#fff;border-top:1px solid #e3e9f2}'
+    + '.nbtns{display:flex;flex-direction:column;gap:7px}'
+    + '.nbtn{font:inherit;font-size:14.5px;font-weight:700;text-align:right;background:#fff;color:#0b1f5b;border:1.5px solid #0b1f5b;border-radius:11px;padding:11px 14px;cursor:pointer;transition:background .15s,color .15s}'
+    + '.nbtn:hover{background:#0b1f5b;color:#fff}.nbtn:focus-visible{outline:3px solid #e6463a;outline-offset:2px}'
+    + '.nbtn.go{background:#e6463a;color:#fff;border-color:#e6463a}.nbtn.go:hover{filter:brightness(1.08)}'
+    + '.nbtn.nhuman{margin-top:8px;font-size:13.5px;font-weight:600;border-style:dashed;padding:9px 12px}'
+    + '.nrow{display:flex;gap:8px}'
+    + '#nfld{flex:1;border:1px solid #cfd8e6;border-radius:22px;padding:11px 16px;font-size:15px;font-family:inherit;outline:none;direction:rtl}'
+    + '#nfld:focus{border-color:#0b1f5b}#nfld.err{border-color:#e6463a}'
+    + '#nsend{background:#e6463a;color:#fff;border:none;border-radius:50%;width:44px;height:44px;cursor:pointer;font-size:17px;flex:0 0 44px}'
+    + '#nsend:disabled{opacity:.5;cursor:default}'
+    + '.nerr{color:#e6463a;font-size:12.5px;margin:6px 2px 0;font-weight:700}'
+    + '.nsl{padding:2px 4px 0}'
+    + '.nsl output{display:block;text-align:center;font-size:22px;font-weight:800;color:#0b1f5b;margin-bottom:8px;font-variant-numeric:tabular-nums}'
+    + '.nsl input[type=range]{width:100%;accent-color:#e6463a;height:26px}'
+    + '.nsl .ends{display:flex;justify-content:space-between;font-size:12px;color:#56607a;margin-bottom:10px}'
+    + '@media(max-width:480px){#niro-p{left:12px;right:12px;bottom:96px;height:66vh}#niro-b{bottom:24px;left:18px;width:58px;height:58px}}';
+  var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+
+  /* ===== מבנה ===== */
+  var b = document.createElement('button');
+  b.id = 'niro-b';
+  b.setAttribute('aria-label', 'פתיחת צ\'אט עם קרן, העוזרת הבוטית של נירו');
+  /* קרן: הדמות של הצ'אט. שני משושים שמתנדנדים כל הזמן, רטט קצר כל שבע שניות
+     שמושך את העין, עיניים שממצמצות ועוקבות אחרי הסמן. */
+  var KEREN = '<svg viewBox="0 0 64 64" aria-hidden="true">'
+    + '<g class="kr-w"><g class="kr-f">'
+    + '<g class="kr-a kr-a1"><path d="M24.5 21 21 15.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>'
+    + '<circle cx="20" cy="13.5" r="2.6" fill="#fff" class="kr-b"/></g>'
+    + '<g class="kr-a kr-a2"><path d="M39.5 21 43 15.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>'
+    + '<circle cx="44" cy="13.5" r="2.6" fill="#fff" class="kr-b"/></g>'
+    + '<path d="M32 17c12.2 0 20 8.4 20 18.4C52 45 43.4 54 32 54S12 45 12 35.4C12 25.4 19.8 17 32 17Z" fill="#fff"/>'
+    + '<g class="kr-p">'
+    + '<g transform="rotate(-13 24.5 34)"><ellipse class="kr-e" cx="24.5" cy="34" rx="5" ry="7" fill="#0b1f5b"/></g>'
+    + '<g transform="rotate(13 39.5 34)"><ellipse class="kr-e" cx="39.5" cy="34" rx="5" ry="7" fill="#0b1f5b"/></g>'
+    + '<circle cx="22.8" cy="31" r="1.5" fill="#fff"/><circle cx="37.8" cy="31" r="1.5" fill="#fff"/>'
+    + '</g>'
+    + '<path d="M28 45q4 3 8 0" stroke="#0b1f5b" stroke-width="2.2" fill="none" stroke-linecap="round"/>'
+    + '</g></g></svg>';
+  /* פנים אמיתיות אם יש תמונה, אחרת הדמות המצוירת. */
+  var FACE = AVATAR
+    ? '<img class="ava" src="' + AVATAR + '" alt="" referrerpolicy="no-referrer">'
+    : KEREN;
+  b.innerHTML = FACE + (AVATAR ? '<span id="niro-dot"></span>' : '');
+  var p = document.createElement('div');
+  p.id = 'niro-p'; p.setAttribute('role', 'dialog'); p.setAttribute('aria-label', 'צ\'אט עם קרן, העוזרת הבוטית של נירו');
+  p.innerHTML = '<div id="niro-h"><div id="niro-av">' + FACE + '</div><div><div class="t">קרן, העוזרת הבוטית של נירו</div><div class="s">עונה מיד, 24/7</div></div><button id="niro-x" aria-label="סגירה">&times;</button></div>'
+    + '<div id="niro-body"><div id="niro-t"><span></span><span></span><span></span></div></div><div id="niro-in"></div>';
+  document.body.appendChild(b); document.body.appendChild(p);
+  var body = p.querySelector('#niro-body'), typing = p.querySelector('#niro-t'), inArea = p.querySelector('#niro-in');
+
+  /* העיניים של קרן עוקבות אחרי הסמן. רק במחשב עם עכבר, ורק אם המשתמש לא ביקש להפחית תנועה. */
+  (function () {
+    if (!window.matchMedia) return;
+    if (!matchMedia('(pointer: fine)').matches) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var pups = [b.querySelector('.kr-p'), p.querySelector('.kr-p')].filter(Boolean);
+    if (!pups.length) return;
+    document.addEventListener('mousemove', function (ev) {
+      for (var i = 0; i < pups.length; i++) {
+        var host = pups[i].ownerSVGElement;
+        if (!host) continue;
+        var r = host.getBoundingClientRect();
+        if (!r.width) continue;
+        var dx = ev.clientX - (r.left + r.width / 2);
+        var dy = ev.clientY - (r.top + r.height / 2);
+        var d = Math.sqrt(dx * dx + dy * dy) || 1;
+        var lim = Math.min(d / 26, 1) * 2.6;
+        pups[i].style.transform = 'translate(' + (dx / d * lim).toFixed(2) + 'px,' + (dy / d * lim).toFixed(2) + 'px)';
+      }
+    }, { passive: true });
+  })();
+
+  /* ===== גלילה אוטומטית =====
+     שתי פעימות rAF: הראשונה אחרי שההודעה נכנסה ל-DOM, השנייה אחרי שהדפדפן
+     חישב מחדש את הגובה. בלי זה הגלילה קורית לפני הפריסה ונשארת באמצע.
+     ה-ResizeObserver תופס את הרגע שאזור הכפתורים גדל ומקטין את חלון השיחה. */
+  function scrollDown() {
+    requestAnimationFrame(function () {
+      body.scrollTop = body.scrollHeight;
+      requestAnimationFrame(function () { body.scrollTop = body.scrollHeight; });
+    });
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    try { new ResizeObserver(scrollDown).observe(inArea); } catch (e) {}
+  }
+
+  /* ===== הודעות ===== */
+  function say(role, text, skip) {
+    var el = document.createElement('div');
+    el.className = 'nm ' + role;
+    if (text.indexOf('||') > -1) {
+      var parts = text.split('||');
+      el.innerHTML = parts[0].replace(/\n/g, '<br>') + ' <a href="' + parts[1] + '" target="_blank" rel="noopener">' + parts[2] + '</a>';
+    } else { el.textContent = text; }
+    body.insertBefore(el, typing);
+    scrollDown();
+    if (!skip) { S.history.push({ r: role, t: text }); save(); }
+  }
+  /* מחוון ההקלדה. אחרי 5 שניות מוסיפים שורת הרגעה, כי המתנה שקטה
+     מרגישה תקועה והמבקר נוטש. אחרי 12 שניות מחדדים שהתשובה בדרך. */
+  var waitTimers = [];
+  function clearWaitCaption() {
+    for (var i = 0; i < waitTimers.length; i++) { clearTimeout(waitTimers[i]); }
+    waitTimers = [];
+    var cap = typing.querySelector('.ncap');
+    if (cap) { cap.parentNode.removeChild(cap); }
+  }
+  function setCaption(txt) {
+    var cap = typing.querySelector('.ncap');
+    if (!cap) { cap = document.createElement('div'); cap.className = 'ncap'; typing.appendChild(cap); }
+    cap.textContent = txt;
+    scrollDown();
+  }
+  function wait(on) {
+    typing.style.display = on ? 'block' : 'none';
+    clearWaitCaption();
+    if (on) {
+      waitTimers.push(setTimeout(function () { setCaption('רגע אחד, מנסחת לכם תשובה מדויקת'); }, 5000));
+      waitTimers.push(setTimeout(function () { setCaption('כמעט שם, עוד כמה שניות'); }, 12000));
+    }
+    scrollDown();
+  }
+
+  /* ===== שליחה ל-Make ===== */
+  function post(payload, cb, isRetry) {
+    var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var timedOut = false;
+    var timer = setTimeout(function () { timedOut = true; if (ctrl) ctrl.abort(); }, TIMEOUT_MS);
+    payload.conversation_id = S.convId;
+    payload.channel = 'אתר';
+    fetch(HOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(payload).toString(),
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (r) { clearTimeout(timer); return r.text(); })
+      .then(function (t) { cb(null, (t || '').trim()); })
+      .catch(function () {
+        clearTimeout(timer);
+        /* תקלת רשת חולפת מקבלת ניסיון שני שקט. פסק זמן לא, כדי לא להכפיל המתנה. */
+        if (!timedOut && !isRetry) { post(payload, cb, true); return; }
+        cb(true, '');
+      });
+  }
+
+  /* ===== רכיבי קלט ===== */
+  function clearIn() { inArea.innerHTML = ''; }
+
+  function buttons(list, onPick) {
+    clearIn();
+    var wrap = document.createElement('div'); wrap.className = 'nbtns';
+    list.forEach(function (item) {
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'nbtn' + (item.go ? ' go' : '');
+      btn.textContent = item.label;
+      btn.addEventListener('click', function () { clearIn(); say('user', item.label); onPick(item); });
+      wrap.appendChild(btn);
+    });
+    inArea.appendChild(wrap);
+  }
+
+  function textInput(opts, onDone) {
+    clearIn();
+    var row = document.createElement('div'); row.className = 'nrow';
+    var f = document.createElement('input');
+    f.id = 'nfld'; f.type = opts.type || 'text'; f.placeholder = opts.ph || ''; f.autocomplete = opts.ac || 'off'; f.maxLength = 200;
+    var s = document.createElement('button');
+    s.id = 'nsend'; s.type = 'button'; s.setAttribute('aria-label', 'שליחה'); s.textContent = '➤';
+    row.appendChild(f); row.appendChild(s); inArea.appendChild(row);
+    var errEl = null;
+    function fail(msg) {
+      f.classList.add('err');
+      if (!errEl) { errEl = document.createElement('div'); errEl.className = 'nerr'; inArea.appendChild(errEl); }
+      errEl.textContent = msg;
+    }
+    function submit() {
+      var v = (f.value || '').trim();
+      var bad = opts.validate ? opts.validate(v) : null;
+      if (bad) { fail(bad); return; }
+      clearIn(); say('user', v); onDone(v);
+    }
+    s.addEventListener('click', submit);
+    f.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); submit(); } });
+    setTimeout(function () { f.focus(); }, 60);
+  }
+
+  function slider(onDone) {
+    clearIn();
+    var wrap = document.createElement('div'); wrap.className = 'nsl';
+    var out = document.createElement('output');
+    var r = document.createElement('input');
+    r.type = 'range'; r.min = '1500'; r.max = '10000'; r.step = '500'; r.value = '4500';
+    r.setAttribute('aria-label', 'בחירת תקציב הקמה בשקלים');
+    var ends = document.createElement('div'); ends.className = 'ends';
+    ends.innerHTML = '<span>1,500 ₪</span><span>10,000 ₪ ומעלה</span>';
+    function fmt(n) { return Number(n).toLocaleString('he-IL'); }
+    function refresh() { out.textContent = (r.value === '10000' ? fmt(r.value) + ' ₪ ומעלה' : fmt(r.value) + ' ₪'); }
+    r.addEventListener('input', refresh); refresh();
+    var go = document.createElement('button');
+    go.type = 'button'; go.className = 'nbtn go'; go.textContent = 'זה הסכום שלי';
+    go.addEventListener('click', function () {
+      var v = r.value; clearIn(); say('user', out.textContent); onDone(Number(v), out.textContent);
+    });
+    var skip = document.createElement('button');
+    skip.type = 'button'; skip.className = 'nbtn'; skip.style.marginTop = '7px'; skip.textContent = 'עדיין לא יודע, רוצה לשמוע קודם';
+    skip.addEventListener('click', function () { clearIn(); say('user', 'עדיין לא יודע'); onDone(0, 'לא נמסר'); });
+    wrap.appendChild(out); wrap.appendChild(r); wrap.appendChild(ends); wrap.appendChild(go); wrap.appendChild(skip);
+    inArea.appendChild(wrap);
+  }
+
+  /* ===== אימות ===== */
+  function vName(v) { return v.length < 2 ? 'צריך שם מלא, לפחות שתי אותיות' : (v.indexOf(' ') < 0 ? 'אפשר גם שם משפחה? זה עוזר לניר לזהות אתכם' : null); }
+  function vPhone(v) { var d = v.replace(/\D/g, ''); return (d.length < 9 || d.length > 11) ? 'המספר לא נראה תקין, אפשר לבדוק?' : null; }
+  function vMail(v) { return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v) ? null : 'הכתובת לא נראית תקינה, אפשר לבדוק?'; }
+
+  /* ===== הפלואו ===== */
+  var TASKS = [
+    'עונה לאותן שאלות שוב ושוב',
+    'מעתיק נתונים ידנית ממקום למקום',
+    'מוציא חשבוניות ומסמכים',
+    'מתאם פגישות ותורים',
+    'רודף אחרי לידים שלא ענו',
+    'משהו אחר'
+  ];
+  var FIELDS = ['נותן שירות', 'קליניקה או טיפול', 'חנות או איקומרס', 'מסעדנות ואירוח', 'אחר'];
+  var TIMES = ['בוקר', 'אחרי הצהריים', 'ערב', 'לא משנה'];
+  function opts(arr) { return arr.map(function (x) { return { label: x, value: x }; }); }
+
+  function start() {
+    if (known()) {
+      say('bot', 'היי ' + firstName() + ', טוב לראות אתכם שוב 👋');
+      if (S.data.time) { finish(); } else { askTask(); }
+      return;
+    }
+    say('bot', 'היי 👋 אני קרן, העוזרת הבוטית של נירו, ואני כאן בשבילכם. יש לי מתנה: המדריך "5 אוטומציות שכל עסק צריך", קובץ PDF חינם בלי שום התחייבות.');
+    buttons([
+      { label: '🎁 קחו את המדריך', go: true, k: 'gift' },
+      { label: '💬 יש לי שאלה', k: 'ask' }
+    ], function (it) {
+      if (it.k === 'ask') { chatMode('שאלו אותי כל דבר על אוטומציות, על איך זה עובד או על מה מתאים לעסק שלכם.'); }
+      else { askName(); }
+    });
+  }
+
+  function askName() {
+    say('bot', 'מעולה. שלושה פרטים קצרים, ומיד אחרי זה המדריך אצלכם וניר יוצר קשר לתאם את שיחת האפיון. איך קוראים לכם?');
+    textInput({ ph: 'שם מלא', ac: 'name', validate: vName }, function (v) {
+      S.data.name = v; save(); askPhone();
+    });
+  }
+  function askPhone() {
+    say('bot', 'נעים מאוד ' + firstName() + '. מה מספר הטלפון?');
+    textInput({ ph: '05X-XXXXXXX', type: 'tel', ac: 'tel', validate: vPhone }, function (v) {
+      S.data.phone = v; save(); askMail();
+    });
+  }
+  function askMail() {
+    say('bot', 'ולאיזו כתובת מייל לשלוח את המדריך?');
+    textInput({ ph: 'name@example.com', type: 'email', ac: 'email', validate: vMail }, function (v) {
+      S.data.email = v; save(); createLead();
+    });
+  }
+
+  function createLead() {
+    wait(true); clearIn();
+    post({ action: 'lead', name: S.data.name, phone: S.data.phone, email: S.data.email }, function (err, res) {
+      wait(false);
+      S.sent = true;
+      if (res && res.indexOf('rec') === 0) { S.data.leadId = res; }
+      save();
+      say('bot', 'תודה ' + firstName() + '! הנה המדריך שלכם 🎁 || ' + GUIDE + ' || להורדת המדריך');
+      askTask();
+    });
+  }
+
+  function askTask() {
+    say('bot', 'עוד כמה שאלות קצרות וניר יגיע לשיחה איתכם מוכן. מה חוזר על עצמו אצלכם הכי הרבה, כל שבוע מחדש?');
+    buttons(opts(TASKS), function (it) {
+      S.data.task = it.value; save();
+      say('bot', 'אם יש לכם משימה כזאת, אני מזמינה אתכם לשיחת אפיון של 20 דקות עם ניר בזום, בלי עלות ובלי התחייבות.');
+      askField();
+    });
+  }
+  function askField() {
+    say('bot', 'באיזה תחום העסק?');
+    buttons(opts(FIELDS), function (it) { S.data.field = it.value; save(); askBudget(); });
+  }
+  function askBudget() {
+    say('bot', 'מה התקציב שלכם לפרויקט כזה? הסרגל מתחיל ב-1,500 ש"ח ומגיע עד 10,000 ש"ח ומעלה.');
+    slider(function (num, label) { S.data.budget = num; S.data.budgetLabel = label; save(); askTime(); });
+  }
+  function askTime() {
+    say('bot', 'ומתי הכי נוח שניר יחזור אליכם?');
+    buttons(opts(TIMES), function (it) { S.data.time = it.value; save(); enrich(); });
+  }
+
+  function urgency() {
+    var n = Number(S.data.budget || 0);
+    if (n >= 5000) return 'רותח';
+    if (n > 0) return 'רגיל';
+    return 'לא נמסר תקציב';
+  }
+
+  function enrich() {
+    wait(true); clearIn();
+    post({
+      action: 'enrich', lead_id: S.data.leadId || '', name: S.data.name, phone: S.data.phone,
+      task: S.data.task, field: S.data.field, time: S.data.time,
+      /* budget הוא המספר לשדה המטבע ב-CRM, urgency ו-budget_text הם טקסט מוכן.
+         Make רק כותב, בלי לחשב. */
+      budget: Number(S.data.budget || 0),
+      urgency: urgency(), budget_text: S.data.budgetLabel || 'לא נמסר'
+    }, function () { wait(false); finish(); });
+  }
+
+  function finish() {
+    var hot = urgency() === 'רותח';
+    say('bot', 'תודה ' + firstName() + '! הכל נשמר אצל ניר, והוא יחזור אליכם לתאם שיחת אפיון של 20 דקות ' + (hot ? 'בהקדם האפשרי' : (S.data.time === 'לא משנה' ? 'בהקדם' : 'ב' + S.data.time)) + '.');
+    buttons([
+      { label: '💬 לכתוב לניר עכשיו בוואטסאפ', go: true, k: 'wa' },
+      { label: '🎁 להוריד שוב את המדריך', k: 'guide' },
+      { label: '❓ יש לי עוד שאלה', k: 'ask' }
+    ], function (it) {
+      if (it.k === 'wa') {
+        var txt = 'היי ניר, אני ' + (S.data.name || '') + (S.data.task ? ', מהצ\'אט באתר. מה שחוזר אצלי: ' + S.data.task : ' מהצ\'אט באתר');
+        window.open(WA + '?text=' + encodeURIComponent(txt), '_blank', 'noopener');
+        say('bot', 'פתחתי לכם וואטסאפ עם הודעה מוכנה. נדבר!');
+        finish();
+      } else if (it.k === 'guide') {
+        say('bot', 'בשמחה 🎁 || ' + GUIDE + ' || להורדת המדריך');
+        finish();
+      } else { chatMode('שאלו אותי כל דבר, אני כאן.'); }
+    });
+  }
+
+  /* ===== מסלול שאלה חופשית (AI) ===== */
+  function chatMode(intro) {
+    if (intro) say('bot', intro);
+    var busy = false;
+
+    /* כפתור קבוע: לדבר עם ניר. זמין בכל שלב, מעדכן את ניר בוואטסאפ ופותח לו שיחה */
+    function addHumanBtn() {
+      var h = document.createElement('button');
+      h.type = 'button'; h.className = 'nbtn nhuman';
+      h.textContent = '🙋 רוצה לדבר עם ניר עצמו';
+      h.addEventListener('click', function () {
+        if (busy) return;
+        busy = true; clearIn(); say('user', 'אני רוצה לדבר עם ניר'); wait(true);
+        post({ action: 'chat', message: 'אני רוצה לדבר עם ניר' }, function (err, reply) {
+          wait(false); busy = false;
+          say('bot', (err || !reply || reply === 'Accepted')
+            ? 'בשמחה. ניר עודכן ויחזור אליכם אישית. פתחתי גם וואטסאפ אם נוח לכתוב לו עכשיו.'
+            : reply);
+          var txt = 'היי ניר, הגעתי מהצ\'אט באתר ואשמח לדבר'
+            + (S.data.name ? '. קוראים לי ' + S.data.name : '');
+          window.open(WA + '?text=' + encodeURIComponent(txt), '_blank', 'noopener');
+          render();
+        });
+      });
+      inArea.appendChild(h);
+    }
+
+    function render() {
+      textInput({ ph: 'כתבו לי כאן...' }, function (v) {
+        if (busy) return;
+        busy = true; wait(true); clearIn();
+        post({ action: 'chat', message: v }, function (err, reply) {
+          wait(false); busy = false;
+          say('bot', (err || !reply || reply === 'Accepted') ? FALLBACK : reply);
+          if (!known()) {
+            buttons([
+              { label: '✅ להשאיר פרטים, לקבל את המדריך ולתאם שיחה', go: true, k: 'gate' },
+              { label: '💬 להמשיך לשאול', k: 'more' },
+              { label: '🙋 רוצה לדבר עם ניר עצמו', k: 'human' }
+            ], function (it) {
+              if (it.k === 'gate') { askName(); }
+              else if (it.k === 'human') { render(); inArea.lastChild.click(); }
+              else { render(); }
+            });
+          } else { render(); }
+        });
+      });
+      addHumanBtn();
+    }
+    render();
+  }
+
+  /* ===== פתיחה ===== */
+  var started = false;
+  function openChat() {
+    hideTip(false);
+    p.classList.add('open');
+    if (!started) { started = true; start(); }
+    scrollDown();
+  }
+  b.addEventListener('click', function () {
+    if (p.classList.contains('open')) { p.classList.remove('open'); return; }
+    openChat();
+  });
+  p.querySelector('#niro-x').addEventListener('click', function () { p.classList.remove('open'); });
+
+  /* ===== בועת ההזמנה =====
+     בלי תווית קרן היא רק אייקון יפה שאיש לא יודע מה הוא עושה.
+     מופיעה אחרי 2.5 שניות, נעלמת לבד, ומנסה שוב פעם אחת בלבד.
+     סגירה ידנית או פתיחת הצ'אט מכבות אותה לתמיד במכשיר הזה. */
+  var tipTimers = [];
+  var tip = document.createElement('div');
+  tip.id = 'niro-tip';
+  tip.setAttribute('role', 'button');
+  tip.setAttribute('tabindex', '0');
+  tip.setAttribute('aria-label', 'פתיחת צ\'אט עם קרן');
+  tip.innerHTML = '<button class="x" type="button" aria-label="סגירת ההודעה">&times;</button>'
+    + '<b>היי, אני קרן 👋</b><span>העוזרת של נירו. לחצו עליי ואשמח לעזור</span>';
+  document.body.appendChild(tip);
+
+  function tipDone() { try { return localStorage.getItem('niroTipDone') === '1'; } catch (e) { return false; } }
+  function hideTip(forever) {
+    tip.classList.remove('on');
+    for (var i = 0; i < tipTimers.length; i++) { clearTimeout(tipTimers[i]); }
+    tipTimers = [];
+    if (forever) { try { localStorage.setItem('niroTipDone', '1'); } catch (e) {} }
+  }
+  function showTip(seconds) {
+    if (p.classList.contains('open') || tipDone() || known()) return;
+    tip.classList.add('on');
+    tipTimers.push(setTimeout(function () { tip.classList.remove('on'); }, seconds * 1000));
+  }
+  tip.querySelector('.x').addEventListener('click', function (ev) { ev.stopPropagation(); hideTip(true); });
+  tip.addEventListener('click', function () { hideTip(true); openChat(); });
+  tip.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); hideTip(true); openChat(); }
+  });
+  if (!tipDone()) {
+    tipTimers.push(setTimeout(function () { showTip(14); }, 2500));
+    tipTimers.push(setTimeout(function () { showTip(10); }, 60000));
+  }
+})();
+</script>

@@ -1,0 +1,308 @@
+{
+  "name": "🤖NIRO — רצף חימום ללידים (יום 0/1/3/5) [כבוי עד אישור ניר]",
+  "flow": [
+    {
+      "id": 1,
+      "module": "airtable:ActionSearchRecords",
+      "version": 3,
+      "parameters": {
+        "__IMTCONN__": 7155373
+      },
+      "mapper": {
+        "base": "appIokNx1jGPhws7W",
+        "table": "tblcgQYQ8wIDUVOi9",
+        "useColumnId": false,
+        "formula": "AND({שלב עסקה}=\"ליד חדש\", OR({חימום - שלב}=\"\", {חימום - שלב}<4), IS_AFTER(CREATED_TIME(), DATETIME_PARSE(\"2026-07-29\",\"YYYY-MM-DD\")))",
+        "maxRecords": 10
+      },
+      "metadata": {
+        "designer": { "x": 0, "y": 0 },
+        "notes": "מחפש רק לידים בשלב עסקה=ליד חדש שעדיין בתוך הרצף. שומר תאריך השקה (IS_AFTER) מגן על 428 הלידים הישנים מהצפה. לעדכן את תאריך ההשקה ביום ההפעלה."
+      }
+    },
+    {
+      "id": 2,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "mapper": null,
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 3,
+              "module": "green-api:SendMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8529905 },
+              "filter": {
+                "name": "יום 0 — יש טלפון",
+                "conditions": [
+                  [
+                    { "a": "{{1.`חימום - שלב`}}", "o": "notexist" },
+                    { "a": "{{1.`טלפון `}}", "o": "exist" }
+                  ]
+                ]
+              },
+              "mapper": {
+                "chatId": "{{replace(replace(1.`טלפון `; \"/[^0-9]/g\"; emptystring); \"/^0/\"; \"972\")}}@c.us",
+                "message": "היי {{first(split(1.`שם מלא`; \" \"))}}, כאן ניר מ-NIRO Digital 🙂 קיבלתי את הפנייה שלך, תודה שכתבת. אני עובר על מה ששלחת ואחזור אליך עם כיוון ראשוני. אם נוח לך לזרז, אפשר פשוט להשיב לי כאן ונתאם שיחת אבחון קצרה בחינם."
+              },
+              "metadata": {
+                "designer": { "x": 300, "y": -300 },
+                "notes": "טקסט יום 0 = placeholder תקין. לפני ON: קופי סופי של יעל + copy-check."
+              }
+            },
+            {
+              "id": 4,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblcgQYQ8wIDUVOi9",
+                "id": "{{1.id}}",
+                "record": {
+                  "חימום - שלב": "1",
+                  "חימום - שליחה אחרונה": "{{now}}",
+                  "גוף הודעה שנשלח": "{{3.message}}",
+                  "אינטראקציות": "{{1.`אינטראקציות`}}\n[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] חימום יום 0 נשלח בוואטסאפ"
+                }
+              },
+              "metadata": { "designer": { "x": 600, "y": -300 } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 5,
+              "module": "telegram:SendReplyMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8658039 },
+              "filter": {
+                "name": "יום 0 — אין טלפון",
+                "conditions": [
+                  [
+                    { "a": "{{1.`חימום - שלב`}}", "o": "notexist" },
+                    { "a": "{{1.`טלפון `}}", "o": "notexist" }
+                  ]
+                ]
+              },
+              "mapper": {
+                "chatId": "352155152",
+                "text": "⚠️ ליד חדש בלי מספר טלפון — רצף החימום לא הופעל עליו. טפל ידנית:\nשם: {{1.`שם מלא`}}\nמה ביקש: {{1.`איך אפשר לעזור`}}\nמקור: {{1.`מקור`}}"
+              },
+              "metadata": { "designer": { "x": 300, "y": -150 } }
+            },
+            {
+              "id": 6,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblcgQYQ8wIDUVOi9",
+                "id": "{{1.id}}",
+                "record": {
+                  "חימום - שלב": "4",
+                  "אינטראקציות": "{{1.`אינטראקציות`}}\n[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] אין טלפון — הרצף לא הופעל, נשלחה התראה לניר בטלגרם"
+                }
+              },
+              "metadata": { "designer": { "x": 600, "y": -150 } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 7,
+              "module": "ai-tools:Ask",
+              "version": 1,
+              "parameters": {},
+              "filter": {
+                "name": "יום 1 — מודעות לבעיה",
+                "conditions": [
+                  [
+                    { "a": "{{1.`חימום - שלב`}}", "o": "number:equal", "b": "1" },
+                    { "a": "{{addDays(1.`חימום - שליחה אחרונה`; 1)}}", "o": "date:lessorequal", "b": "{{now}}" },
+                    { "a": "{{1.`טלפון `}}", "o": "exist" }
+                  ]
+                ]
+              },
+              "mapper": {
+                "input": "אתה כותב הודעת וואטסאפ אישית לליד שהשאיר פרטים באתר של NIRO Digital.\nפרטי הליד:\n- שם מלא: {{1.`שם מלא`}}\n- תחום העסק: {{1.`תחום העסק`}}\n- מה כתב שהוא צריך: {{1.`איך אפשר לעזור`}}\nקוראים לי ניר מ-NIRO Digital, תמיד ציין את שמי וכתוב בגוף ראשון יחיד (אני, בניתי).\nמטרת ההודעה: מודעות לבעיה. עזור לו להבין כמה זמן ואנרגיה הבעיה שהוא תיאר גוזלת מעסק בתחום שלו, בלי למכור פתרון עדיין, ותן טיפ קטן ומעשי אחד שנותן ערך מיידי.\nחוקים: עד 100 מילים. עברית בלבד. בלי קו מפריד ארוך. טון חם ואישי, פנה אליו בשמו הפרטי. בלי דחיפות מזויפת ובלי מספרים או הבטחות שלא סופקו כאן. סיים בקריאה רכה אחת בלבד: להשיב להודעה הזו כדי לתאם שיחת אבחון קצרה בחינם.\nהחזר את טקסט ההודעה בלבד, בלי הסברים."
+              },
+              "metadata": {
+                "designer": { "x": 300, "y": 0 },
+                "notes": "אומת מול app-modules_list (2026-07-29): המודול הוא ai-tools:Ask, קלט input, פלט answer."
+              }
+            },
+            {
+              "id": 8,
+              "module": "green-api:SendMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8529905 },
+              "mapper": {
+                "chatId": "{{replace(replace(1.`טלפון `; \"/[^0-9]/g\"; emptystring); \"/^0/\"; \"972\")}}@c.us",
+                "message": "{{7.answer}}"
+              },
+              "metadata": {
+                "designer": { "x": 600, "y": 0 },
+                "notes": "שדה הפלט אומת מול הסכימה: answer."
+              }
+            },
+            {
+              "id": 9,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblcgQYQ8wIDUVOi9",
+                "id": "{{1.id}}",
+                "record": {
+                  "חימום - שלב": "2",
+                  "חימום - שליחה אחרונה": "{{now}}",
+                  "גוף הודעה שנשלח": "{{7.answer}}",
+                  "אינטראקציות": "{{1.`אינטראקציות`}}\n[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] חימום יום 1 (מודעות לבעיה) נשלח בוואטסאפ"
+                }
+              },
+              "metadata": { "designer": { "x": 900, "y": 0 } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 10,
+              "module": "ai-tools:Ask",
+              "version": 1,
+              "parameters": {},
+              "filter": {
+                "name": "יום 3 — הוכחה",
+                "conditions": [
+                  [
+                    { "a": "{{1.`חימום - שלב`}}", "o": "number:equal", "b": "2" },
+                    { "a": "{{addDays(1.`חימום - שליחה אחרונה`; 2)}}", "o": "date:lessorequal", "b": "{{now}}" },
+                    { "a": "{{1.`טלפון `}}", "o": "exist" }
+                  ]
+                ]
+              },
+              "mapper": {
+                "input": "אתה כותב הודעת וואטסאפ אישית לליד שהשאיר פרטים באתר של NIRO Digital. זו ההודעה השלישית ברצף חימום.\nפרטי הליד:\n- שם מלא: {{1.`שם מלא`}}\n- תחום העסק: {{1.`תחום העסק`}}\n- מה כתב שהוא צריך: {{1.`איך אפשר לעזור`}}\nקוראים לי ניר מ-NIRO Digital, תמיד ציין את שמי וכתוב בגוף ראשון יחיד (אני, בניתי).\nמטרת ההודעה: הוכחה. ספר בקצרה את הדוגמה האמיתית הבאה וחבר אותה לבעיה שהליד תיאר: בניתי למאמנת עסקית אוטומציה שמכינה לבד את כל חשבוניות החודש שלה ושולחת לה אותן לאישור בוואטסאפ בלחיצת כפתור, וזה חוסך לה שעות של עבודה ידנית בכל חודש. אסור להמציא לקוחות, מספרים או תוצאות שלא סופקו כאן.\nחוקים: עד 100 מילים. עברית בלבד. בלי קו מפריד ארוך. טון חם ואישי, פנה אליו בשמו הפרטי. בלי דחיפות מזויפת. סיים בקריאה רכה אחת בלבד: להשיב להודעה הזו כדי לתאם שיחת אבחון קצרה בחינם.\nהחזר את טקסט ההודעה בלבד, בלי הסברים."
+              },
+              "metadata": { "designer": { "x": 300, "y": 150 } }
+            },
+            {
+              "id": 11,
+              "module": "green-api:SendMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8529905 },
+              "mapper": {
+                "chatId": "{{replace(replace(1.`טלפון `; \"/[^0-9]/g\"; emptystring); \"/^0/\"; \"972\")}}@c.us",
+                "message": "{{10.answer}}"
+              },
+              "metadata": { "designer": { "x": 600, "y": 150 } }
+            },
+            {
+              "id": 12,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblcgQYQ8wIDUVOi9",
+                "id": "{{1.id}}",
+                "record": {
+                  "חימום - שלב": "3",
+                  "חימום - שליחה אחרונה": "{{now}}",
+                  "גוף הודעה שנשלח": "{{10.answer}}",
+                  "אינטראקציות": "{{1.`אינטראקציות`}}\n[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] חימום יום 3 (הוכחה) נשלח בוואטסאפ"
+                }
+              },
+              "metadata": { "designer": { "x": 900, "y": 150 } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 13,
+              "module": "ai-tools:Ask",
+              "version": 1,
+              "parameters": {},
+              "filter": {
+                "name": "יום 5 — הסרת התנגדות",
+                "conditions": [
+                  [
+                    { "a": "{{1.`חימום - שלב`}}", "o": "number:equal", "b": "3" },
+                    { "a": "{{addDays(1.`חימום - שליחה אחרונה`; 2)}}", "o": "date:lessorequal", "b": "{{now}}" },
+                    { "a": "{{1.`טלפון `}}", "o": "exist" }
+                  ]
+                ]
+              },
+              "mapper": {
+                "input": "אתה כותב הודעת וואטסאפ אישית לליד שהשאיר פרטים באתר של NIRO Digital. זו ההודעה האחרונה ברצף חימום.\nפרטי הליד:\n- שם מלא: {{1.`שם מלא`}}\n- תחום העסק: {{1.`תחום העסק`}}\n- מה כתב שהוא צריך: {{1.`איך אפשר לעזור`}}\nקוראים לי ניר מ-NIRO Digital, תמיד ציין את שמי וכתוב בגוף ראשון יחיד (אני, בניתי).\nמטרת ההודעה: הסרת התנגדות מהשיחה עצמה. הסבר בחום ששיחת האבחון היא שיחה קצרה וחינמית של היכרות ומיפוי, בלי התחייבות ובלי מצגת מכירה, ושהוא יוצא ממנה עם כיוון ברור ומעשי גם אם לא נעבוד יחד.\nחוקים: עד 100 מילים. עברית בלבד. בלי קו מפריד ארוך. טון חם ואישי, פנה אליו בשמו הפרטי. בלי דחיפות מזויפת ובלי לחץ. סיים בקריאה רכה אחת בלבד: להשיב להודעה הזו כדי לתאם את השיחה.\nהחזר את טקסט ההודעה בלבד, בלי הסברים."
+              },
+              "metadata": { "designer": { "x": 300, "y": 300 } }
+            },
+            {
+              "id": 14,
+              "module": "green-api:SendMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8529905 },
+              "mapper": {
+                "chatId": "{{replace(replace(1.`טלפון `; \"/[^0-9]/g\"; emptystring); \"/^0/\"; \"972\")}}@c.us",
+                "message": "{{13.answer}}"
+              },
+              "metadata": { "designer": { "x": 600, "y": 300 } }
+            },
+            {
+              "id": 15,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblcgQYQ8wIDUVOi9",
+                "id": "{{1.id}}",
+                "record": {
+                  "חימום - שלב": "4",
+                  "חימום - שליחה אחרונה": "{{now}}",
+                  "גוף הודעה שנשלח": "{{13.answer}}",
+                  "אינטראקציות": "{{1.`אינטראקציות`}}\n[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] חימום יום 5 (הסרת התנגדות) נשלח בוואטסאפ — הרצף הושלם"
+                }
+              },
+              "metadata": { "designer": { "x": 900, "y": 300 } }
+            }
+          ]
+        }
+      ],
+      "metadata": { "designer": { "x": 150, "y": 0 } }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "sequential": false,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false
+    },
+    "designer": { "orphans": [] },
+    "zone": "eu1.make.com",
+    "notes": [
+      "תזמון מיועד: כל 30 דקות בין 08:00 ל-20:00 (interval 1800 + restrict). להגדיר ב-scenarios_create או בעורך.",
+      "התרחיש נוצר כבוי (isActive=false) ונשאר כבוי עד אישור סופי של ניר.",
+      "AIRTABLE_CONN_NIRO = חיבור Airtable הקיים 'NIRO-פתרונות אוטומציה'. TELEGRAM_CONN_GA4_BOT = 'Bot connection GA4'.",
+      "אומת 2026-07-29 על ידי ראובן: מודול ai-tools:Ask (קלט input, פלט answer), חיבורים 7155373 (Airtable) / 8658039 (Telegram) / 8529905 (Green API).",
+      "שדות Airtable נוצרו 2026-07-29: 'חימום - שלב' (number), 'חימום - שליחה אחרונה' (dateTime), 'גוף הודעה שנשלח' (multilineText), 'אינטראקציות' (multilineText).",
+      "תוקן 2026-07-30: שם שדה הטלפון באיירטייבל הוא 'טלפון ' עם רווח סופי (fldbQeQ0Bk4DclUZv). כל המיפויים והפילטרים עודכנו ל-{{1.`טלפון `}}.",
+      "נדחף לענן 2026-07-30 (תוכנית הנסטינג): הבלופרינט המתוקן עודכן בתרחיש 6754504 דרך scenarios_update. התרחיש נשאר כבוי. יום 0 מגיע מעכשיו בדחיפה דרך תרחיש-הבן 6763729 (ראה warming-day0-child-scenario.json); ענף יום 0 כאן נשאר כרשת ביטחון לפולר.",
+      "תזמון סופי (עודכן 30.7 ערב, כלל השבת של ניר): weekly ימים 0-5 (ראשון עד שישי) בשעה 10:00. אין ריצה בשבת בכלל; הודעה שנפלה על שבת יוצאת אוטומטית בריצת יום ראשון כי הפילטרים בודקים date:lessorequal מול now."
+    ]
+  }
+}

@@ -1,0 +1,356 @@
+{
+  "name": "🤖NIRO — בוט האתר: מוח AI + זיכרון שיחה [כבוי עד אישור ניר]",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": { "hook": 3472472, "maxResults": 1 },
+      "mapper": {},
+      "metadata": {
+        "designer": { "x": 0, "y": 0 },
+        "notes": "קלט מהווידג'ט (form-urlencoded, בלי preflight): message, conversation_id, channel. ה-hook נוצר/מחובר ביצירת התרחיש. חובה מצב Immediately."
+      }
+    },
+    {
+      "id": 2,
+      "module": "airtable:ActionSearchRecords",
+      "version": 3,
+      "parameters": { "__IMTCONN__": 7155373 },
+      "mapper": {
+        "base": "appIokNx1jGPhws7W",
+        "table": "tblQVNPNvNUAZf2l4",
+        "useColumnId": false,
+        "formula": "{conversation_id}=\"{{1.conversation_id}}\"",
+        "maxRecords": 1
+      },
+      "metadata": {
+        "designer": { "x": 300, "y": 0 },
+        "notes": "מאתר את רשומת השיחה. 0 תוצאות = שיחה חדשה; האגרגטור במודול 3 מבטיח שהזרימה ממשיכה גם אז."
+      }
+    },
+    {
+      "id": 3,
+      "module": "builtin:BasicAggregator",
+      "version": 1,
+      "parameters": { "feeder": 2 },
+      "mapper": {
+        "rec_id": "{{2.id}}",
+        "transcript": "{{2.`תמליל`}}",
+        "name": "{{2.`שם`}}",
+        "business": "{{2.`עסק`}}",
+        "pain": "{{2.`כאב`}}",
+        "phone": "{{2.`טלפון`}}",
+        "status": "{{2.`סטטוס`}}"
+      },
+      "metadata": {
+        "designer": { "x": 600, "y": 0 },
+        "notes": "הטריק שמאפשר המשך גם כשהחיפוש ריק: אגרגטור תמיד פולט bundle אחד. length(3.array)=0 פירושו שיחה חדשה."
+      }
+    },
+    {
+      "id": 4,
+      "module": "ai-tools:Ask",
+      "version": 1,
+      "parameters": {},
+      "mapper": {
+        "input": "אתה \"העוזר החכם של NIRO Digital\", צ'אטבוט באתר nirodigital.co.il של ניר, מומחה אוטומציות ובינה מלאכותית לעסקים קטנים.\n\n[זהות וטון]\n- עברית בלבד, כל מילה באותיות עבריות. משפטים קצרים, חמים, זורמים.\n- אתה מציג את עצמך כעוזר הדיגיטלי של ניר, לא כניר עצמו. על ניר מדברים בגוף שלישי יחיד (\"ניר בנה\", \"ניר יחזור אליך\").\n- בלי קו מפריד ארוך. בלי דחיפות מזויפת. עד אימוג'י אחד להודעה, לא בכל הודעה.\n\n[דף עובדות, המקור היחיד שלך]\nניר עוזר לעסקים קטנים להפסיק לפספס פניות, לחסוך שעות עבודה ולתת מענה מהיר ללקוחות, עם אוטומציות וסוכני AI שמותאמים לכל עסק. שלוש חבילות:\n1. \"לא מפספסים אף פנייה\": כל פנייה לעסק נתפסת, מקבלת תשובה תוך דקה וזוכה למעקב מסודר עד הסגירה. הקמה 4,500 שקל, ליווי חודשי 450 שקל.\n2. \"סוכן AI לעסק\": סוכן שעונה ללקוחות תשובות אמיתיות מסביב לשעון, קובע פגישות ומזין את מערכת הלידים. הקמה 9,000 שקל, ליווי חודשי 800 שקל.\n3. \"מערכת תפעול מלאה\": העסק כולו רץ על מערכת אחת, מהפנייה הראשונה ועד החשבונית. מחיר לפי אפיון, החל מ-18,000 שקל, ליווי החל מ-1,200 שקל.\nהמחירים לפני מע\"מ. הצעד הראשון תמיד: שיחת אבחון קצרה בחינם עם ניר, בלי התחייבות, שממנה יוצאים עם כיוון ברור גם בלי לעבוד יחד.\nדוגמה אמיתית שמותר לספר: ניר בנה ללקוחה אמיתית מערכת שמכינה לבד את כל חשבוניות החודש שלה ושולחת לה אותן לאישור בוואטסאפ, בלחיצת כפתור אחת. יום עבודה הפך לכמה לחיצות.\nאסור בתכלית: להמציא לקוחות, מספרים, אחוזים, יכולות, מבצעים או הבטחות שלא כתובות כאן. אם שואלים שאלה שאין עליה תשובה בדף הזה, אמור בכנות שזו בדיוק שאלה לשיחה עם ניר, והצע להשאיר טלפון.\n\n[המשימה: שיחה מועילה שמובילה לשיחת אבחון]\nנהל שיחה טבעית. קודם ענה על מה ששאלו ותן ערך אמיתי, ורק אז התקדם באיסוף. אסוף בעדינות, שאלה אחת בכל פעם, בסדר הזה: שם פרטי, תחום העסק, מה הכי גוזל זמן או מציק בעסק, מספר טלפון לתיאום שיחת אבחון חינם עם ניר.\nאם פרט כבר ידוע (מהתמליל או מהמידע שנאסף), לא שואלים עליו שוב.\nכשמתקבל טלפון: תודה חמה, ואמור שניר יחזור אליו אישית לתיאום השיחה.\n\n[העברה לניר, handoff]\nסמן handoff=true כאשר: הפונה מבקש לדבר עם בן אדם, כועס או מתלונן, שואל שאלה עסקית שאין עליה תשובה בדף העובדות, או מנהל משא ומתן על מחיר. במקרה כזה כתוב ב-reply שהעברת את השיחה לניר והוא יחזור אישית בהקדם.\n\n[פורמט הפלט, חובה]\nהחזר אך ורק JSON תקין, בלי גדרות קוד, בלי שום טקסט לפני או אחרי:\n{\"reply\":\"הטקסט ללקוח\",\"done_qualifying\":false,\"handoff\":false,\"name\":\"\",\"business\":\"\",\"pain\":\"\",\"phone\":\"\"}\n- reply: עד 60 מילים.\n- done_qualifying: true רק כשיש בידיך מספר טלפון תקין של הפונה.\n- name, business, pain, phone: כל מה שידוע לך עד כה מכל השיחה כולה, מחרוזת ריקה אם לא ידוע.\n\n[מידע שנאסף עד כה]\nשם: {{ifempty(get(first(3.array); \"name\"); \"לא ידוע\")}} | עסק: {{ifempty(get(first(3.array); \"business\"); \"לא ידוע\")}} | כאב: {{ifempty(get(first(3.array); \"pain\"); \"לא ידוע\")}} | טלפון: {{ifempty(get(first(3.array); \"phone\"); \"לא ידוע\")}}\n\n[תמליל השיחה עד כה]\n{{ifempty(get(first(3.array); \"transcript\"); \"אין עדיין, זו ההודעה הראשונה בשיחה.\")}}\n\n[הודעה חדשה מהלקוח]\n{{1.message}}"
+      },
+      "onerror": [
+        {
+          "id": 14,
+          "module": "telegram:SendReplyMessage",
+          "version": 1,
+          "parameters": { "__IMTCONN__": 8658039 },
+          "mapper": {
+            "chatId": "352155152",
+            "text": "⚠️ בוט האתר: מודול ה-AI נפל (שגיאה או מכסה). ההודעה של הלקוח: {{1.message}} (שיחה: {{1.conversation_id}}). נשלחה לו תשובת נפילה."
+          },
+          "metadata": { "designer": { "x": 900, "y": -300 } }
+        },
+        {
+          "id": 15,
+          "module": "gateway:WebhookRespond",
+          "version": 1,
+          "parameters": {},
+          "mapper": {
+            "status": "200",
+            "body": "סליחה, משהו השתבש אצלי הרגע 🙈 אפשר לנסות שוב עוד רגע, או לכתוב לניר ישירות בוואטסאפ: 053-7142298",
+            "headers": [
+              { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+              { "key": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          },
+          "metadata": { "designer": { "x": 1200, "y": -300 } }
+        },
+        {
+          "id": 16,
+          "module": "builtin:Ignore",
+          "version": 1,
+          "metadata": { "designer": { "x": 1500, "y": -300 } }
+        }
+      ],
+      "metadata": {
+        "designer": { "x": 900, "y": 0 },
+        "notes": "המוח. פרומפט מלא מתועד ב-templates/bot-brain-system-prompt.md. עדכון מחיר/שירות = עדכון בשני המקומות."
+      }
+    },
+    {
+      "id": 5,
+      "module": "json:ParseJSON",
+      "version": 1,
+      "parameters": {},
+      "mapper": {
+        "json": "{{replace(replace(4.answer; \"```json\"; emptystring); \"```\"; emptystring)}}"
+      },
+      "onerror": [
+        {
+          "id": 17,
+          "module": "telegram:SendReplyMessage",
+          "version": 1,
+          "parameters": { "__IMTCONN__": 8658039 },
+          "mapper": {
+            "chatId": "352155152",
+            "text": "⚠️ בוט האתר: ה-AI החזיר JSON שבור. הפלט: {{4.answer}} (שיחה: {{1.conversation_id}}). נשלחה תשובת נפילה."
+          },
+          "metadata": { "designer": { "x": 1500, "y": -450 } }
+        },
+        {
+          "id": 18,
+          "module": "gateway:WebhookRespond",
+          "version": 1,
+          "parameters": {},
+          "mapper": {
+            "status": "200",
+            "body": "סליחה, משהו השתבש אצלי הרגע 🙈 אפשר לנסות שוב עוד רגע, או לכתוב לניר ישירות בוואטסאפ: 053-7142298",
+            "headers": [
+              { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+              { "key": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          },
+          "metadata": { "designer": { "x": 1800, "y": -450 } }
+        },
+        {
+          "id": 19,
+          "module": "builtin:Ignore",
+          "version": 1,
+          "metadata": { "designer": { "x": 2100, "y": -450 } }
+        }
+      ],
+      "metadata": { "designer": { "x": 1200, "y": 0 } }
+    },
+    {
+      "id": 6,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "mapper": null,
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 7,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "filter": {
+                "name": "שיחה קיימת — עדכון",
+                "conditions": [
+                  [ { "a": "{{get(first(3.array); \"rec_id\")}}", "o": "exist" } ]
+                ]
+              },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblQVNPNvNUAZf2l4",
+                "useColumnId": false,
+                "id": "{{get(first(3.array); \"rec_id\")}}",
+                "record": {
+                  "תמליל": "{{get(first(3.array); \"transcript\")}}\n[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] לקוח: {{1.message}}\nבוט: {{5.reply}}",
+                  "שם": "{{ifempty(5.name; get(first(3.array); \"name\"))}}",
+                  "עסק": "{{ifempty(5.business; get(first(3.array); \"business\"))}}",
+                  "כאב": "{{ifempty(5.pain; get(first(3.array); \"pain\"))}}",
+                  "טלפון": "{{ifempty(5.phone; get(first(3.array); \"phone\"))}}",
+                  "סטטוס": "{{if(5.done_qualifying; \"הוכשר לליד\"; if(5.handoff; \"הועבר לניר\"; \"בשיחה\"))}}",
+                  "עדכון אחרון": "{{now}}"
+                }
+              },
+              "metadata": { "designer": { "x": 1800, "y": -150 } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 8,
+              "module": "airtable:ActionCreateRecord",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "filter": {
+                "name": "שיחה חדשה — יצירה",
+                "conditions": [
+                  [ { "a": "{{get(first(3.array); \"rec_id\")}}", "o": "notexist" } ]
+                ]
+              },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblQVNPNvNUAZf2l4",
+                "useColumnId": false,
+                "record": {
+                  "conversation_id": "{{1.conversation_id}}",
+                  "ערוץ": "{{ifempty(1.channel; \"אתר\")}}",
+                  "תמליל": "[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] לקוח: {{1.message}}\nבוט: {{5.reply}}",
+                  "שם": "{{5.name}}",
+                  "עסק": "{{5.business}}",
+                  "כאב": "{{5.pain}}",
+                  "טלפון": "{{5.phone}}",
+                  "סטטוס": "{{if(5.done_qualifying; \"הוכשר לליד\"; if(5.handoff; \"הועבר לניר\"; \"בשיחה\"))}}",
+                  "עדכון אחרון": "{{now}}"
+                }
+              },
+              "metadata": { "designer": { "x": 1800, "y": 0 } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 9,
+              "module": "airtable:ActionCreateRecord",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "filter": {
+                "name": "אפיון הושלם — יצירת ליד",
+                "conditions": [
+                  [
+                    { "a": "{{5.done_qualifying}}", "o": "text:equal", "b": "true" },
+                    { "a": "{{length(5.phone)}}", "o": "number:greater", "b": "5" },
+                    { "a": "{{get(first(3.array); \"status\")}}", "o": "text:notequal", "b": "הוכשר לליד" }
+                  ]
+                ]
+              },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblcgQYQ8wIDUVOi9",
+                "useColumnId": false,
+                "record": {
+                  "שם מלא": "{{ifempty(5.name; \"ליד מבוט האתר\")}}",
+                  "טלפון ": "{{5.phone}}",
+                  "תחום העסק": "{{5.business}}",
+                  "איך אפשר לעזור?": "{{5.pain}}",
+                  "מקור": "בוט האתר (צ'אט AI)",
+                  "שלב עסקה": "ליד חדש",
+                  "אינטראקציות": "[{{formatDate(now; \"DD/MM/YYYY HH:mm\")}}] הליד נוצר אוטומטית משיחת בוט באתר ({{1.conversation_id}})"
+                }
+              },
+              "metadata": {
+                "designer": { "x": 1800, "y": 150 },
+                "notes": "שם השדה \"טלפון \" עם רווח בסוף — כך הוא באיירטייבל, לא לתקן! שלב עסקה=ליד חדש מכניס את הליד לרדאר של רצף החימום (6754504)."
+              }
+            },
+            {
+              "id": 10,
+              "module": "airtable:ActionUpdateRecords",
+              "version": 3,
+              "parameters": { "__IMTCONN__": 7155373 },
+              "filter": {
+                "name": "יש רשומת שיחה לקשר",
+                "conditions": [
+                  [ { "a": "{{get(first(3.array); \"rec_id\")}}", "o": "exist" } ]
+                ]
+              },
+              "mapper": {
+                "base": "appIokNx1jGPhws7W",
+                "table": "tblQVNPNvNUAZf2l4",
+                "useColumnId": false,
+                "id": "{{get(first(3.array); \"rec_id\")}}",
+                "record": {
+                  "ליד": [ "{{9.id}}" ],
+                  "סטטוס": "הוכשר לליד"
+                }
+              },
+              "metadata": { "designer": { "x": 2100, "y": 150 } }
+            },
+            {
+              "id": 11,
+              "module": "telegram:SendReplyMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8658039 },
+              "mapper": {
+                "chatId": "352155152",
+                "text": "🎯 ליד חדש מהבוט באתר!\nשם: {{ifempty(5.name; \"לא נמסר\")}}\nעסק: {{ifempty(5.business; \"לא נמסר\")}}\nכאב: {{ifempty(5.pain; \"לא נמסר\")}}\nטלפון: {{5.phone}}\nהליד נשמר באיירטייבל (שלב עסקה: ליד חדש)."
+              },
+              "metadata": { "designer": { "x": 2400, "y": 150 } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 12,
+              "module": "telegram:SendReplyMessage",
+              "version": 1,
+              "parameters": { "__IMTCONN__": 8658039 },
+              "filter": {
+                "name": "העברה לטיפול אישי",
+                "conditions": [
+                  [ { "a": "{{5.handoff}}", "o": "text:equal", "b": "true" } ]
+                ]
+              },
+              "mapper": {
+                "chatId": "352155152",
+                "text": "🙋 שיחת בוט באתר מבקשת אותך!\nשם: {{ifempty(5.name; \"לא ידוע\")}}\nטלפון: {{ifempty(5.phone; \"אין עדיין\")}}\nההודעה האחרונה: {{1.message}}\nמה הבוט ענה: {{5.reply}}\nהתמליל המלא בטבלת שיחות בוט, מזהה: {{1.conversation_id}}"
+              },
+              "metadata": { "designer": { "x": 1800, "y": 300 } }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 13,
+              "module": "gateway:WebhookRespond",
+              "version": 1,
+              "parameters": {},
+              "mapper": {
+                "status": "200",
+                "body": "{{5.reply}}",
+                "headers": [
+                  { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+                  { "key": "Access-Control-Allow-Origin", "value": "*" }
+                ]
+              },
+              "metadata": {
+                "designer": { "x": 1800, "y": 450 },
+                "notes": "המסלול האחרון ברוטר = רץ אחרון. תשובה כטקסט פשוט (לא JSON) כדי שמרכאות בתשובת ה-AI לא ישברו כלום. ACAO פתוח כי הוובהוק ממילא ציבורי."
+              }
+            }
+          ]
+        }
+      ],
+      "metadata": { "designer": { "x": 1500, "y": 0 } }
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "sequential": false,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false
+    },
+    "designer": { "orphans": [] },
+    "zone": "eu1.make.com",
+    "notes": [
+      "פרויקט הצ'אטבוט החדש, שלב 1 (2026-07-30). מוח inline; בשלב 2 מפצלים לתרחיש מרכזי שמשרת גם אינסטגרם/מסנג'ר.",
+      "טבלת הזיכרון: שיחות בוט (tblQVNPNvNUAZf2l4), נוצרה 2026-07-30 עם קישור לטבלת הלידים.",
+      "sequential=true: הודעות מאותו גולש מעובדות בסדר, בלי מרוץ על רשומת השיחה.",
+      "חוזה הווידג'ט: POST form-urlencoded עם message, conversation_id (site:uuid), channel=אתר. תשובה: טקסט פשוט.",
+      "ליד חדש עומד בפילטר רצף החימום: שלב עסקה=ליד חדש + נוצר אחרי 2026-07-29.",
+      "אומת מול app-modules_list (2026-07-30): gateway:CustomWebHook, gateway:WebhookRespond, json:ParseJSON, airtable:ActionSearchRecords/ActionCreateRecord/ActionUpdateRecords, ai-tools:Ask, telegram:SendReplyMessage, builtin:BasicAggregator/BasicRouter/Ignore.",
+      "חיבורים: 7155373 איירטייבל, 8658039 טלגרם."
+    ]
+  }
+}

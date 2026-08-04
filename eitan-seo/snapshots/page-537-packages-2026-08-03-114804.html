@@ -1,0 +1,551 @@
+<!-- wp:html -->
+<!-- NIRO Packages Page HE · created 2026-07-29 by Eitan · draft until Nir approves -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NXRL4W23');</script>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXRL4W23" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script>
+(function(){var h=document.head;
+function alt(hl,href){var e=document.createElement('link');e.rel='alternate';e.hreflang=hl;e.href=href;h.appendChild(e);}
+alt('he','https://www.nirodigital.co.il/packages/');
+alt('en','https://www.nirodigital.co.il/en/packages/');
+alt('x-default','https://www.nirodigital.co.il/packages/');
+})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "כמה עולה אוטומציה לעסק?",
+      "acceptedAnswer": { "@type": "Answer", "text": "הקמה חד פעמית של 4,500 ש\"ח לחבילת הבסיס, 9,000 ש\"ח לחבילת סוכן ה-AI ומ-18,000 ש\"ח למערכת תפעול מלאה, לצד ליווי חודשי שמתחיל ב-450 ש\"ח. כל המחירים בתוספת מע\"מ." }
+    },
+    {
+      "@type": "Question",
+      "name": "האם המחירים כוללים מע\"מ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "המחירים בעמוד מוצגים לפני מע\"מ. בהצעת המחיר מופיע הסכום המלא כולל מע\"מ, בלי הפתעות." }
+    },
+    {
+      "@type": "Question",
+      "name": "באילו כלים נבנית המערכת?",
+      "acceptedAnswer": { "@type": "Answer", "text": "הכלים נבחרים לפי העסק, לא להפך. ההתחייבות היא לתוצאה: פניות שנתפסות, מענה מהיר ללקוחות ותפעול שרץ לבד." }
+    },
+    {
+      "@type": "Question",
+      "name": "אפשר להתחיל בחבילה קטנה ולשדרג?",
+      "acceptedAnswer": { "@type": "Answer", "text": "כן. החבילות בנויות זו על גבי זו: מי שמתחיל בבסיס ומשדרג לא מתחיל מאפס, ההקמה הקיימת היא היסוד של החבילה הבאה." }
+    },
+    {
+      "@type": "Question",
+      "name": "מה כולל הליווי החודשי?",
+      "acceptedAnswer": { "@type": "Answer", "text": "ניטור שוטף של המערכת, עדכוני מסרים ותוכן לפי מה שעובד בפועל, דוח חודשי קצר וערוץ ישיר לכל שאלה או שינוי קטן." }
+    }
+  ]
+}
+</script>
+<style>
+  body { overflow: hidden !important; }
+  #niro-packages, #niro-packages * { box-sizing: border-box; }
+  #niro-packages {
+    position: fixed; inset: 0; z-index: 999999;
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    background: #0a1020; color: #fff;
+    font-family: 'Heebo', sans-serif;
+    direction: rtl; text-align: right; line-height: 1.6;
+    scroll-behavior: smooth;
+  }
+  #niro-packages a { color: inherit; }
+
+  /* header */
+  .npk-header {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 96px; padding: 0 48px;
+    background: rgba(10,16,32,0.95); backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .npk-header img.npk-logo { height: 72px; width: auto; display: block; }
+  .npk-nav { display: flex; align-items: center; gap: 22px; }
+  .npk-nav a { color: #fff; text-decoration: none; font-weight: 600; transition: 0.3s; }
+  .npk-nav a:hover { color: #e6463a; }
+  .npk-lang { color: #FFD700; border: 1px solid #FFD700; padding: 5px 15px; border-radius: 20px; }
+  .npk-lang:hover { background: #FFD700; color: #0a1020 !important; }
+  .npk-nav-cta {
+    background: #e6463a; color: #fff !important; padding: 11px 22px; border-radius: 30px;
+    font-weight: 800; box-shadow: 0 5px 15px rgba(230,70,58,0.35);
+  }
+  .npk-nav-cta:hover { background: #c5352b; color: #fff !important; transform: translateY(-2px); }
+
+  /* hero */
+  .npk-hero { padding: 80px 40px 50px; text-align: center; position: relative; overflow: hidden; }
+  .npk-hero::after {
+    content: ""; position: absolute; top: -120px; right: -120px; width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(139,127,232,0.45) 0%, transparent 70%);
+    opacity: 0.35; pointer-events: none;
+  }
+  .npk-eyebrow {
+    display: inline-block; color: #8B7FE8; font-weight: 800; font-size: 15px; letter-spacing: 2px;
+    margin-bottom: 22px; padding: 7px 16px; border: 1px solid rgba(139,127,232,0.45);
+    border-radius: 30px; background: rgba(139,127,232,0.06);
+  }
+  .npk-hero h1 { font-size: 48px; font-weight: 900; line-height: 1.15; margin: 0 auto; max-width: 900px; letter-spacing: -0.5px; position: relative; z-index: 2; }
+  .npk-hero h1 .npk-hl { color: #8B7FE8; }
+  .npk-divider {
+    display: block; width: 90px; height: 4px; margin: 26px auto 24px; border-radius: 4px;
+    background: linear-gradient(90deg, #6C5DD3, #8B7FE8); box-shadow: 0 0 16px rgba(139,127,232,0.45);
+  }
+  .npk-hero .npk-sub { font-size: 20px; line-height: 1.65; color: #d7deee; max-width: 760px; margin: 0 auto; position: relative; z-index: 2; }
+
+  /* direct answer strip (GEO) */
+  .npk-answer {
+    max-width: 900px; margin: 40px auto 0; padding: 22px 28px; position: relative; z-index: 2;
+    background: rgba(139,127,232,0.08); border: 1px solid rgba(139,127,232,0.3); border-radius: 16px;
+    font-size: 17px; color: #e8ecf8; text-align: right;
+  }
+  .npk-answer strong { color: #fff; }
+
+  /* steps */
+  .npk-steps { background: #070b16; padding: 56px 40px; border-top: 1px solid rgba(139,127,232,0.10); border-bottom: 1px solid rgba(139,127,232,0.10); }
+  .npk-steps-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
+  .npk-step { text-align: center; padding: 10px 14px; }
+  .npk-step .npk-step-num {
+    width: 52px; height: 52px; margin: 0 auto 14px; border-radius: 50%;
+    background: linear-gradient(135deg, #0b1f5b, #6C5DD3); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 22px;
+  }
+  .npk-step h3 { margin: 0 0 8px; font-size: 20px; font-weight: 800; }
+  .npk-step p { margin: 0; color: #b9c2d8; font-size: 15.5px; }
+
+  /* packages */
+  .npk-packages { padding: 90px 60px; background: #f4f7fa; color: #0b1f5b; }
+  .npk-sec-head { max-width: 860px; margin: 0 auto 54px; text-align: center; }
+  .npk-sec-head h2 { font-size: 42px; font-weight: 900; margin: 0 0 14px; line-height: 1.15; color: #0b1f5b; }
+  .npk-sec-head p { font-size: 19px; color: #5b6478; margin: 0; }
+  .npk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; max-width: 1240px; margin: 0 auto; align-items: stretch; }
+  .npk-card {
+    background: #fff; border-radius: 22px; border: 1px solid #e8ecf2; padding: 36px 30px;
+    box-shadow: 0 10px 30px rgba(11,31,91,0.06); display: flex; flex-direction: column;
+    transition: 0.4s; position: relative;
+  }
+  .npk-card:hover { transform: translateY(-10px); box-shadow: 0 24px 48px rgba(11,31,91,0.14); border-color: #8B7FE8; }
+  .npk-card.npk-flagship {
+    background: linear-gradient(160deg, #0b1f5b 0%, #0a1020 100%); color: #fff;
+    border: 2px solid #8B7FE8; box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+  }
+  .npk-badge {
+    position: absolute; top: -16px; right: 26px;
+    background: linear-gradient(90deg, #6C5DD3, #8B7FE8); color: #fff;
+    padding: 7px 18px; border-radius: 30px; font-weight: 800; font-size: 14px;
+    box-shadow: 0 6px 18px rgba(108,93,211,0.4);
+  }
+  .npk-card h3 { font-size: 25px; font-weight: 900; margin: 0 0 4px; }
+  .npk-card .npk-tag { font-weight: 700; font-size: 14.5px; color: #6C5DD3; display: block; margin-bottom: 14px; }
+  .npk-flagship .npk-tag { color: #8B7FE8; }
+  .npk-promise { font-size: 16.5px; line-height: 1.65; margin: 0 0 16px; font-weight: 600; }
+  .npk-card .npk-fit { font-size: 15px; color: #4a5468; margin: 0 0 20px; line-height: 1.65; }
+  .npk-flagship .npk-fit { color: #c6cdE2; }
+  .npk-card h4 { font-size: 15px; font-weight: 800; margin: 0 0 10px; letter-spacing: 0.4px; color: #6C5DD3; }
+  .npk-flagship h4 { color: #8B7FE8; }
+  .npk-card ul { list-style: none; margin: 0 0 20px; padding: 0; }
+  .npk-card ul li { position: relative; padding-right: 26px; margin-bottom: 9px; font-size: 15px; line-height: 1.55; color: #34405c; }
+  .npk-flagship ul li { color: #dde2f2; }
+  .npk-card ul li::before {
+    content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+    position: absolute; right: 0; top: 2px; font-size: 12px; color: #8B7FE8;
+  }
+  .npk-price {
+    margin-top: auto; padding-top: 20px; border-top: 1px solid #edf0f6; text-align: center;
+  }
+  .npk-flagship .npk-price { border-top-color: rgba(255,255,255,0.15); }
+  .npk-price .npk-price-main { font-size: 30px; font-weight: 900; }
+  .npk-price .npk-price-main small { font-size: 15px; font-weight: 600; }
+  .npk-price .npk-price-ret { font-size: 15.5px; color: #4a5468; margin-top: 4px; }
+  .npk-flagship .npk-price-ret { color: #c6cdE2; }
+  .npk-price .npk-vat { display: block; font-size: 13px; color: #8a93a8; margin-top: 6px; }
+  .npk-flagship .npk-vat { color: #9aa3bd; }
+  .npk-card .npk-card-cta {
+    margin-top: 18px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    background: #e6463a; color: #fff; text-decoration: none; font-weight: 800; font-size: 16px;
+    padding: 14px 26px; border-radius: 12px; box-shadow: 0 6px 20px rgba(230,70,58,0.35); transition: 0.3s;
+  }
+  .npk-card .npk-card-cta:hover { background: #c5352b; transform: translateY(-3px); }
+  .npk-upgrade {
+    max-width: 900px; margin: 44px auto 0; text-align: center; font-size: 16.5px; color: #34405c;
+    background: #fff; border: 1px dashed #8B7FE8; border-radius: 16px; padding: 20px 26px;
+  }
+
+  /* comparison */
+  .npk-compare { padding: 80px 60px; background: #fff; color: #0b1f5b; }
+  .npk-table-wrap { max-width: 1000px; margin: 0 auto; overflow-x: auto; }
+  .npk-compare table { width: 100%; border-collapse: collapse; font-size: 15.5px; min-width: 640px; }
+  .npk-compare th, .npk-compare td { padding: 14px 16px; border-bottom: 1px solid #edf0f6; text-align: right; }
+  .npk-compare thead th { font-size: 16.5px; font-weight: 900; color: #0b1f5b; border-bottom: 2px solid #8B7FE8; }
+  .npk-compare td:first-child, .npk-compare th:first-child { font-weight: 800; color: #6C5DD3; white-space: nowrap; }
+  .npk-compare .npk-vat-note { text-align: center; font-size: 13.5px; color: #8a93a8; margin-top: 14px; }
+
+  /* case studies */
+  .npk-cases { padding: 90px 60px; background: #0a1020; }
+  .npk-cases .npk-sec-head h2 { color: #fff; }
+  .npk-cases .npk-sec-head p { color: #b9c2d8; }
+  .npk-case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; max-width: 1150px; margin: 0 auto; }
+  .npk-case {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(139,127,232,0.25); border-radius: 22px;
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .npk-case-media {
+    height: 240px; background: rgba(139,127,232,0.06);
+    border-bottom: 1px dashed rgba(139,127,232,0.4);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    color: #8B7FE8; font-weight: 700; font-size: 15px;
+  }
+  .npk-case-media i { font-size: 34px; opacity: 0.8; }
+  .npk-case-body { padding: 28px 28px 32px; display: flex; flex-direction: column; flex-grow: 1; }
+  .npk-case h3 { font-size: 22px; font-weight: 900; margin: 0 0 14px; color: #fff; }
+  .npk-case p { font-size: 15.5px; line-height: 1.7; color: #cdd4e6; margin: 0 0 16px; }
+  .npk-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+  .npk-chip {
+    background: rgba(139,127,232,0.12); border: 1px solid rgba(139,127,232,0.35); color: #cfc9f5;
+    padding: 6px 14px; border-radius: 30px; font-size: 13.5px; font-weight: 700;
+  }
+  .npk-case .npk-case-pkg { margin-top: 14px; font-size: 13.5px; color: #8a93a8; }
+  .npk-case .npk-case-pkg strong { color: #8B7FE8; }
+
+  /* FAQ */
+  .npk-faq { padding: 90px 60px; background: #070b16; }
+  .npk-faq .npk-sec-head h2 { color: #fff; }
+  .npk-faq-list { max-width: 860px; margin: 0 auto; }
+  .npk-faq details {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(139,127,232,0.2); border-radius: 14px;
+    margin-bottom: 14px; padding: 0 22px;
+  }
+  .npk-faq summary { cursor: pointer; font-weight: 800; font-size: 17px; padding: 18px 0; list-style: none; position: relative; padding-left: 30px; }
+  .npk-faq summary::-webkit-details-marker { display: none; }
+  .npk-faq summary::after { content: "\2b"; position: absolute; left: 0; top: 18px; color: #8B7FE8; font-weight: 900; }
+  .npk-faq details[open] summary::after { content: "\2212"; }
+  .npk-faq details p { margin: 0; padding: 0 0 20px; color: #cdd4e6; font-size: 15.5px; line-height: 1.7; }
+
+  /* final CTA */
+  .npk-cta { padding: 100px 40px; text-align: center; background: linear-gradient(160deg, #0b1f5b 0%, #0a1020 85%); }
+  .npk-cta h2 { font-size: 38px; font-weight: 900; margin: 0 0 16px; line-height: 1.2; }
+  .npk-cta h2 span { color: #FFD700; }
+  .npk-cta p { font-size: 19px; color: #d7deee; max-width: 700px; margin: 0 auto 34px; }
+  .npk-btn-primary {
+    background: #e6463a; color: #fff; padding: 18px 38px; border-radius: 14px; font-weight: 800; font-size: 18px;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
+    box-shadow: 0 8px 25px rgba(230,70,58,0.4); transition: 0.3s;
+  }
+  .npk-btn-primary:hover { background: #c5352b; transform: translateY(-4px); box-shadow: 0 14px 35px rgba(230,70,58,0.55); }
+  .npk-wa-line { margin-top: 22px; font-size: 16px; color: #d7deee; }
+  .npk-wa-line a { color: #25D366; font-weight: 800; text-decoration: none; }
+  .npk-wa-line a:hover { text-decoration: underline; }
+
+  /* footer */
+  .npk-footer { background: #070b16; text-align: center; padding: 44px 20px; font-size: 14.5px; color: #8a93a8; border-top: 1px solid rgba(255,255,255,0.06); }
+  .npk-footer img { height: 46px; width: auto; margin-bottom: 14px; }
+  .npk-footer a { color: #cdd4e6; text-decoration: none; margin: 0 12px; }
+  .npk-footer a:hover { color: #8B7FE8; }
+
+  @media (max-width: 768px) {
+    .npk-header { padding: 0 18px; height: 78px; }
+    .npk-header img.npk-logo { height: 54px; }
+    .npk-nav { gap: 12px; font-size: 14px; }
+    .npk-nav .npk-home-link { display: none; }
+    .npk-hero { padding: 54px 20px 40px; }
+    .npk-hero h1 { font-size: 32px; }
+    .npk-hero .npk-sub { font-size: 17px; }
+    .npk-packages, .npk-compare, .npk-cases, .npk-faq { padding: 64px 20px; }
+    .npk-sec-head h2 { font-size: 30px; }
+    .npk-cta { padding: 70px 20px; }
+    .npk-cta h2 { font-size: 28px; }
+  }
+</style>
+
+<div id="niro-packages" lang="he" dir="rtl">
+
+  <header class="npk-header">
+    <a href="https://www.nirodigital.co.il/"><img class="npk-logo" src="https://www.nirodigital.co.il/wp-content/uploads/2025/09/cropped-לוגו-סמיילי-חדש-1.png" alt="לוגו NIRO Digital"></a>
+    <nav class="npk-nav">
+      <a class="npk-home-link" href="https://www.nirodigital.co.il/">בית</a>
+      <a class="npk-lang" href="https://www.nirodigital.co.il/en/packages/" title="English"><i class="fas fa-globe"></i> EN</a>
+      <a class="npk-nav-cta" href="https://www.nirodigital.co.il/#contact">אבחון חינם</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="npk-hero">
+    <span class="npk-eyebrow"><i class="fas fa-box-open"></i> חבילות ומחירים</span>
+    <h1>שלוש חבילות אוטומציה, מסלול אחד ברור <span class="npk-hl">לעסק שעובד בשבילכם</span></h1>
+    <span class="npk-divider"></span>
+    <p class="npk-sub">כל חבילה נבנתה סביב תוצאה אחת מדידה: אף פנייה לא הולכת לאיבוד, הלקוחות מקבלים מענה מסביב לשעון והתפעול רץ בלי ימים של עבודה ידנית. מתחילים באבחון חינם ואני ממליץ בדיוק על החבילה שסוגרת את הדליפה הגדולה בעסק שלכם.</p>
+    <div class="npk-answer">
+      <strong>כמה עולה אוטומציה לעסק?</strong> הקמה חד פעמית בין 4,500 ₪ ל-18,000 ₪ ומעלה לפי היקף, עם ליווי חודשי שמתחיל ב-450 ₪. בעמוד הזה תמצאו את שלוש החבילות שלי, מה כלול בכל אחת ואיך בוחרים נכון. כל המחירים בתוספת מע"מ.
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="npk-steps">
+    <div class="npk-steps-inner">
+      <div class="npk-step">
+        <div class="npk-step-num">1</div>
+        <h3>שיחת אבחון חינם</h3>
+        <p>ממפים יחד איפה העסק מאבד זמן, פניות וכסף. בלי התחייבות.</p>
+      </div>
+      <div class="npk-step">
+        <div class="npk-step-num">2</div>
+        <h3>המלצה מדויקת</h3>
+        <p>אני מציע את החבילה שסוגרת את הדליפה שלכם, עם הצעת מחיר ברורה ולוח זמנים.</p>
+      </div>
+      <div class="npk-step">
+        <div class="npk-step-num">3</div>
+        <h3>הקמה וליווי</h3>
+        <p>אני בונה, בודק מקצה לקצה על תרחישים אמיתיים ומלווה אתכם חודש בחודשו.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="npk-packages" id="packages">
+    <div class="npk-sec-head">
+      <h2>החבילות שלי</h2>
+      <p>ההבטחה בכל חבילה היא התוצאה שלכם, לא הטכנולוגיה. את הכלים אני בוחר לפי מה שמתאים לעסק.</p>
+    </div>
+    <div class="npk-grid">
+
+      <!-- Package 1 -->
+      <div class="npk-card">
+        <h3>לא מפספסים אף פנייה</h3>
+        <span class="npk-tag">חבילת הבסיס</span>
+        <p class="npk-promise">כל פנייה לעסק נתפסת, מקבלת תשובה תוך דקה וזוכה למעקב מסודר עד שאתם נכנסים לסגור.</p>
+        <p class="npk-fit">מתאימה לעסק שהפניות מגיעות אליו מהאתר, מוואטסאפ או ממודעות. המענה קורה היום מהטלפון, בין לקוח ללקוח.</p>
+        <h4>ההקמה כוללת</h4>
+        <ul>
+          <li>חיבור כל ערוצי הפנייה למערכת ניהול לידים אחת מסודרת</li>
+          <li>מענה ראשוני אוטומטי שיוצא תוך דקה, בקול של העסק</li>
+          <li>רצף מעקב לליד שלא ענה: אחרי שעה, יום, שלושה ימים</li>
+          <li>התראה מיידית אליכם כשליד חם מבשיל לסגירה</li>
+          <li>בדיקות מקצה לקצה, הדרכה ומסירה בשפה פשוטה</li>
+        </ul>
+        <h4>הליווי החודשי</h4>
+        <ul>
+          <li>ניטור שוטף, כל תקלה מטופלת לפני שהיא פוגשת ליד</li>
+          <li>עדכוני מסרים לפי מה שעובד בפועל</li>
+          <li>דוח חודשי קצר וערוץ ישיר אליי</li>
+        </ul>
+        <div class="npk-price">
+          <div class="npk-price-main">4,500 ₪ <small>הקמה חד פעמית</small></div>
+          <div class="npk-price-ret">+ 450 ₪ לחודש ליווי</div>
+          <span class="npk-vat">המחירים בתוספת מע"מ</span>
+        </div>
+        <a class="npk-card-cta" href="https://www.nirodigital.co.il/#contact"><i class="fas fa-wand-magic-sparkles"></i> קבלו אבחון אוטומציה חינם</a>
+      </div>
+
+      <!-- Package 2 · flagship -->
+      <div class="npk-card npk-flagship">
+        <span class="npk-badge">החבילה המבוקשת</span>
+        <h3>סוכן AI לעסק</h3>
+        <span class="npk-tag">חבילת הדגל</span>
+        <p class="npk-promise">העסק שלכם עונה ללקוחות תשובות אמיתיות מסביב לשעון, קובע פגישות ישירות ביומן ומסדר כל פנייה במערכת. אתם פוגשים רק לידים חמים שכבר קיבלו מענה.</p>
+        <p class="npk-fit">מתאימה לעסק שעונה על אותן שאלות שוב ושוב ומקבל פניות גם בערבים ובסופי שבוע. הכיסוי של נציג זמין תמיד, בלי להוסיף כוח אדם.</p>
+        <h4>ההקמה כוללת</h4>
+        <ul>
+          <li>כל תכולת חבילת הבסיס במלואה</li>
+          <li>סוכן AI שאומן על הידע של העסק, זמין 24/7 בוואטסאפ או באתר</li>
+          <li>חיבור ליומן: הסוכן מציע מועדים פנויים וקובע פגישות</li>
+          <li>העברה חכמה אליכם בשיחות רציניות, עם כל ההיסטוריה</li>
+          <li>תקופת כוונון עד שהסוכן מדבר בדיוק כמו העסק</li>
+        </ul>
+        <h4>הליווי החודשי</h4>
+        <ul>
+          <li>כל תכולת ליווי הבסיס</li>
+          <li>עדכון שוטף של הידע: מחירים, שירותים, מבצעים</li>
+          <li>שיפור תשובות לפי שיחות אמת מדי חודש</li>
+          <li>עלויות השימוש ב-AI כלולות עד מכסה חודשית מוגדרת</li>
+        </ul>
+        <div class="npk-price">
+          <div class="npk-price-main">9,000 ₪ <small>הקמה חד פעמית</small></div>
+          <div class="npk-price-ret">+ 800 ₪ לחודש ליווי</div>
+          <span class="npk-vat">המחירים בתוספת מע"מ</span>
+        </div>
+        <a class="npk-card-cta" href="https://www.nirodigital.co.il/#contact"><i class="fas fa-wand-magic-sparkles"></i> קבלו אבחון אוטומציה חינם</a>
+      </div>
+
+      <!-- Package 3 -->
+      <div class="npk-card">
+        <h3>מערכת תפעול מלאה</h3>
+        <span class="npk-tag">חבילת הפרימיום</span>
+        <p class="npk-promise">העסק שלכם רץ על מערכת אחת, מהפנייה הראשונה ועד החשבונית. אתם נכנסים רק כדי לאשר ולסגור.</p>
+        <p class="npk-fit">מתאימה לעסק עם תהליכים שחוזרים כל חודש: חיוב לקוחות, קליטת לקוח חדש, מסמכים ודוחות. התפעול עובר למערכות, נקודות האישור נשארות אצלכם.</p>
+        <h4>ההקמה כוללת</h4>
+        <ul>
+          <li>פגישת אפיון מעמיקה עם תוכנית כתובה לאישורכם</li>
+          <li>מערכת ניהול לקוחות מלאה עם לוחות בקרה</li>
+          <li>אוטומציות תפעול לפי האפיון: חיוב חודשי, קליטת לקוח, דוחות</li>
+          <li>נקודת אישור שלכם בכל צומת רגיש, כל פעולה כספית מחכה ללחיצה שלכם</li>
+          <li>בדיקות על נתונים אמיתיים, מסמך הפעלה והדרכה מלאה</li>
+        </ul>
+        <h4>הליווי החודשי</h4>
+        <ul>
+          <li>ליווי צמוד של כל מחזור תפעול בחודשים הראשונים</li>
+          <li>מכסת שיפורים חודשית, המערכת גדלה עם העסק</li>
+          <li>ניטור, עדכונים, דוח חודשי ותמיכה ישירה</li>
+        </ul>
+        <div class="npk-price">
+          <div class="npk-price-main">מ-18,000 ₪ <small>הקמה לפי אפיון</small></div>
+          <div class="npk-price-ret">+ ליווי מ-1,200 ₪ לחודש לפי היקף</div>
+          <span class="npk-vat">המחירים בתוספת מע"מ</span>
+        </div>
+        <a class="npk-card-cta" href="https://www.nirodigital.co.il/#contact"><i class="fas fa-wand-magic-sparkles"></i> קבלו אבחון אוטומציה חינם</a>
+      </div>
+
+    </div>
+    <div class="npk-upgrade">
+      <strong>מתחילים בקטן, גדלים בבטחה:</strong> החבילות בנויות זו על גבי זו. מי שמתחיל בבסיס ומשדרג לא מתחיל מאפס, ההקמה הקיימת היא היסוד של החבילה הבאה.
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="npk-compare">
+    <div class="npk-sec-head">
+      <h2>השוואה מהירה</h2>
+    </div>
+    <div class="npk-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>לא מפספסים אף פנייה</th>
+            <th>סוכן AI לעסק</th>
+            <th>מערכת תפעול מלאה</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>התוצאה</td>
+            <td>כל פנייה נתפסת ומקבלת מעקב</td>
+            <td>מענה אמיתי 24/7 ופגישות ביומן</td>
+            <td>העסק כולו רץ על מערכת אחת</td>
+          </tr>
+          <tr>
+            <td>מתאים כשיש</td>
+            <td>פניות שמחכות בטלפון</td>
+            <td>שאלות חוזרות, פניות בכל שעה</td>
+            <td>תפעול וחיוב שגוזלים ימים</td>
+          </tr>
+          <tr>
+            <td>הקמה</td>
+            <td>4,500 ₪</td>
+            <td>9,000 ₪</td>
+            <td>לפי אפיון, מ-18,000 ₪</td>
+          </tr>
+          <tr>
+            <td>ליווי חודשי</td>
+            <td>450 ₪</td>
+            <td>800 ₪</td>
+            <td>לפי היקף, מ-1,200 ₪</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="npk-vat-note">כל המחירים בתוספת מע"מ.</p>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="npk-cases">
+    <div class="npk-sec-head">
+      <h2>ככה זה נראה אצל לקוחות אמיתיים</h2>
+      <p>מערכות שרצות היום בפועל, לא הדגמות.</p>
+    </div>
+    <div class="npk-case-grid">
+
+      <!-- Case 1: billing automation -->
+      <article class="npk-case">
+        <!-- IMAGE_SLOT: case-billing · media id 555 · שולב 2026-07-29 -->
+        <img style="width:100%;height:240px;object-fit:cover;display:block;border-bottom:1px solid rgba(139,127,232,0.4);" src="https://www.nirodigital.co.il/wp-content/uploads/2026/07/niro-case-billing-automation.png" alt="בעלת עסק מאשרת מהטלפון בלחיצה אחת את החיוב החודשי" loading="lazy">
+        <div class="npk-case-body">
+          <h3>11 חשבוניות מאישור אחד בוואטסאפ</h3>
+          <p>מאמנת עסקית שאני עובד איתה הייתה מסיימת כל חודש באותה משימה: פותחת את קובץ החיוב, עוברת לקוח אחרי לקוח ומכינה לכל אחד חשבונית באופן ידני. עבודה של שעות שחוזרת כל חודש מחדש.</p>
+          <p>בניתי לה מערכת שמזהה את קובץ החיוב החודשי ברגע שהוא נשמר, שולחת לה הודעת וואטסאפ עם כפתורי אישור ומרגע הלחיצה הכל קורה מעצמו: טיוטת חשבונית לכל לקוח במערכת החשבוניות וגיליון מעקב שמתעדכן לבד. בהרצה האמיתית של יולי 2026 נוצרו 11 טיוטות חשבוניות מאישור אחד.</p>
+          <div class="npk-chips">
+            <span class="npk-chip">11 טיוטות חשבוניות</span>
+            <span class="npk-chip">אישור אחד בוואטסאפ</span>
+            <span class="npk-chip">שעות שהפכו לשניות</span>
+          </div>
+          <p class="npk-case-pkg">החבילה המתאימה: <strong>מערכת תפעול מלאה</strong></p>
+        </div>
+      </article>
+
+      <!-- Case 2: kindergarten leads -->
+      <article class="npk-case">
+        <!-- IMAGE_SLOT: case-kindergarten · media id 556 · שולב 2026-07-29 -->
+        <img style="width:100%;height:240px;object-fit:cover;display:block;border-bottom:1px solid rgba(139,127,232,0.4);" src="https://www.nirodigital.co.il/wp-content/uploads/2026/07/niro-case-kindergarten-leads.png" alt="חלל גן מונטסורי מואר באור טבעי עם משחקי עץ מסודרים" loading="lazy">
+        <div class="npk-case-body">
+          <h3>ליד ראשון ב-23 שקל כבר ביום הראשון</h3>
+          <p>גן ילדים מונטסורי פרטי באזור המרכז חיפש דרך מסודרת לגייס משפחות חדשות. מה שהיה חסר זו מערכת אחת שקולטת את הפניות, מסננת אותן ומביאה לשיחה רק את ההורים המתאימים באמת.</p>
+          <p>בניתי את זה שלב אחרי שלב: אודיט מלא לנכסי הפרסום, קמפיין לידים עם טופס שכולל ארבע שאלות סינון וזרימה שמעבירה כל פנייה מיד לבעל העסק. התוצאה כבר ביום הראשון: ליד ראשון בעלות של 23 שקל, יצירת קשר מיידית ושיעור הקלקה של 2.5 אחוז. בשקיפות מלאה: הקמפיין בתחילת הדרך והמספרים האלה הם נקודת פתיחה. בדיוק ככה נראית התחלה נכונה.</p>
+          <div class="npk-chips">
+            <span class="npk-chip">ליד ראשון ב-23 ₪</span>
+            <span class="npk-chip">כבר ביום הראשון</span>
+            <span class="npk-chip">2.5% שיעור הקלקה</span>
+          </div>
+          <p class="npk-case-pkg">החבילה המתאימה: <strong>לא מפספסים אף פנייה</strong></p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="npk-faq">
+    <div class="npk-sec-head">
+      <h2>שאלות נפוצות</h2>
+    </div>
+    <div class="npk-faq-list">
+      <details>
+        <summary>כמה עולה אוטומציה לעסק?</summary>
+        <p>הקמה חד פעמית של 4,500 ₪ לחבילת הבסיס, 9,000 ₪ לחבילת סוכן ה-AI ומ-18,000 ₪ למערכת תפעול מלאה, לצד ליווי חודשי שמתחיל ב-450 ₪. כל המחירים בתוספת מע"מ.</p>
+      </details>
+      <details>
+        <summary>האם המחירים כוללים מע"מ?</summary>
+        <p>המחירים בעמוד מוצגים לפני מע"מ. בהצעת המחיר תקבלו את הסכום המלא כולל מע"מ, בלי הפתעות.</p>
+      </details>
+      <details>
+        <summary>באילו כלים נבנית המערכת?</summary>
+        <p>הכלים נבחרים לפי העסק שלכם, לא להפך. ההתחייבות שלי היא לתוצאה: פניות שנתפסות, מענה מהיר ללקוחות ותפעול שרץ לבד.</p>
+      </details>
+      <details>
+        <summary>אפשר להתחיל בחבילה קטנה ולשדרג?</summary>
+        <p>כן. החבילות בנויות זו על גבי זו: מי שמתחיל בבסיס ומשדרג לא מתחיל מאפס, ההקמה הקיימת היא היסוד של החבילה הבאה.</p>
+      </details>
+      <details>
+        <summary>מה כולל הליווי החודשי?</summary>
+        <p>ניטור שוטף של המערכת, עדכוני מסרים לפי מה שעובד בפועל, דוח חודשי קצר וערוץ ישיר אליי לכל שאלה או שינוי קטן.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="npk-cta" id="cta">
+    <h2>לא בטוחים איזו חבילה מתאימה? <span>בדיוק בשביל זה יש אבחון חינם</span></h2>
+    <p>בשיחה קצרה נמצא יחד את הדליפה הגדולה בעסק שלכם. תצאו ממנה עם המלצה ברורה על החבילה המתאימה, גם אם תבחרו לבצע לבד.</p>
+    <a class="npk-btn-primary" href="https://www.nirodigital.co.il/#contact"><i class="fas fa-wand-magic-sparkles"></i> קבלו אבחון אוטומציה חינם</a>
+    <p class="npk-wa-line">מעדיפים וואטסאפ? <a href="https://wa.me/972537142298" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> שלחו לי את המילה "אבחון"</a></p>
+  </section>
+
+  <footer class="npk-footer">
+    <img src="https://www.nirodigital.co.il/wp-content/uploads/2025/09/cropped-לוגו-סמיילי-חדש-1.png" alt="לוגו NIRO Digital"><br>
+    <div>
+      <a href="https://www.nirodigital.co.il/">בית</a>
+      <a href="https://www.nirodigital.co.il/#contact">אבחון אוטומציה חינם</a>
+      <a href="https://wa.me/972537142298" target="_blank" rel="noopener noreferrer">וואטסאפ</a>
+    </div>
+    <div style="margin-top:12px;">2026 © NIRO Digital | אוטומציות וסוכני AI לעסקים שצומחים</div>
+  </footer>
+
+</div>
+<!-- /wp:html -->

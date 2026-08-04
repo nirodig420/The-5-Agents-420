@@ -14,7 +14,8 @@ description: >-
 - `Content/` — מאמרי גלם: קלט ליעל, וגם הפלט של חן (מקורות שמצאה ברשת).
 - `Output/` — תוצרי תוכן סופיים. מוסכמה: `YYYY-MM-DD-<slug>.md`; תמונות ב-`Output/images/`,
   חבילות העלאה ב-`Output/deploy-YYYY-MM-DD/` (ראה `Output/README.md`).
-- `Proposals/` — הצעות מוכנות-לאישור ניר (`YYYY-MM-DD-<slug>.md`).
+- `Proposals/` — הצעות מוכנות-לאישור ניר (`YYYY-MM-DD-<slug>.md`), כולל מפרטי CRM של
+  איתי לפני בנייה חיה.
 - `SEO/` — דוחות אבחון ומחקרי מילות מפתח של איתן.
 - `_archive/` — חומר שנושאו מת (לא מוחקים — מעבירים לכאן).
 - `VAULT/` — תיעוד Obsidian (node לכל סוכן + `Home.md`).
@@ -30,10 +31,12 @@ description: >-
 | מריו | `mario-meta/Memory/`: `campaigns.md`, `content-calendar.md`, `competitors.md`, `changelog.md` | `mario-meta/SETUP.md` (מסלול Make מומלץ) | — |
 | אנצ'לוטי | `ancelotti-funnels/Memory/changelog.md` (לוג משפכים) | — | `reference/niro-funnel-map-LIVE.html` (נכס הזהב) + README |
 | אמציה | `amatzia-automation/Memory/`: `automations.md`, `clients.md`, `api-reference.md`, `changelog.md` | `amatzia-automation/SETUP.md` (Make/Airtable/ManyChat) | `reference/` + `blueprints/` (תבניות) |
+| איתי | `itai-crm/Memory/`: `airtable-knowledge.md`, `client-systems.md`, `sheets-excel.md`, `changelog.md` | `itai-crm/SETUP.md` (Airtable MCP / PAT / סנדבוקס) | `blueprints/` (תבניות CRM מוכנות-לפריסה + `BLUEPRINT-FORMAT.md`), `templates/` (שאלון אפיון, מדריך הדרכה), `reference/` (סכימות מבייסים אמיתיים) |
 
 ## `.claude/`
 
-- `agents/` — הגדרות 7 הסוכנים — מקור האמת לכל סוכן.
-- `skills/` — סקילי הפרויקט (gpt-image-gen, sora-video-gen, wp-rest, meta-publish,
-  copy-check, make-scenario-check, site-integrity-check, project-map).
+- `agents/` — הגדרות 8 הסוכנים — מקור האמת לכל סוכן.
+- `skills/` — סקילי הפרויקט (gpt-image-gen, sora-video-gen, wp-rest, copy-check,
+  make-scenario-check, crm-build-check, site-integrity-check, project-map,
+  orchestration-playbook, weekly-batch).
 - `commands/` — פקודות מותאמות (weekly-batch).
