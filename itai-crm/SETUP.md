@@ -28,7 +28,7 @@ Airtable בעצמו.
 ### מה חסום לגמרי (deny ב-`.claude/settings.local.json`)
 כל חמש פעולות המחיקה: `delete_records_for_table`, `delete_table`, `delete_interface`,
 `delete_page`, `delete_automation`. אלה נחסמו במכוון (עד ה-4.8.2026 `delete_records_for_table`
-היה מאושר-מראש ורץ בלי שאלה, על בייס עם 428 לידים אמיתיים). מחיקה שבאמת נחוצה נעשית
+היה מאושר-מראש ורץ בלי שאלה, על בייס עם לידים אמיתיים שתרחישי Make חיים תלויים בהם). מחיקה שבאמת נחוצה נעשית
 על ידך ב-UI, או בהסרה זמנית ומכוונת של החסימה.
 
 ### מה ה-MCP לא יודע לעשות בכלל
@@ -84,7 +84,7 @@ Airtable בעצמו.
 
 | בייס | מה יש בו | כלל |
 |---|---|---|
-| `appIokNx1jGPhws7W` "NIRO-טופס לידים" | `tblcgQYQ8wIDUVOi9` לידים (428 רשומות אמיתיות), `tblQVNPNvNUAZf2l4` שיחות בוט | הוספה בלבד. אפס מחיקה, אפס שינוי טיפוס, אפס rename |
+| `appIokNx1jGPhws7W` "NIRO-טופס לידים" | `tblcgQYQ8wIDUVOi9` לידים (רשומות אמיתיות), `tblQVNPNvNUAZf2l4` שיחות בוט | הוספה בלבד. אפס מחיקה, אפס שינוי טיפוס, אפס rename |
 | `appKMXCuAfdJCIery` "טבלת סוכן AI - תוכן אורגני" | `tbly7JDCmOnY36GoJ`, `tbloxDWRcAxlyi805` יומן פרסום | תרחישי Make חיים תלויים בשמות השדות. rename שובר את אמציה |
 
 לפני כל rename של שדה בבייס חי: לבדוק מי מצביע עליו, ולסמן לראובן להעביר לאמציה.

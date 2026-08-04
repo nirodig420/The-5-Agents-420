@@ -25,7 +25,7 @@ CRM ללקוחות כשירות.
 ## ממצא: פרצת הרשאות שהייתה פתוחה
 
 בבדיקה התברר ש-`.claude/settings.local.json` אישר מראש, בלי שום שאלה, את
-`delete_records_for_table` של Airtable. כלומר אפשר היה למחוק רשומות מ-428 הלידים החיים
+`delete_records_for_table` של Airtable. כלומר אפשר היה למחוק רשומות מהלידים החיים
 ב-`appIokNx1jGPhws7W` בלי פרומפט. זה היה נכון עוד לפני איתי.
 
 **תוקן:** חמש פעולות ה-delete של Airtable נכנסו ל-`deny` (גובר על allow), ו-`create_field`

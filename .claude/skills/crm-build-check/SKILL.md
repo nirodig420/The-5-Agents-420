@@ -4,7 +4,7 @@ description: >-
   צ'קליסט אימות למערכות CRM ב-Airtable לפני בנייה חיה. המלכודות שכבר נפלנו בהן
   ואומתו בפרויקט: טיפוס שדה שאי אפשר לשנות דרך API, שם שדה עם רווח סופי, שדות
   מחושבים שדוחים כתיבה ב-422, choices שנדרסים ב-PATCH, שדה קישור סימטרי שנוצר
-  לבד, ו-428 לידים חיים שאסור לגעת בהם. איתי מריץ את זה על כל מפרט לפני
+  לבד, ו-לידים אמיתיים ותרחישי Make חיים. איתי מריץ את זה על כל מפרט לפני
   create_table/create_field ולפני מסירה ללקוח.
   Use when: designing or deploying an Airtable base, adding tables or fields,
   changing a schema, building views or interfaces, migrating Sheets to Airtable.
@@ -30,7 +30,7 @@ description: >-
    `multipleLookupValues`, `autoNumber`, `createdTime`, `lastModifiedTime`,
    `createdBy`, `lastModifiedBy`. לא ב-`create_records_for_table`, לא ב-`update`,
    ולא במיפוי שנמסר לאמציה.
-4. **`appIokNx1jGPhws7W` / `tblcgQYQ8wIDUVOi9` מחזיק 428 לידים אמיתיים.**
+4. **`appIokNx1jGPhws7W` / `tblcgQYQ8wIDUVOi9` מחזיק לידים אמיתיים שתרחישי Make חיים תלויים בהם.**
    וגם `tblQVNPNvNUAZf2l4` ("שיחות בוט") חי ומקושר אליו. על הבייס הזה:
    **הוספה בלבד.** אפס מחיקה, אפס שינוי טיפוס, אפס rename. חמש פעולות ה-delete של
    ה-MCP חסומות ב-deny ב-`.claude/settings.local.json`, וזה מכוון.
