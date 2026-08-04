@@ -151,7 +151,7 @@
     <p class="lede">התרחיש ב-Make חי ונבדק מקצה לקצה. מה שנשאר הוא להדביק את התג הזה פעם אחת ב-Google Tag Manager, והצ'אט יעלה בכל דפי האתר.</p>
   </header>
 
-  <div class="notice"><b>גרסה 12, קרן מקבלת פנים.</b> הכפתור הצף הוא עכשיו <b>האיור של קרן</b> שהעלית, חתוך לפנים בתוך מעגל עם טבעת כחולה, ולידו <b>נקודה ירוקה פועמת</b> שאומרת "מחוברת עכשיו", אותה שפה שכולם מכירים מוואטסאפ. הפנים מרטטות קלות כל שבע שניות. אותה דמות מופיעה גם באווטאר שבראש חלון הצ'אט. התמונה מתארחת באתר שלך, אז התג נשאר קטן.<br><br><b>גרסה 11, קרן מזמינה ללחוץ.</b> אחרי שתי שניות וחצי נפתחת לידה בועה קטנה: <b>"היי, אני קרן. העוזרת של נירו, לחצו עליי ואשמח לעזור"</b>. היא נעלמת לבד אחרי 14 שניות, מנסה שוב פעם אחת אחרי דקה, ומי שסוגר אותה או פותח את הצ'אט לא רואה אותה שוב במכשיר הזה. לחיצה על הבועה פותחת את הצ'אט. כולל את כל גרסה 10: הגלילה שנצמדת לשיחה, שורת ההרגעה בהמתנה והניסיון החוזר בתקלת רשת. החלף את תוכן התג הקיים בזה.</div>
+  <div class="notice"><b>גרסה 13, תנועה אחת בלבד.</b> קרן מרטטת <b>פעם אחת</b> כשש שניות אחרי טעינת הדף, ואז שקט. ברגע שנפתחת שיחה היא מפסיקה לזוז לגמרי, כדי לא להסיח את הדעת בזמן שקוראים. <b>עדכון עסקי בצד של Make:</b> נוסף המסלול הרביעי, שיווק ממומן במטא בפייסבוק ובאינסטגרם, כולל קמפיינים שמובילים ישירות לוואטסאפ, וגם הובהר שסוכן ה-AI עובד באתר, בוואטסאפ, באינסטגרם ובפייסבוק.<br><br><b>גרסה 12, קרן מקבלת פנים.</b> הכפתור הצף הוא עכשיו <b>האיור של קרן</b> שהעלית, חתוך לפנים בתוך מעגל עם טבעת כחולה, ולידו <b>נקודה ירוקה פועמת</b> שאומרת "מחוברת עכשיו", אותה שפה שכולם מכירים מוואטסאפ. הפנים מרטטות קלות כל שבע שניות. אותה דמות מופיעה גם באווטאר שבראש חלון הצ'אט. התמונה מתארחת באתר שלך, אז התג נשאר קטן.<br><br><b>גרסה 11, קרן מזמינה ללחוץ.</b> אחרי שתי שניות וחצי נפתחת לידה בועה קטנה: <b>"היי, אני קרן. העוזרת של נירו, לחצו עליי ואשמח לעזור"</b>. היא נעלמת לבד אחרי 14 שניות, מנסה שוב פעם אחת אחרי דקה, ומי שסוגר אותה או פותח את הצ'אט לא רואה אותה שוב במכשיר הזה. לחיצה על הבועה פותחת את הצ'אט. כולל את כל גרסה 10: הגלילה שנצמדת לשיחה, שורת ההרגעה בהמתנה והניסיון החוזר בתקלת רשת. החלף את תוכן התג הקיים בזה.</div>
 
   <div class="action">
     <p class="action-label">הקוד המלא של הווידג'ט, כולל הוובהוק</p>
@@ -195,7 +195,7 @@
   <details>
     <summary>לראות את הקוד עצמו (לא חייבים, הכפתור למעלה מעתיק אותו)</summary>
     <pre id="code">&lt;!-- ================================================================
-  NIRO Digital, ווידג'ט צ'אט AI + פלואו כפתורים (גרסה 12, 2026-08-04, הדמות: קרן, אווטאר מאויר)
+  NIRO Digital, ווידג'ט צ'אט AI + פלואו כפתורים (גרסה 13, 2026-08-04, הדמות: קרן, אווטאר מאויר)
   הדבקה: GTM (GTM-NXRL4W23) &gt; Tags &gt; NIRO Chat Widget &gt; Custom HTML
   הפלואו רץ בצד הלקוח: כפתורים, סרגל תקציב, ואימות שדות, בלי לשרוף פעולות ב-Make.
   Make נקרא רק פעמיים: יצירת הליד אחרי הפרטים, והעשרה בסוף. AI רק במסלול "יש לי שאלה".
@@ -253,7 +253,8 @@
     + '.kr-b{animation:krbp 2s ease-in-out infinite}'
     /* הרטט: שבע שניות של שקט ואז נדנוד קצר. זה מה שתופס את העין בפריפריה. */
     + '@keyframes krwig{0%,84%,100%{transform:rotate(0)}86%{transform:rotate(-7deg)}89%{transform:rotate(6deg)}92%{transform:rotate(-4.5deg)}95%{transform:rotate(3deg)}98%{transform:rotate(-1.5deg)}}'
-    + '.kr-w{animation:krwig 7s ease-in-out infinite;transform-box:view-box;transform-origin:32px 52px}'
+    + '.kr-w{animation:krwig 7s ease-in-out 1;transform-box:view-box;transform-origin:32px 52px}'
+    + '#niro-b.still .kr-w,#niro-b.still .kr-a,#niro-b.still .kr-f{animation:none}'
     /* המשושים מתנדנדים תמיד, כל אחד בקצב שלו, סביב הבסיס שלו */
     + '@keyframes krant1{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}'
     + '@keyframes krant2{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-4deg)}}'
@@ -263,7 +264,11 @@
     /* בתוך חלון הצ'אט הפתוח היא רגועה, בלי רטט. הרטט נועד למשוך מבחוץ. */
     + '#niro-av .kr-w{animation:none}'
     /* מצב תמונה: פנים אמיתיות במקום הדמות המצוירת. */
-    + '#niro-b .ava{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;box-sizing:border-box;border:3px solid #0b1f5b;animation:krwig2 7s ease-in-out infinite;transform-origin:center bottom}'
+    /* רטט אחד בלבד, כשש שניות אחרי הטעינה, ואז שקט מוחלט.
+       תנועה חוזרת בלי סוף מסיחה את הדעת במקום למשוך. */
+    + '#niro-b .ava{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;box-sizing:border-box;border:3px solid #0b1f5b;animation:krwig2 7s ease-in-out 1;transform-origin:center bottom}'
+    /* ברגע שנפתחה שיחה, שום דבר לא זז יותר. */
+    + '#niro-b.still .ava,#niro-b.still #niro-dot{animation:none}'
     + '@keyframes krwig2{0%,84%,100%{transform:rotate(0)}86%{transform:rotate(-6deg)}89%{transform:rotate(5deg)}92%{transform:rotate(-3.5deg)}95%{transform:rotate(2deg)}98%{transform:rotate(-1deg)}}'
     /* נקודת "מחוברת עכשיו" עם הילה פועמת. זה מה שמחליף את העיניים שממצמצות. */
     + '#niro-dot{position:absolute;left:3px;bottom:4px;width:15px;height:15px;border-radius:50%;background:#22c55e;border:2.5px solid #fff;box-sizing:border-box;animation:krdot 2.6s ease-out infinite}'
@@ -688,6 +693,7 @@
   var started = false;
   function openChat() {
     hideTip(false);
+    b.classList.add('still');   /* מרגע שנפתחה שיחה, קרן מפסיקה לזוז */
     p.classList.add('open');
     if (!started) { started = true; start(); }
     scrollDown();
