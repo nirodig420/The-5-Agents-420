@@ -1,0 +1,580 @@
+<title>קרן בוואטסאפ, דף בנייה למניצ'ט</title>
+
+<style>
+  :root{
+    --bg:#f2f5f3; --card:#ffffff; --ink:#111815; --muted:#5b6b64;
+    --line:#dde5e0; --line-soft:#e9efeb;
+    --accent:#0f6a4d; --accent-ink:#0b4d38; --accent-wash:#e4f1ea;
+    --amber:#8f5a06; --amber-wash:#fbf0dc;
+    --bubble:#e8f4ec; --bubble-line:#cbe3d5;
+    --code:#f4f6f5;
+    --shadow:0 1px 2px rgba(16,40,30,.06), 0 8px 24px rgba(16,40,30,.05);
+    --f:"Segoe UI","Arial Hebrew","Noto Sans Hebrew",system-ui,-apple-system,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono",Consolas,"Courier New",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0c1210; --card:#131b18; --ink:#e6ede9; --muted:#95a8a0;
+      --line:#233029; --line-soft:#1c2622;
+      --accent:#4ac795; --accent-ink:#8ee0bd; --accent-wash:#14231d;
+      --amber:#e0a955; --amber-wash:#241c0f;
+      --bubble:#17251f; --bubble-line:#26382f;
+      --code:#0f1614;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0c1210; --card:#131b18; --ink:#e6ede9; --muted:#95a8a0;
+    --line:#233029; --line-soft:#1c2622;
+    --accent:#4ac795; --accent-ink:#8ee0bd; --accent-wash:#14231d;
+    --amber:#e0a955; --amber-wash:#241c0f;
+    --bubble:#17251f; --bubble-line:#26382f;
+    --code:#0f1614;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.28);
+  }
+  :root[data-theme="light"]{
+    --bg:#f2f5f3; --card:#ffffff; --ink:#111815; --muted:#5b6b64;
+    --line:#dde5e0; --line-soft:#e9efeb;
+    --accent:#0f6a4d; --accent-ink:#0b4d38; --accent-wash:#e4f1ea;
+    --amber:#8f5a06; --amber-wash:#fbf0dc;
+    --bubble:#e8f4ec; --bubble-line:#cbe3d5;
+    --code:#f4f6f5;
+    --shadow:0 1px 2px rgba(16,40,30,.06), 0 8px 24px rgba(16,40,30,.05);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    direction:rtl; margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--f); font-size:16px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:40px 20px 96px}
+
+  /* ===== כותרת ===== */
+  .top{border-bottom:2px solid var(--line); padding-bottom:28px; margin-bottom:40px}
+  .eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:.13em;
+    color:var(--accent); text-transform:none; margin:0 0 12px
+  }
+  h1{
+    font-size:clamp(28px,5vw,42px); line-height:1.15; margin:0 0 14px;
+    font-weight:700; letter-spacing:-.02em; text-wrap:balance;
+  }
+  .lede{font-size:17px; color:var(--muted); margin:0; max-width:60ch}
+  .facts{
+    display:flex; flex-wrap:wrap; gap:8px; margin-top:22px;
+  }
+  .fact{
+    font-size:13px; padding:5px 11px; border-radius:999px;
+    background:var(--accent-wash); color:var(--accent-ink);
+    border:1px solid var(--bubble-line);
+  }
+  :root[data-theme="dark"] .fact,
+  .fact{}
+  @media (prefers-color-scheme: dark){ .fact{color:var(--accent-ink)} }
+
+  /* ===== מקטעים ===== */
+  h2{
+    font-size:13px; font-weight:700; letter-spacing:.12em; color:var(--muted);
+    margin:52px 0 18px; padding-bottom:10px; border-bottom:1px solid var(--line);
+  }
+  h2:first-of-type{margin-top:0}
+
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:22px 24px; box-shadow:var(--shadow); margin-bottom:14px;
+  }
+  .card p:first-child{margin-top:0}
+  .card p:last-child{margin-bottom:0}
+
+  /* ===== צעד ===== */
+  .step{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    box-shadow:var(--shadow); margin-bottom:16px; overflow:hidden;
+  }
+  .step-head{
+    display:flex; align-items:center; gap:12px;
+    padding:14px 20px; border-bottom:1px solid var(--line-soft);
+    background:linear-gradient(180deg, var(--card), var(--bg));
+  }
+  .num{
+    flex:none; width:30px; height:30px; border-radius:8px;
+    display:grid; place-items:center;
+    background:var(--ink); color:var(--card);
+    font-size:14px; font-weight:700; font-variant-numeric:tabular-nums;
+  }
+  .step-title{font-weight:700; font-size:15px; flex:1; min-width:0}
+  .kind{
+    flex:none; font-size:11.5px; font-weight:700; padding:4px 10px;
+    border-radius:6px; border:1px solid var(--line);
+    background:var(--code); color:var(--muted); letter-spacing:.02em;
+  }
+  .kind.api{background:var(--amber-wash); color:var(--amber); border-color:transparent}
+  .kind.pick{background:var(--accent-wash); color:var(--accent-ink); border-color:transparent}
+  .step-body{padding:18px 20px 20px}
+
+  /* ===== בועת הודעה ===== */
+  .bubble-row{display:flex; align-items:flex-start; gap:10px}
+  .bubble{
+    position:relative; flex:1; min-width:0;
+    background:var(--bubble); border:1px solid var(--bubble-line);
+    border-radius:14px 4px 14px 14px;
+    padding:14px 16px; white-space:pre-wrap; font-size:15.5px; line-height:1.7;
+  }
+  .bubble::after{
+    content:""; position:absolute; top:-1px; right:-7px; width:12px; height:14px;
+    background:var(--bubble);
+    border-top:1px solid var(--bubble-line); border-left:1px solid var(--bubble-line);
+    clip-path:polygon(0 0, 100% 0, 0 100%);
+  }
+  .copy{
+    flex:none; border:1px solid var(--line); background:var(--card); color:var(--muted);
+    font-family:var(--f); font-size:12.5px; font-weight:600;
+    padding:7px 12px; border-radius:8px; cursor:pointer;
+    transition:background .15s, color .15s, border-color .15s;
+  }
+  .copy:hover{background:var(--accent-wash); color:var(--accent-ink); border-color:var(--bubble-line)}
+  .copy:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .copy.done{background:var(--accent); color:#fff; border-color:var(--accent)}
+  @media (prefers-color-scheme: dark){ .copy.done{color:#0c1210} }
+  :root[data-theme="dark"] .copy.done{color:#0c1210}
+  :root[data-theme="light"] .copy.done{color:#fff}
+
+  /* ===== אפשרויות בחירה ===== */
+  .opts{margin-top:16px; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+  .opts-head{
+    padding:9px 14px; background:var(--code); border-bottom:1px solid var(--line);
+    font-size:12.5px; font-weight:700; color:var(--muted);
+    display:flex; justify-content:space-between; gap:12px; align-items:center;
+  }
+  .opt{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    padding:10px 14px; border-bottom:1px solid var(--line-soft); font-size:14px;
+  }
+  .opt:last-child{border-bottom:0}
+  .opt .lbl{font-size:11px; color:var(--muted); font-weight:700; flex:none}
+  .cp{
+    font-family:var(--mono); font-size:13px; direction:rtl;
+    background:var(--code); border:1px solid var(--line); border-radius:6px;
+    padding:3px 9px; cursor:pointer; color:var(--ink);
+    transition:background .15s, border-color .15s;
+  }
+  .cp:hover{background:var(--accent-wash); border-color:var(--bubble-line)}
+  .cp:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .cp.done{background:var(--accent); color:#fff; border-color:var(--accent)}
+  :root[data-theme="dark"] .cp.done{color:#0c1210}
+  @media (prefers-color-scheme: dark){ .cp.done{color:#0c1210} }
+  :root[data-theme="light"] .cp.done{color:#fff}
+  .cp.val{background:transparent}
+
+  /* ===== קוד ===== */
+  .codewrap{margin-top:14px; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+  .codewrap .opts-head{border-radius:0}
+  pre{
+    margin:0; padding:14px 16px; background:var(--code); overflow-x:auto;
+    direction:ltr; text-align:left; font-family:var(--mono); font-size:13px; line-height:1.6;
+  }
+
+  /* ===== טבלה ===== */
+  .tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px}
+  table{border-collapse:collapse; width:100%; font-size:14px; min-width:560px}
+  th,td{padding:10px 14px; text-align:right; border-bottom:1px solid var(--line-soft)}
+  th{background:var(--code); font-size:12.5px; color:var(--muted); font-weight:700; white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+  td.num-cell{font-family:var(--mono); font-variant-numeric:tabular-nums}
+  .hot{color:var(--amber); font-weight:700}
+
+  /* ===== הערות ===== */
+  .note{
+    border-radius:10px; padding:14px 16px; font-size:14.5px; margin-top:14px;
+    background:var(--amber-wash); border:1px solid transparent;
+  }
+  .note strong{color:var(--amber)}
+  .note.calm{background:var(--accent-wash)}
+  .note.calm strong{color:var(--accent-ink)}
+
+  ol.checks{padding-inline-start:22px; margin:0}
+  ol.checks li{margin-bottom:10px}
+  ol.checks li:last-child{margin-bottom:0}
+
+  code.inl{
+    font-family:var(--mono); font-size:13.5px; background:var(--code);
+    border:1px solid var(--line); border-radius:5px; padding:1px 6px;
+  }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important} }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <p class="eyebrow">מפרט בנייה · 6 באוגוסט 2026</p>
+    <h1>קרן בוואטסאפ</h1>
+    <p class="lede">כל הנוסחים של 12 הצעדים במניצ'ט, מוכנים להעתקה. לוחצים על כפתור ההעתקה, מדביקים בעורך, ממשיכים לצעד הבא. כל טקסט כאן כבר עבר את חוקי הכתיבה של נירו.</p>
+    <div class="facts">
+      <span class="fact">055-932-2991</span>
+      <span class="fact">מאושר במטא, 2000 שיחות ביממה</span>
+      <span class="fact">אין פלואו ישן שרץ על המספר</span>
+      <span class="fact">אותו מוח Make ואותו CRM כמו האתר</span>
+    </div>
+  </header>
+
+  <h2>לפני שנוגעים בפלואו: תשעה שדות</h2>
+  <div class="card">
+    <p>מניצ'ט לא יודע לשמור ערך לשדה שלא קיים, ולכן יוצרים את כולם מראש ב<strong>Settings ← Custom Fields</strong>. שמונה מהם טקסט, אחד מספר.</p>
+    <div class="opts">
+      <div class="opts-head"><span>שם השדה</span><span>סוג</span></div>
+      <div class="opt"><button class="cp" type="button">שם מלא</button><span class="lbl">Text</span></div>
+      <div class="opt"><button class="cp" type="button">מייל</button><span class="lbl">Text</span></div>
+      <div class="opt"><button class="cp" type="button">lead_id</button><span class="lbl">Text</span></div>
+      <div class="opt"><button class="cp" type="button">משימה</button><span class="lbl">Text</span></div>
+      <div class="opt"><button class="cp" type="button">תחום</button><span class="lbl">Text</span></div>
+      <div class="opt"><button class="cp" type="button">מתי נוח</button><span class="lbl">Text</span></div>
+      <div class="opt"><button class="cp" type="button">תקציב טקסט</button><span class="lbl">Text</span></div>
+      <div class="opt"><button class="cp" type="button">תקציב מספר</button><span class="lbl">Number</span></div>
+      <div class="opt"><button class="cp" type="button">דחיפות</button><span class="lbl">Text</span></div>
+    </div>
+    <div class="note calm">
+      <strong>הטלפון לא נכנס לרשימה.</strong> בוואטסאפ מניצ'ט כבר מחזיק אותו בשדה המערכת <code class="inl">{{phone}}</code>, ואת השם הפרטי ב-<code class="inl">{{first_name}}</code>. שומרים שם מלא בנפרד כי הלקוח מקליד אותו כפי שהוא רוצה שיפנו אליו.
+    </div>
+  </div>
+
+  <h2>12 הצעדים</h2>
+
+  <!-- 1 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">1</span>
+      <span class="step-title">פתיחה, עם המתנה על השולחן</span>
+      <span class="kind pick">טקסט + 3 כפתורים</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m1">היי 👋 אני קרן, העוזרת הבוטית של ניר.
+הכנתי לכם מתנה: המדריך *5 אוטומציות שכל עסק צריך*, חמישה תהליכים שאפשר להפעיל כבר השבוע, כל אחד מהם מחזיר לכם שעות עבודה בחודש.
+במה נתחיל?</div>
+        <button class="copy" type="button" data-copy="m1">העתקה</button>
+      </div>
+      <div class="opts">
+        <div class="opts-head"><span>שלושת הכפתורים</span><span>עד 20 תווים לכפתור</span></div>
+        <div class="opt"><button class="cp" type="button">🎁 קחו את המדריך</button><span class="lbl">ממשיך לצעד 2</span></div>
+        <div class="opt"><button class="cp" type="button">💬 יש לי שאלה</button><span class="lbl">מסלול השאלה החופשית, בהמשך הדף</span></div>
+        <div class="opt"><button class="cp" type="button">📅 לתאם שיחה</button><span class="lbl">ממשיך לצעד 2</span></div>
+      </div>
+      <div class="note calm"><strong>שני הכפתורים הראשון והשלישי מובילים לאותו מקום.</strong> מי שרוצה לתאם שיחה עדיין צריך להשאיר שם ומייל, ומקבל את המדריך בדרך. אין סיבה לבנות שני מסלולים לאותה מטרה.</div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">2</span>
+      <span class="step-title">השם</span>
+      <span class="kind">קליטת טקסט ← שם מלא</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m2">מעולה. שני פרטים קצרים ומיד אחרי זה המדריך אצלכם.
+איך קוראים לכם?</div>
+        <button class="copy" type="button" data-copy="m2">העתקה</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">3</span>
+      <span class="step-title">המייל</span>
+      <span class="kind">קליטת מייל ← מייל</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m3">נעים מאוד {{שם מלא}} 🙂
+לאיזו כתובת מייל לשלוח עותק, כדי שהמדריך יישאר אצלכם שמור גם אחרי השיחה?</div>
+        <button class="copy" type="button" data-copy="m3">העתקה</button>
+      </div>
+      <div class="note calm"><strong>בוחרים סוג קלט Email.</strong> מניצ'ט מאמת את הפורמט לבד ומבקש שוב אם הלקוח שגה, וכך לא נכנס מייל שבור לרשומה.</div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">4</span>
+      <span class="step-title">יצירת הליד ב-CRM</span>
+      <span class="kind api">External Request</span>
+    </div>
+    <div class="step-body">
+      <p style="margin:0 0 4px">שיטה <code class="inl">POST</code> · כותרת <code class="inl">Content-Type: application/json</code></p>
+      <div class="codewrap">
+        <div class="opts-head"><span>כתובת</span><button class="cp" type="button" style="direction:ltr">https://hook.eu1.make.com/txhxkw5ko7grzepboy3cufluott7qlge</button></div>
+      </div>
+      <div class="codewrap">
+        <div class="opts-head"><span>גוף הבקשה</span><button class="copy" type="button" data-copy="j1">העתקה</button></div>
+        <pre id="j1">{
+  "action": "lead",
+  "conversation_id": "wa:{{phone}}",
+  "channel": "וואטסאפ",
+  "name": "{{שם מלא}}",
+  "phone": "{{phone}}",
+  "email": "{{מייל}}"
+}</pre>
+      </div>
+      <div class="note"><strong>התשובה נשמרת לשדה lead_id.</strong> Make מחזיר מזהה רשומה בודד בצורת <code class="inl">recXXXXXXXX</code>, בלי עטיפת JSON, אז ממפים את גוף התשובה כולו לשדה. בלי הצעד הזה הצעד ה-11 יעדכן ליד שלא קיים.</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">5</span>
+      <span class="step-title">המדריך</span>
+      <span class="kind">קובץ + טקסט</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m5">הנה המדריך שלכם 🎁
+חמש אוטומציות שעובדות מהיום הראשון, עם סדר הפעלה מוכן: מה מפעילים ראשון ולמה דווקא הוא.</div>
+        <button class="copy" type="button" data-copy="m5">העתקה</button>
+      </div>
+      <div class="note calm"><strong>מעלים את ה-PDF כקובץ למניצ'ט, לא כקישור.</strong> קובץ נפתח בלחיצה אחת בתוך וואטסאפ, וקישור מוציא את הלקוח לדפדפן. ההפרש הזה הוא ההבדל בין מדריך שנקרא למדריך שנשכח.</div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">6</span>
+      <span class="step-title">מה חוזר על עצמו</span>
+      <span class="kind pick">טקסט + רשימה, 6 שורות</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m6">עוד כמה שאלות קצרות, דקה בסך הכל. בזכותן ניר יגיע לשיחה איתכם כשהוא כבר מבין את העסק שלכם.
+מה חוזר על עצמו אצלכם הכי הרבה, כל שבוע מחדש?</div>
+        <button class="copy" type="button" data-copy="m6">העתקה</button>
+      </div>
+      <div class="opts">
+        <div class="opts-head"><span>כותרת השורה שהלקוח רואה</span><span>הערך שנשמר בשדה "משימה"</span></div>
+        <div class="opt"><button class="cp" type="button">שאלות חוזרות של לקוחות</button><button class="cp val" type="button">עונה לאותן שאלות שוב ושוב</button></div>
+        <div class="opt"><button class="cp" type="button">העתקת נתונים ידנית</button><button class="cp val" type="button">מעתיק נתונים ידנית ממקום למקום</button></div>
+        <div class="opt"><button class="cp" type="button">מוציא חשבוניות ומסמכים</button><button class="cp val" type="button">מוציא חשבוניות ומסמכים</button></div>
+        <div class="opt"><button class="cp" type="button">מתאם פגישות ותורים</button><button class="cp val" type="button">מתאם פגישות ותורים</button></div>
+        <div class="opt"><button class="cp" type="button">רודף אחרי לידים שלא ענו</button><button class="cp val" type="button">רודף אחרי לידים שלא ענו</button></div>
+        <div class="opt"><button class="cp" type="button">משהו אחר</button><button class="cp val" type="button">משהו אחר</button></div>
+      </div>
+      <div class="note"><strong>שתי השורות הראשונות מקוצרות בכוונה.</strong> וואטסאפ חוסם כותרת שורה מעל 24 תווים, אז הכותרת מקוצרת והערך המלא נשמר בפעולת <em>Set Custom Field</em> על אותה שורה. הערך חייב להיות מילה במילה כמו בעמודה הימנית, כי זה בדיוק מה שבוט האתר שולח, וכך שתי השיחות נראות אותו דבר ב-CRM.</div>
+      <div class="note calm">כפתור פתיחת הרשימה: <button class="cp" type="button">בחרו מהרשימה</button></div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">7</span>
+      <span class="step-title">ההזמנה לשיחה</span>
+      <span class="kind">טקסט</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m7">בדיוק על זה ניר עובד. הוא בונה לעסקים קטנים ובינוניים אוטומציות וסוכני AI שלוקחים את המשימה הזאת מהידיים שלכם ועובדים גם כשאתם סגורים.
+אני מזמינה אתכם לשיחת אפיון של 20 דקות עם ניר בזום, בלי עלות ובלי התחייבות. אתם יוצאים ממנה עם תמונה ברורה של מה אפשר להפוך לאוטומטי אצלכם ומאיפה כדאי להתחיל.</div>
+        <button class="copy" type="button" data-copy="m7">העתקה</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">8</span>
+      <span class="step-title">תחום העסק</span>
+      <span class="kind pick">טקסט + רשימה, 5 שורות</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m8">באיזה תחום העסק שלכם?</div>
+        <button class="copy" type="button" data-copy="m8">העתקה</button>
+      </div>
+      <div class="opts">
+        <div class="opts-head"><span>שורות הרשימה</span><span>נשמר לשדה "תחום"</span></div>
+        <div class="opt"><button class="cp" type="button">נותן שירות</button></div>
+        <div class="opt"><button class="cp" type="button">קליניקה או טיפול</button></div>
+        <div class="opt"><button class="cp" type="button">חנות או איקומרס</button></div>
+        <div class="opt"><button class="cp" type="button">מסעדנות ואירוח</button></div>
+        <div class="opt"><button class="cp" type="button">אחר</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">9</span>
+      <span class="step-title">התקציב</span>
+      <span class="kind pick">טקסט + רשימה, 5 שורות</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m9">מה התקציב שלכם לפרויקט כזה? זה עוזר לניר להגיע לשיחה עם פתרון שמתאים לכם באמת.</div>
+        <button class="copy" type="button" data-copy="m9">העתקה</button>
+      </div>
+      <p style="margin:18px 0 8px; font-size:14px; color:var(--muted)">כל שורה מפעילה שלוש פעולות <em>Set Custom Field</em>. שלושתן חובה, כי Make לא מחשב כאן כלום, הוא רק כותב את מה שהוא מקבל.</p>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>שורת הרשימה</th><th>תקציב טקסט</th><th>תקציב מספר</th><th>דחיפות</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><button class="cp" type="button">עד 2,500 ₪</button></td><td>עד 2,500 ₪</td><td class="num-cell">1500</td><td>רגיל</td></tr>
+            <tr><td><button class="cp" type="button">2,500 עד 5,000 ₪</button></td><td>2,500 עד 5,000 ₪</td><td class="num-cell">2500</td><td>רגיל</td></tr>
+            <tr><td><button class="cp" type="button">5,000 עד 10,000 ₪</button></td><td>5,000 עד 10,000 ₪</td><td class="num-cell">5000</td><td class="hot">רותח</td></tr>
+            <tr><td><button class="cp" type="button">מעל 10,000 ₪</button></td><td>מעל 10,000 ₪</td><td class="num-cell">10000</td><td class="hot">רותח</td></tr>
+            <tr><td><button class="cp" type="button">עדיין לא יודע</button></td><td>לא נמסר</td><td class="num-cell">0</td><td>לא נמסר תקציב</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><strong>5,000 ומעלה מדליק ליד רותח.</strong> זה בדיוק אותו סף שקיים באתר, ולכן המספר בעמודה השלישית הוא תמיד הרצפה של הטווח ולא האמצע שלו. שינוי המספרים כאן משנה מי מקבל התראה מיידית.</div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">10</span>
+      <span class="step-title">מתי נוח לחזור</span>
+      <span class="kind pick">טקסט + רשימה, 4 שורות</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m10">ומתי הכי נוח שניר יחזור אליכם?</div>
+        <button class="copy" type="button" data-copy="m10">העתקה</button>
+      </div>
+      <div class="opts">
+        <div class="opts-head"><span>שורות הרשימה</span><span>נשמר לשדה "מתי נוח"</span></div>
+        <div class="opt"><button class="cp" type="button">בוקר</button></div>
+        <div class="opt"><button class="cp" type="button">אחרי הצהריים</button></div>
+        <div class="opt"><button class="cp" type="button">ערב</button></div>
+        <div class="opt"><button class="cp" type="button">לא משנה</button></div>
+      </div>
+      <div class="note calm">ארבע האפשרויות האלה כבר קיימות כאופציות בשדה "מתי נוח לדבר" באיירטייבל. שינוי מילה אחת כאן יפיל את הכתיבה בשגיאה, אז מעתיקים ולא מקלידים.</div>
+    </div>
+  </div>
+
+  <!-- 11 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">11</span>
+      <span class="step-title">העשרת הליד והתראת ליד רותח</span>
+      <span class="kind api">External Request</span>
+    </div>
+    <div class="step-body">
+      <div class="codewrap">
+        <div class="opts-head"><span>אותה כתובת, גוף אחר</span><button class="copy" type="button" data-copy="j2">העתקה</button></div>
+        <pre id="j2">{
+  "action": "enrich",
+  "conversation_id": "wa:{{phone}}",
+  "channel": "וואטסאפ",
+  "lead_id": "{{lead_id}}",
+  "name": "{{שם מלא}}",
+  "phone": "{{phone}}",
+  "task": "{{משימה}}",
+  "field": "{{תחום}}",
+  "time": "{{מתי נוח}}",
+  "budget": {{תקציב מספר}},
+  "urgency": "{{דחיפות}}",
+  "budget_text": "{{תקציב טקסט}}"
+}</pre>
+      </div>
+      <div class="note"><strong>שימו לב לשורה של budget: היא בלי מרכאות.</strong> השדה באיירטייבל הוא מטבע ומקבל מספר בלבד. מרכאות שם הפילו כבר פעם אחת את כל שרשרת ההתראות בשקט, בלי שום שגיאה גלויה.</div>
+    </div>
+  </div>
+
+  <!-- 12 -->
+  <div class="step">
+    <div class="step-head">
+      <span class="num">12</span>
+      <span class="step-title">סגירה</span>
+      <span class="kind">טקסט</span>
+    </div>
+    <div class="step-body">
+      <div class="bubble-row">
+        <div class="bubble" id="m12">תודה {{שם מלא}}! הכל נשמר אצל ניר. הוא יחזור אליכם לתאם שיחת אפיון של 20 דקות, בלי עלות ובלי התחייבות.
+בינתיים המדריך אצלכם. אפשר להתחיל מהאוטומציה הראשונה כבר היום.</div>
+        <button class="copy" type="button" data-copy="m12">העתקה</button>
+      </div>
+    </div>
+  </div>
+
+  <h2>מסלול "יש לי שאלה"</h2>
+  <div class="card">
+    <p>הכפתור האמצעי בצעד 1 מפנה לאותו מוח AI שמפעיל את קרן באתר, עם אותם חוקי ברזל. הוא לא מוסר מחירים, הוא לא עונה להודעה גסה, והוא מפנה תמיד לשיחת האפיון.</p>
+    <div class="bubble-row" style="margin-top:16px">
+      <div class="bubble" id="mq">שאלו אותי כל דבר 🙂
+ניר עוזר לעסקים קטנים ובינוניים לא לפספס אף פנייה. הוא בונה סוכני AI שעונים מסביב לשעון בכל ערוץ, מקים מערכת תפעול מהפנייה ועד החשבונית, מנהל שיווק ממומן במטא בפייסבוק ובאינסטגרם שמביא פניות אמיתיות.
+מה מעניין אתכם?</div>
+      <button class="copy" type="button" data-copy="mq">העתקה</button>
+    </div>
+    <div class="codewrap">
+      <div class="opts-head"><span>גוף הבקשה לכל הודעה שהלקוח כותב</span><button class="copy" type="button" data-copy="j3">העתקה</button></div>
+      <pre id="j3">{
+  "action": "chat",
+  "conversation_id": "wa:{{phone}}",
+  "channel": "וואטסאפ",
+  "message": "{{Last Text Input}}"
+}</pre>
+    </div>
+    <p style="margin-top:14px">התשובה חוזרת כטקסט נקי ונשלחת ללקוח כמו שהיא. אחריה מציגים שלושה כפתורים:</p>
+    <div class="opts">
+      <div class="opt"><button class="cp" type="button">🎁 קחו את המדריך</button><span class="lbl">קופץ לצעד 2</span></div>
+      <div class="opt"><button class="cp" type="button">💬 עוד שאלה</button><span class="lbl">חוזר לקליטת טקסט</span></div>
+      <div class="opt"><button class="cp" type="button">🙋 לדבר עם ניר</button><span class="lbl">התראה לניר, השיחה ממתינה לו</span></div>
+    </div>
+  </div>
+
+  <h2>מה בודקים לפני שמדליקים</h2>
+  <div class="card">
+    <ol class="checks">
+      <li><strong>קריאת דמה לוובהוק לפני שנוגעים בפלואו.</strong> הווידג'ט באתר שולח בפורמט טופס, ומניצ'ט שולח JSON. אני שולח קריאה אחת עם נתוני דמה ומוודא שהליד נוצר נכון באיירטייבל, לפני שאתה מקליד משפט אחד בעורך.</li>
+      <li><strong>בדיקה מלאה מהטלפון שלך.</strong> שיחה אחת מקצה לקצה: פתיחה, שם, מייל, מדריך, כל ארבע השאלות, סיום. בוחרים תקציב של 5,000 ומעלה כדי לוודא שהתראת הליד הרותח באמת מגיעה.</li>
+      <li><strong>מחיקת רשומות הבדיקה</strong> מטבלת הלידים ומטבלת שיחות הבוט אחרי שהכל עבר.</li>
+      <li><strong>חלון 24 השעות.</strong> הבוט משיב רק בתוך יממה מההודעה האחרונה של הלקוח. מי שנוטש באמצע ולא חוזר כבר נשמר ב-CRM בצעד 4, ואתה חוזר אליו ידנית.</li>
+      <li><strong>שבת.</strong> הבוט משיב רק למי שפנה אליו, וזה תקין. התראות ליד רותח אליך נדחות למוצאי שבת לפי הכלל הקיים.</li>
+      <li><strong>מדליקים אחרון.</strong> הפלואו נשאר כבוי עד שכל חמשת הסעיפים למעלה עברו.</li>
+    </ol>
+  </div>
+
+</div>
+
+<script>
+  function flash(el, txt){
+    var old = el.textContent;
+    el.classList.add('done');
+    el.textContent = txt;
+    setTimeout(function(){ el.classList.remove('done'); el.textContent = old; }, 1200);
+  }
+  function put(text, el, label){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function(){ flash(el, label); }, function(){ fallback(text, el, label); });
+    } else { fallback(text, el, label); }
+  }
+  function fallback(text, el, label){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); flash(el, label); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var src = document.getElementById(btn.getAttribute('data-copy'));
+      if (src) put(src.innerText.replace(/ /g, ' ').trim(), btn, 'הועתק');
+    });
+  });
+  document.querySelectorAll('.cp').forEach(function(chip){
+    chip.setAttribute('title', 'לחצו להעתקה');
+    chip.addEventListener('click', function(){
+      put(chip.textContent.trim(), chip, 'הועתק');
+    });
+  });
+</script>
